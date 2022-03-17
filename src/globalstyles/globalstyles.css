@@ -1,0 +1,14 @@
+:root{
+    --main-color :#0b0b0b;
+    --second-color: #61dafb;
+    --text-color : #fff;
+}
+*{
+    box-sizing: inherit;    
+}
+html{
+    box-sizing: border-box;
+}
+.d-flex{
+    display: flex;
+}

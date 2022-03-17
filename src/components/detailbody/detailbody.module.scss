@@ -1,0 +1,33 @@
+.detailBody{
+  // width: 100vw;
+  margin-left: -5px;
+  margin-left: -5px;
+  overflow: hidden;
+  color: #fff;
+  .tab{
+    color: #fff;
+    font-size: 14px;
+  }
+  .castItem{
+    width: 100%;
+    height: 300px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-decoration: none;
+    color: #fff;
+    overflow: hidden;
+    cursor: pointer;
+    img{
+        width: 100%;
+        height: 90%;
+        object-fit: cover;
+    }
+    .castName{
+      font-size: 16px;
+        width: 100%;
+        height: 10%;
+        color: #fff;
+    }
+  }
+   
+}

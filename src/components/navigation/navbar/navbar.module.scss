@@ -1,0 +1,79 @@
+.navbar{
+    color: #fff;
+    margin-left: 20px;
+    width: 90%;
+    display: flex;
+
+    .navbarItem{
+        &:hover{
+            color: var(--second-color);
+        }
+    }
+    
+    .styleMovie{
+        color: #939090;
+        position: relative;
+        display: flex;
+        cursor: pointer;
+        width: 130px;
+        align-items: center;
+        padding: 0 16px;
+        font-weight: 700;
+        font-size: 0.875rem;
+        letter-spacing: 0.02857em;
+        text-transform: uppercase;
+        .iconup{
+            line-height: 48px;
+        }
+        .icondown{
+            line-height: 48px;
+            display: none;
+        }
+        &:hover{
+            color: var(--second-color);
+            .usermenu{
+                display: block;
+            }
+            .iconup{
+                display: none;
+            }
+            .icondown{
+                display: block;
+            }
+        }          
+
+            .usermenu{
+                &::before{ 
+                    content: "";
+                    position: absolute;
+                    border-width: 12px 15px;
+                    border-style: solid ;
+                    border-color: transparent transparent var(--main-color) transparent;
+                    top: -18px;
+                    right: 200px;
+                }
+                display: none;
+                z-index: 1;
+                position: absolute;
+                top: 115%;
+                right: -100px;
+                background-color: var(--main-color);
+                padding-left: 0;
+                list-style: none;
+                height: 200px;
+                width: 280px;
+                box-shadow: 0 0 3px #ccc;
+                border-radius: 3px;
+                .useritem{
+                    margin-top: 20px;
+                }
+                .useritem span{
+                    z-index: 2;
+                    text-decoration: none;
+                    font-size: 14px;
+                    color: #fff;
+                    font-weight: 400;
+                }
+            }
+        }
+    }

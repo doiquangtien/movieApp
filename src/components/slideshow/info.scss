@@ -1,0 +1,48 @@
+.info {
+    width: 35%;
+    position: absolute;
+    left: 50px;
+    bottom: 100px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    img {
+      width: 400px;
+    }
+
+    .desc {
+      margin: 20px 0px;
+    }
+
+    .buttons {
+      display: flex;
+
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 500;
+        margin-right: 10px;
+        cursor: pointer;
+
+        &.play {
+          background-color: white;
+          color: var(--main-color);
+        }
+
+        &.more {
+          background-color: gray;
+          color: white;
+        }
+
+        span {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
