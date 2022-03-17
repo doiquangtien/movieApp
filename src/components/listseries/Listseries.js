@@ -166,24 +166,6 @@ function Listseries() {
   const handleCollect = () => {
     arr = arrOdd.slice(0, setlist(12));
   };
-    // // useEffect(() => {
-    // //   const app =document.querySelector('.app-seri')
-
-    // //   const handleScroll = () => {
-    // //     // if (document.querySelector('.app-seri').scrollTop + window.innerHeight >=document.querySelector('.app-seri').scrollHeight) 
-    // //     //   handleMore();
-    // //   }
-    // // // console.log(document.querySelector('.app-seri'))
-    // //   app.addEventListener("scroll", ()=>{
-    // //     console.log(app.scrollTop,app.scrollHeight)
-
-    // //   });
-    
-
-    //   return () => {
-    //     document.querySelector('.app-seri').removeEventListener("scroll", handleScroll);
-    //   };
-    // });
     return (
       <div style={{ marginTop: "20px" }} className={clsx("grid", "wide")}>
         <div className="row">

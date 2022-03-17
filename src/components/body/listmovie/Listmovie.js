@@ -156,6 +156,7 @@ function Listmovie() {
 
   return (
     <div style={{margin:'-12px'}}>
+      
       <Slide style={{position:'relative'}} {...properties}>
       {arrOdd.map((odd, i) => (
         <div key={i} style={{padding:'12px'}}>

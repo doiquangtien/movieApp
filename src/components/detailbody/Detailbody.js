@@ -29,7 +29,10 @@ function Detailbody() {
               <Tab className={styles.tab} label="Episodes" value="4" />
             </TabList>
           </Box>
-          <TabPanel value="1">
+          
+        </TabContext>
+        <TabContext value={value} >
+        <TabPanel value="1">
             <div className={clsx("grid", "wide")}>
               <>
                 <span style={{ marginLeft: "20px", fontSize: "22px", color:'var(--second-color)'}}>
@@ -112,7 +115,7 @@ function Detailbody() {
           </TabPanel>
           <TabPanel value="3">Item Three</TabPanel>
           <TabPanel value="4">Item Three</TabPanel>
-        </TabContext>
+        </TabContext>   
       </Box>
       </div>
       
