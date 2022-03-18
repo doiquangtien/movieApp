@@ -168,6 +168,7 @@ function Listseries() {
   };
     return (
       <div style={{ marginTop: "20px" }} className={clsx("grid", "wide")}>
+        <span style={{color:'#fff',fontSize:'24px'}}>Danh sách phim bộ</span>
         <div className="row">
           {arr.map((odd, i) => (
             <div key={i} className="col l-2 m-4 c-6 ">

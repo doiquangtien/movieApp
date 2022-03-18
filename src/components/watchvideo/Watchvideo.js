@@ -3,10 +3,12 @@ import { Container, createTheme, Grid } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { Box } from "@mui/system";
 import Tab from "@mui/material/Tab";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import ViewListIcon from '@mui/icons-material/ViewList';
+import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import Listmovie from "../../components/body/listmovie/Listmovie";
 import StarIcon from "@mui/icons-material/Star";
-
+import Episodeitem from "../episodeItem/Episodeitem";
+import Castitem from "../castitem/Castitem";
 import video from "../../img/video.mp4";
 import styles from "./watchvideo.module.scss";
 import img from "../../img/banner.jpg";
@@ -28,11 +30,11 @@ const theme = createTheme({
 
 function Watchvideo() {
   const [value, setValue] = React.useState("1");
-
+  const [icon,setIcon] = React.useState(true)
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  console.log(icon);
   return (
     <Container maxWidth="1400px" className={styles.container}>
       <Box sx={{ flexGrow: 1, margin: "0 36px" }}>
@@ -63,9 +65,7 @@ function Watchvideo() {
                 <TabPanel
                   value="1"
                   sx={{
-                    padding: "20px 0 0 20px",
-                    height: "320px",
-                    overflowY: "auto",
+                    padding: "0",
                   }}
                 >
                   <div className={styles.tabTitleWrap}>
@@ -73,13 +73,15 @@ function Watchvideo() {
                       <div className={styles.playIcon}></div>
                       <span className={styles.tabTitle}>Episodes</span>
                     </div>
-                    <FormatListBulletedIcon className={styles.tabTitleIcon} />
-                  </div>
-                  <div className={styles.scrollep}>
-                    <Stack
+                    <div className={styles.tabIcons} onClick={()=>{setIcon(!icon)}}>
+                    {icon ? (<ViewListIcon className={styles.listIcon} />) : (<ViewModuleIcon className={styles.moduleIcon}/>)}               
+                    </div>             
+                  </div> 
+                  <div className={styles.scrollEps}>
+                    {icon ? ( <Stack
                       direction="row"
                       className={styles.listEps}
-                      style={{ display: "flex", flexWrap: "wrap" }}
+                      style={{ display: "flex", flexWrap: "wrap", marginLeft:"20px" }}
                       spacing={0}
                     >
                       <span>1</span>
@@ -103,8 +105,16 @@ function Watchvideo() {
                       <span>3</span>
                       <span>3</span>
                       <span>3</span>
-                    </Stack>
+                    </Stack> )           
+                      :(<div className={styles.listEpsVideo}>
+                        <Episodeitem/>
+                        <Episodeitem/>
+                        <Episodeitem/>
+                        <Episodeitem/>
+                        <Episodeitem/>
+                      </div>)}                
                   </div>
+                               
                 </TabPanel>
                 <TabPanel value="2">Item 4</TabPanel>
               </TabContext>
@@ -199,64 +209,13 @@ function Watchvideo() {
             </span>
             <div className="row">
               <div className="col l-2 m-4 c-6 ">
-                <div className={styles.castItem}>
-                  <img src={img} alt="" />
-                  <span className={styles.castName}>Đới Quang Tiến</span>
-                </div>
+              <Castitem/>
               </div>
               <div className="col l-2 m-4 c-6 ">
-                <div className={styles.castItem}>
-                  <img src={img} alt="" />
-                  <span className={styles.castName}>Đới Quang Tiến</span>
-                </div>
+              <Castitem/>
               </div>
               <div className="col l-2 m-4 c-6 ">
-                <div className={styles.castItem}>
-                  <img src={img} alt="" />
-                  <span className={styles.castName}>Đới Quang Tiến</span>
-                </div>
-              </div>
-              <div className="col l-2 m-4 c-6 ">
-                <div className={styles.castItem}>
-                  <img src={img} alt="" />
-                  <span className={styles.castName}>Đới Quang Tiến</span>
-                </div>
-              </div>
-              <div className="col l-2 m-4 c-6 ">
-                <div className={styles.castItem}>
-                  <img src={img} alt="" />
-                  <span className={styles.castName}>Đới Quang Tiến</span>
-                </div>
-              </div>
-              <div className="col l-2 m-4 c-6 ">
-                <div className={styles.castItem}>
-                  <img src={img} alt="" />
-                  <span className={styles.castName}>Đới Quang Tiến</span>
-                </div>
-              </div>
-              <div className="col l-2 m-4 c-6 ">
-                <div className={styles.castItem}>
-                  <img src={img} alt="" />
-                  <span className={styles.castName}>Đới Quang Tiến</span>
-                </div>
-              </div>
-              <div className="col l-2 m-4 c-6 ">
-                <div className={styles.castItem}>
-                  <img src={img} alt="" />
-                  <span className={styles.castName}>Đới Quang Tiến</span>
-                </div>
-              </div>
-              <div className="col l-2 m-4 c-6 ">
-                <div className={styles.castItem}>
-                  <img src={img} alt="" />
-                  <span className={styles.castName}>Đới Quang Tiến</span>
-                </div>
-              </div>
-              <div className="col l-2 m-4 c-6 ">
-                <div className={styles.castItem}>
-                  <img src={img} alt="" />
-                  <span className={styles.castName}>Đới Quang Tiến</span>
-                </div>
+              <Castitem/>
               </div>
             </div>
           </TabPanel>

@@ -7,8 +7,9 @@ import TabPanel from "@mui/lab/TabPanel";
 import clsx from "clsx";
 import styles from "./detailbody.module.scss";
 import Listmovie from "../body/listmovie/Listmovie";
-import img from "../../img/avatar.jpg";
 import Detailsub from "./detailsub/Detailsub";
+import Episodeitem from "../episodeItem/Episodeitem";
+import Castitem from "../castitem/Castitem";
 function Detailbody() {
   const [value, setValue] = React.useState("1");
 
@@ -19,106 +20,114 @@ function Detailbody() {
     <div className={styles.detailBody}>
       <Detailsub />
       <div className={styles.body}>
-      <Box sx={{ width: "100%", typography: "body1"}}>
-        <TabContext value={value} >
-          <Box sx={{ borderBottom: '1px solid', borderColor: "#808080",margin:'0 60px'}}>
-            <TabList onChange={handleChange} textColor="inherit" aria-label="lab API tabs example">
-              <Tab className={styles.tab} label="Cast" value="1" />
-              <Tab className={styles.tab} label="Recommended" value="2" />
-              <Tab className={styles.tab} label="Trailer" value="3" />
-              <Tab className={styles.tab} label="Episodes" value="4" />
-            </TabList>
-          </Box>
-          
-        </TabContext>
-        <TabContext value={value} >
-        <TabPanel value="1">
-            <div className={clsx("grid", "wide")}>
-              <>
-                <span style={{ marginLeft: "20px", fontSize: "22px", color:'var(--second-color)'}}>
-                  Cast
+        <Box sx={{ width: "100%", typography: "body1" }}>
+          <TabContext value={value}>
+            <Box
+              sx={{
+                borderBottom: "1px solid",
+                borderColor: "#808080",
+                margin: "0 60px",
+              }}
+            >
+              <TabList
+                onChange={handleChange}
+                textColor="inherit"
+                aria-label="lab API tabs example"
+              >
+                <Tab className={styles.tab} label="Cast" value="1" />
+                <Tab className={styles.tab} label="Recommended" value="2" />
+                <Tab className={styles.tab} label="Episodes" value="3" />
+                <Tab className={styles.tab} label="Trailer" value="4" />
+              </TabList>
+            </Box>
+          </TabContext>
+          <TabContext value={value}>
+            <TabPanel value="1">
+              <div className={clsx("grid", "wide")}>
+                <>
+                  <span
+                    style={{
+                      marginLeft: "20px",
+                      fontSize: "22px",
+                      color: "var(--second-color)",
+                    }}
+                  >
+                    Cast
+                  </span>
+                  <div className="row">
+                    <div className="col l-2 m-4 c-6 ">
+                      <Castitem/>
+                    </div>
+                    <div className="col l-2 m-4 c-6 ">
+                      <Castitem/>
+                    </div>
+                    <div className="col l-2 m-4 c-6 ">
+                      <Castitem/>
+                    </div>
+                    <div className="col l-2 m-4 c-6 ">
+                      <Castitem/>
+                    </div>
+                    <div className="col l-2 m-4 c-6 ">
+                      <Castitem/>
+                    </div>
+                    <div className="col l-2 m-4 c-6 ">
+                      <Castitem/>
+                    </div>
+                    <div className="col l-2 m-4 c-6 ">
+                      <Castitem/>
+                    </div>
+                    <div className="col l-2 m-4 c-6 ">
+                      <Castitem/>
+                    </div>        
+                  </div>
+                </>
+              </div>
+            </TabPanel>
+            <TabPanel value="2">
+              <div className={clsx("grid", "wide")}>
+                <>
+                  <span
+                    style={{
+                      marginLeft: "20px",
+                      fontSize: "22px",
+                      color: "var(--second-color)",
+                    }}
+                  >
+                    Similar
+                  </span>
+                  <Listmovie />
+                </>
+              </div>
+            </TabPanel>
+            <TabPanel value="3">
+              <div className={clsx("grid", "wide")}>
+                <span
+                  style={{
+                    marginLeft: "20px",
+                    fontSize: "22px",
+                    color: "var(--second-color)",
+                  }}
+                >
+                  Episodes
                 </span>
-                <div className="row">
-                  <div className="col l-2 m-4 c-6 ">
-                    <div className={styles.castItem}>
-                      <img src={img} alt="" />
-                      <span className={styles.castName}>Đới Quang Tiến</span>
-                    </div>
+                <div className="row">          
+                  <div className="col l-3 m-6 c-12 ">
+                    <Episodeitem/>
                   </div>
-                  <div className="col l-2 m-4 c-6 ">
-                    <div className={styles.castItem}>
-                      <img src={img} alt="" />
-                      <span className={styles.castName}>Đới Quang Tiến</span>
-                    </div>
+                  <div className="col l-3 m-6 c-12 ">
+                    <Episodeitem/>
                   </div>
-                  <div className="col l-2 m-4 c-6 ">
-                    <div className={styles.castItem}>
-                      <img src={img} alt="" />
-                      <span className={styles.castName}>Đới Quang Tiến</span>
-                    </div>
+                  <div className="col l-3 m-6 c-12 ">
+                    <Episodeitem/>
                   </div>
-                  <div className="col l-2 m-4 c-6 ">
-                    <div className={styles.castItem}>
-                      <img src={img} alt="" />
-                      <span className={styles.castName}>Đới Quang Tiến</span>
-                    </div>
-                  </div>
-                  <div className="col l-2 m-4 c-6 ">
-                    <div className={styles.castItem}>
-                      <img src={img} alt="" />
-                      <span className={styles.castName}>Đới Quang Tiến</span>
-                    </div>
-                  </div>
-                  <div className="col l-2 m-4 c-6 ">
-                    <div className={styles.castItem}>
-                      <img src={img} alt="" />
-                      <span className={styles.castName}>Đới Quang Tiến</span>
-                    </div>
-                  </div>
-                  <div className="col l-2 m-4 c-6 ">
-                    <div className={styles.castItem}>
-                      <img src={img} alt="" />
-                      <span className={styles.castName}>Đới Quang Tiến</span>
-                    </div>
-                  </div>
-                  <div className="col l-2 m-4 c-6 ">
-                    <div className={styles.castItem}>
-                      <img src={img} alt="" />
-                      <span className={styles.castName}>Đới Quang Tiến</span>
-                    </div>
-                  </div>
-                  <div className="col l-2 m-4 c-6 ">
-                    <div className={styles.castItem}>
-                      <img src={img} alt="" />
-                      <span className={styles.castName}>Đới Quang Tiến</span>
-                    </div>
-                  </div>
-                  <div className="col l-2 m-4 c-6 ">
-                    <div className={styles.castItem}>
-                      <img src={img} alt="" />
-                      <span className={styles.castName}>Đới Quang Tiến</span>
-                    </div>
-                  </div>
+
                 </div>
-              </>
-            </div>
-          </TabPanel>
-          <TabPanel value="2">
-            <div className={clsx("grid", "wide")}>
-              <>
-                <span style={{ marginLeft: "20px", fontSize: "22px",color:'var(--second-color)' }}>
-                  Similar
-                </span>
-                <Listmovie />
-              </>
-            </div>
-          </TabPanel>
-          <TabPanel value="3">Item Three</TabPanel>
-          <TabPanel value="4">Item Three</TabPanel>
-        </TabContext>   
-      </Box>
+              </div>
+            </TabPanel>
+            <TabPanel value="4">Item Three</TabPanel>
+          </TabContext>
+        </Box>
       </div>
-      
     </div>
   );
 }

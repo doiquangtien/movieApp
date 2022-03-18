@@ -8,7 +8,7 @@ function Seriesmovie() {
     <div className="app-seri">
       <Navigation />
       <Slideshow />
-      <span style={{color:'#fff',marginLeft:'70px',fontSize:'24px'}}>Danh sách phim bộ</span>
+      
       <Listseries />
       <Footer />
     </div>
