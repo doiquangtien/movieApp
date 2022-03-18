@@ -1,6 +1,6 @@
 import Navigation from "../../components/navigation/Navigation";
-import Slideshow from "../../components/slideshow/Slideshow";
-import Listseries from "../../components/listseries/Listseries";
+import Slideshow from "../../components/slideShow/Slideshow";
+import Listmovie from "../../components/listMovie/Listmovie";
 import Footer from "../../components/footer/Footer";
 
 function Seriesmovie() {
@@ -8,8 +8,7 @@ function Seriesmovie() {
     <div className="app-seri">
       <Navigation />
       <Slideshow />
-      
-      <Listseries />
+      <Listmovie />
       <Footer />
     </div>
   );

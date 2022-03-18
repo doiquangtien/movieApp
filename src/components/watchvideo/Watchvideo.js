@@ -3,12 +3,12 @@ import { Container, createTheme, Grid } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { Box } from "@mui/system";
 import Tab from "@mui/material/Tab";
-import ViewListIcon from '@mui/icons-material/ViewList';
-import ViewModuleIcon from '@mui/icons-material/ViewModule';
-import Listmovie from "../../components/body/listmovie/Listmovie";
+import ViewListIcon from "@mui/icons-material/ViewList";
+import ViewModuleIcon from "@mui/icons-material/ViewModule";
+import Listslider from "../../components/body/listSlider/Listslider";
 import StarIcon from "@mui/icons-material/Star";
 import Episodeitem from "../episodeItem/Episodeitem";
-import Castitem from "../castitem/Castitem";
+import Castitem from "../castItem/Castitem";
 import video from "../../img/video.mp4";
 import styles from "./watchvideo.module.scss";
 import img from "../../img/banner.jpg";
@@ -30,7 +30,7 @@ const theme = createTheme({
 
 function Watchvideo() {
   const [value, setValue] = React.useState("1");
-  const [icon,setIcon] = React.useState(true)
+  const [icon, setIcon] = React.useState(true);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -73,48 +73,63 @@ function Watchvideo() {
                       <div className={styles.playIcon}></div>
                       <span className={styles.tabTitle}>Episodes</span>
                     </div>
-                    <div className={styles.tabIcons} onClick={()=>{setIcon(!icon)}}>
-                    {icon ? (<ViewListIcon className={styles.listIcon} />) : (<ViewModuleIcon className={styles.moduleIcon}/>)}               
-                    </div>             
-                  </div> 
-                  <div className={styles.scrollEps}>
-                    {icon ? ( <Stack
-                      direction="row"
-                      className={styles.listEps}
-                      style={{ display: "flex", flexWrap: "wrap", marginLeft:"20px" }}
-                      spacing={0}
+                    <div
+                      className={styles.tabIcons}
+                      onClick={() => {
+                        setIcon(!icon);
+                      }}
                     >
-                      <span>1</span>
-                      <span>2</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                      <span>3</span>
-                    </Stack> )           
-                      :(<div className={styles.listEpsVideo}>
-                        <Episodeitem/>
-                        <Episodeitem/>
-                        <Episodeitem/>
-                        <Episodeitem/>
-                        <Episodeitem/>
-                      </div>)}                
+                      {icon ? (
+                        <ViewListIcon className={styles.listIcon} />
+                      ) : (
+                        <ViewModuleIcon className={styles.moduleIcon} />
+                      )}
+                    </div>
                   </div>
-                               
+                  <div className={styles.scrollEps}>
+                    {icon ? (
+                      <Stack
+                        direction="row"
+                        className={styles.listEps}
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          marginLeft: "20px",
+                        }}
+                        spacing={0}
+                      >
+                        <span>1</span>
+                        <span>2</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                        <span>3</span>
+                      </Stack>
+                    ) : (
+                      <div className={styles.listEpsVideo}>
+                        <Episodeitem />
+                        <Episodeitem />
+                        <Episodeitem />
+                        <Episodeitem />
+                        <Episodeitem />
+                      </div>
+                    )}
+                  </div>
                 </TabPanel>
                 <TabPanel value="2">Item 4</TabPanel>
               </TabContext>
@@ -209,13 +224,13 @@ function Watchvideo() {
             </span>
             <div className="row">
               <div className="col l-2 m-4 c-6 ">
-              <Castitem/>
+                <Castitem />
               </div>
               <div className="col l-2 m-4 c-6 ">
-              <Castitem/>
+                <Castitem />
               </div>
               <div className="col l-2 m-4 c-6 ">
-              <Castitem/>
+                <Castitem />
               </div>
             </div>
           </TabPanel>
@@ -230,7 +245,7 @@ function Watchvideo() {
               >
                 Recommended
               </span>
-              <Listmovie />
+              <Listslider />
             </div>
           </TabPanel>
         </TabContext>

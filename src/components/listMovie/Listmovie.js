@@ -2,10 +2,18 @@ import { useState } from "react";
 import clsx from "clsx";
 import img from "../../img/banner1.jpg";
 import video from "../../img/video.mp4";
-import Item from "../item/Item";
+import Item from "../itemCard/Itemcard";
+import { useParams } from "react-router-dom";
+import { Box, Container, Grid } from "@mui/material";
 
-function Listseries() {
+function Listmovie() {
+  const { type } = useParams();
   const [list, setlist] = useState(12);
+
+  function jsUcfirst(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   const arrOdd = [
     {
       name: "Có cái nịt",
@@ -154,6 +162,7 @@ function Listseries() {
       desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
     },
   ];
+
   let arr = arrOdd.slice(0, list);
   const handleMore = () => {
     arr = arrOdd.slice(
@@ -166,58 +175,69 @@ function Listseries() {
   const handleCollect = () => {
     arr = arrOdd.slice(0, setlist(12));
   };
-    return (
-      <div style={{ marginTop: "20px" }} className={clsx("grid", "wide")}>
-        <span style={{color:'#fff',fontSize:'24px'}}>Danh sách phim bộ</span>
-        <div className="row">
+  return (
+    <Container maxWidth="1400px">
+      <Box
+        sx={{
+          flexGrow: 1,
+          margin: "0 36px",
+        }}
+      >
+        <span style={{ color: "#fff", fontSize: "24px" }}>
+          List {jsUcfirst(type)}
+        </span>
+
+        <Grid container spacing={2}>
           {arr.map((odd, i) => (
-            <div key={i} className="col l-2 m-4 c-6 ">
-              <Item data={odd}/>
-            </div>
+            <Grid key={i} item md={2}>
+              <Item data={odd} />
+            </Grid>
           ))}
-        </div>
+        </Grid>
         <div
           style={{
             width: "100%",
             display: "flex",
             justifyContent: "center",
-            marginBottom: "20px",
-          }}
-        >         
-          {arr.length < arrOdd.length?(<button
-        onClick={handleMore}
-        style={{
-          backgroundColor: "#1e70a8",
-          color: "#fff",
-          width: "100px",
-          height: "40px",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-          fontSize: "16px",
-        }}
-      >
-        Xem thêm
-      </button>)
-        :(<button
-          onClick={handleCollect}
-          style={{
-            backgroundColor: "#1e70a8",
-            color: "#fff",
-            width: "100px",
-            height: "40px",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            fontSize: "16px",
           }}
         >
-          Thu vào
-        </button>)}
+          {arr.length < arrOdd.length ? (
+            <button
+              onClick={handleMore}
+              style={{
+                backgroundColor: "#1e70a8",
+                color: "#fff",
+                width: "100px",
+                height: "40px",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                fontSize: "16px",
+              }}
+            >
+              Xem thêm
+            </button>
+          ) : (
+            <button
+              onClick={handleCollect}
+              style={{
+                backgroundColor: "#1e70a8",
+                color: "#fff",
+                width: "100px",
+                height: "40px",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                fontSize: "16px",
+              }}
+            >
+              Thu vào
+            </button>
+          )}
         </div>
-      </div>
-    );
-  };
+      </Box>
+    </Container>
+  );
+}
 
-
-export default Listseries;
+export default Listmovie;

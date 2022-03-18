@@ -21,7 +21,6 @@
         font-weight: 700;
         font-size: 0.875rem;
         letter-spacing: 0.02857em;
-        text-transform: uppercase;
         .iconup{
             line-height: 48px;
         }
@@ -32,7 +31,9 @@
         &:hover{
             color: var(--second-color);
             .usermenu{
-                display: block;
+                display: flex;
+                flex-wrap: wrap;
+
             }
             .iconup{
                 display: none;
@@ -41,39 +42,48 @@
                 display: block;
             }
         }          
-
             .usermenu{
                 &::before{ 
                     content: "";
                     position: absolute;
-                    border-width: 12px 15px;
+                    border-width: 9px 10px;
                     border-style: solid ;
-                    border-color: transparent transparent var(--main-color) transparent;
+                    border-color: transparent transparent #ccc transparent;
                     top: -18px;
-                    right: 200px;
+                    right: 322px;
                 }
+                 &::after {
+                     content: "";
+                     position: absolute;
+                     right: 30px;
+                     top: -14px;
+                     width: 90%;
+                     height: 18px;
+                     display: block;
+                 }
                 display: none;
                 z-index: 1;
                 position: absolute;
                 top: 115%;
-                right: -100px;
+                right: -280px;
                 background-color: var(--main-color);
-                padding-left: 0;
+                padding: 20px;
                 list-style: none;
-                height: 200px;
-                width: 280px;
+                width: 400px;
                 box-shadow: 0 0 3px #ccc;
                 border-radius: 3px;
-                .useritem{
-                    margin-top: 20px;
-                }
-                .useritem span{
-                    z-index: 2;
-                    text-decoration: none;
-                    font-size: 14px;
-                    color: #fff;
-                    font-weight: 400;
-                }
+              span{
+                height : 20px;
+                color:var(--text-color); ;
+                padding : 0 20px 30px 0;
+                font-weight: 400;
+                display: block;
+                min-width: 120px;
+                text-align: left;
+                &:hover{
+                    color: var(--second-color);
+                }   
+              }
             }
         }
     }

@@ -2,11 +2,11 @@
     width: 100%;
     margin-bottom: 10px;
     position: relative;
-    transform: translateY(0px);
+    transform: scale(1);
     transition: all 0.3s ease 0s;
     &:hover{
     cursor: pointer;
-    transform: translateY(-2px);
+  transform: scale(1.05);
     .icons{
     display: block;
     }

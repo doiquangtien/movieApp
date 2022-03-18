@@ -17,24 +17,40 @@
     }
     .profile{
         position: relative;
-        &:hover .usermenu{
+        &:hover {
+            .userHistory{
+                display: block;
+            }
+            .usermenu {
+                display: block;
+            }
+        }.usermenu{
             display: block;
         }
         .usermenu{
             &::before{ 
                 content: "";
                 position: absolute;
-                border-width: 12px 15px;
+                border-width: 9px 10px;
                 border-style: solid ;
-                border-color: transparent transparent var(--main-color) transparent;
+                border-color: transparent transparent #ccc transparent;
                 top: -18px;
-                right: 60px;
+                right: 39px;
+            }
+            &::after{ 
+                 content: "";
+                 position: absolute;
+                 right: 10px;
+                 top: -14px;
+                 width: 90%;
+                 height: 18px;
+                 display: block;
             }
             display: none;
             z-index: 1;
             position: absolute;
             top: 115%;
-            right: -40px;
+            right: -37px;
             background-color: var(--main-color);
             padding-left: 0;
             list-style: none;
@@ -47,8 +63,56 @@
                 font-size: 14px;
                 color: #fff;
                 font-weight: 400;
-                padding: 12px 16px;
+                padding: 12px 12px;
                 display: block;
+                &:hover{
+                color: var(--second-color)
+                }
+            }
+        }
+        .userHistory {
+            &::before {
+                content: "";
+                position: absolute;
+                border-width: 9px 10px;
+                border-style: solid;
+                border-color: transparent transparent #ccc transparent;
+                top: -18px;
+                right: 39px;
+            }
+             &::after {
+                 content: "";
+                 position: absolute;
+                 right: 10px;
+                 top: -14px;
+                 width: 90%;
+                 height: 18px;
+                 display: block;
+             }
+            display: none;
+            z-index: 1;
+            position: absolute;
+            top: 115%;
+            right: -27px;
+            background-color: var(--main-color);
+            padding-left: 0;
+            list-style: none;
+            width: 154px;
+            box-shadow: 0 0 3px #ccc;
+            border-radius: 3px;
+
+            .useritem span {
+                z-index: 2;
+                text-decoration: none;
+                font-size: 14px;
+                color: #fff;
+                font-weight: 400;
+                padding: 12px 12px;
+                display: block;
+
+                &:hover {
+                    color: var(--second-color)
+                }
             }
         }
     }

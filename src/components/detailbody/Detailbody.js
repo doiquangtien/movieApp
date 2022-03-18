@@ -6,10 +6,11 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import clsx from "clsx";
 import styles from "./detailbody.module.scss";
-import Listmovie from "../body/listmovie/Listmovie";
+import Listslider from "../body/listSlider/Listslider";
 import Detailsub from "./detailsub/Detailsub";
 import Episodeitem from "../episodeItem/Episodeitem";
-import Castitem from "../castitem/Castitem";
+import Castitem from "../castItem/Castitem";
+import { Container, Grid } from "@mui/material";
 function Detailbody() {
   const [value, setValue] = React.useState("1");
 
@@ -17,90 +18,97 @@ function Detailbody() {
     setValue(newValue);
   };
   return (
-    <div className={styles.detailBody}>
+    <>
       <Detailsub />
-      <div className={styles.body}>
-        <Box sx={{ width: "100%", typography: "body1" }}>
-          <TabContext value={value}>
-            <Box
-              sx={{
-                borderBottom: "1px solid",
-                borderColor: "#808080",
-                margin: "0 60px",
-              }}
-            >
-              <TabList
-                onChange={handleChange}
-                textColor="inherit"
-                aria-label="lab API tabs example"
+      <Container className={styles.detailBody} maxWidth="1400px">
+        <Box sx={{ flexGrow: 1, margin: "0 36px" }}>
+          <Box sx={{ width: "100%", typography: "body1" }}>
+            <TabContext value={value}>
+              <Box
+                sx={{
+                  borderBottom: "1px solid",
+                  borderColor: "#808080",
+                  marginBottom: "20px",
+                }}
               >
-                <Tab className={styles.tab} label="Cast" value="1" />
-                <Tab className={styles.tab} label="Recommended" value="2" />
-                <Tab className={styles.tab} label="Episodes" value="3" />
-                <Tab className={styles.tab} label="Trailer" value="4" />
-              </TabList>
-            </Box>
-          </TabContext>
-          <TabContext value={value}>
-            <TabPanel value="1">
-              <div className={clsx("grid", "wide")}>
-                <>
-                  <span
-                    style={{
-                      marginLeft: "20px",
-                      fontSize: "22px",
-                      color: "var(--second-color)",
-                    }}
-                  >
-                    Cast
-                  </span>
-                  <div className="row">
-                    <div className="col l-2 m-4 c-6 ">
-                      <Castitem/>
-                    </div>
-                    <div className="col l-2 m-4 c-6 ">
-                      <Castitem/>
-                    </div>
-                    <div className="col l-2 m-4 c-6 ">
-                      <Castitem/>
-                    </div>
-                    <div className="col l-2 m-4 c-6 ">
-                      <Castitem/>
-                    </div>
-                    <div className="col l-2 m-4 c-6 ">
-                      <Castitem/>
-                    </div>
-                    <div className="col l-2 m-4 c-6 ">
-                      <Castitem/>
-                    </div>
-                    <div className="col l-2 m-4 c-6 ">
-                      <Castitem/>
-                    </div>
-                    <div className="col l-2 m-4 c-6 ">
-                      <Castitem/>
-                    </div>        
-                  </div>
-                </>
-              </div>
-            </TabPanel>
-            <TabPanel value="2">
-              <div className={clsx("grid", "wide")}>
-                <>
-                  <span
-                    style={{
-                      marginLeft: "20px",
-                      fontSize: "22px",
-                      color: "var(--second-color)",
-                    }}
-                  >
-                    Similar
-                  </span>
-                  <Listmovie />
-                </>
-              </div>
-            </TabPanel>
-            <TabPanel value="3">
-              <div className={clsx("grid", "wide")}>
+                <TabList
+                  onChange={handleChange}
+                  textColor="inherit"
+                  aria-label="lab API tabs example"
+                >
+                  <Tab className={styles.tab} label="Cast" value="1" />
+                  <Tab className={styles.tab} label="Recommended" value="2" />
+                  <Tab className={styles.tab} label="Episodes" value="3" />
+                  <Tab className={styles.tab} label="Trailer" value="4" />
+                </TabList>
+              </Box>
+            </TabContext>
+            <TabContext value={value}>
+              <TabPanel
+                value="1"
+                sx={{
+                  padding: "0",
+                }}
+              >
+                <span
+                  style={{
+                    marginLeft: "20px",
+                    fontSize: "22px",
+                    color: "var(--second-color)",
+                  }}
+                >
+                  Cast
+                </span>
+                <Grid container spacing={2}>
+                  <Grid item md={2}>
+                    <Castitem />
+                  </Grid>
+                  <Grid item md={2}>
+                    <Castitem />
+                  </Grid>
+                  <Grid item md={2}>
+                    <Castitem />
+                  </Grid>
+                  <Grid item md={2}>
+                    <Castitem />
+                  </Grid>
+                  <Grid item md={2}>
+                    <Castitem />
+                  </Grid>
+                  <Grid item md={2}>
+                    <Castitem />
+                  </Grid>
+                  <Grid item md={2}>
+                    <Castitem />
+                  </Grid>
+                  <Grid item md={2}>
+                    <Castitem />
+                  </Grid>
+                </Grid>
+              </TabPanel>
+              <TabPanel
+                value="2"
+                sx={{
+                  padding: "0",
+                }}
+              >
+                <span
+                  style={{
+                    marginLeft: "20px",
+                    fontSize: "22px",
+                    color: "var(--second-color)",
+                  }}
+                >
+                  Similar
+                </span>
+                <Listslider />
+              </TabPanel>
+              <TabPanel
+                value="3"
+                sx={{
+                  padding: "0",
+                }}
+              >
                 <span
                   style={{
                     marginLeft: "20px",
@@ -110,25 +118,24 @@ function Detailbody() {
                 >
                   Episodes
                 </span>
-                <div className="row">          
-                  <div className="col l-3 m-6 c-12 ">
-                    <Episodeitem/>
-                  </div>
-                  <div className="col l-3 m-6 c-12 ">
-                    <Episodeitem/>
-                  </div>
-                  <div className="col l-3 m-6 c-12 ">
-                    <Episodeitem/>
-                  </div>
-
-                </div>
-              </div>
-            </TabPanel>
-            <TabPanel value="4">Item Three</TabPanel>
-          </TabContext>
+                <Grid container spacing={2} marginTop="20px">
+                  <Grid item md={3}>
+                    <Episodeitem />
+                  </Grid>
+                  <Grid item md={3}>
+                    <Episodeitem />
+                  </Grid>
+                  <Grid item md={3}>
+                    <Episodeitem />
+                  </Grid>
+                </Grid>
+              </TabPanel>
+              <TabPanel value="4">Item Three</TabPanel>
+            </TabContext>
+          </Box>
         </Box>
-      </div>
-    </div>
+      </Container>
+    </>
   );
 }
 

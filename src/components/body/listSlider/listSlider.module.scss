@@ -1,0 +1,39 @@
+ .btnBack {
+     position: absolute;
+     top: 40%;
+     left: -40px;
+
+     .iconBack {
+         font-size: 50px;
+         color: #fff;
+     }
+
+     &:hover {
+         cursor: pointer;
+
+         .iconBack {
+             color: var(--second-color)
+         }
+     }
+ }
+
+ .btnNext {
+     position: absolute;
+     top: 40%;
+     right: -40px;
+
+     .iconNext {
+         font-size: 50px;
+         color: #fff;
+     }
+
+     &:hover {
+         cursor: pointer;
+
+         .iconNext {
+             color: var(--second-color)
+         }
+
+     }
+
+ }

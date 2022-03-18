@@ -1,22 +1,25 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "../containers/home/Home";
-import Oddmovie from "../containers/oddmovie/Oddmovie";
-import Seriesmovie from "../containers/seriesmovie/Seriesmovie";
+import MovieList from "../containers/movielist/MovieList";
 import Details from "../containers/details/Details";
 import Page404 from "../containers/Page404";
 import Watch from "../containers/watch/Watch";
 function Router() {
-
   return (
     <Routes>
-    <Route path="/" element={<Home />}/>
-    <Route path="/oddmovie" element={<Oddmovie />}/>
-    <Route path="/seriesmovie" element={<Seriesmovie />}/>
-    <Route path="/details" element={<Details />}/>
-    <Route path='/watch' element={<Watch />}/>
-    <Route path='*' element={<Page404 />}/>
-  </Routes>
-  )
+      <Route path="/">
+        <Route index element={<Home />} />
+        <Route path="/:type" element={<MovieList />} />
+        <Route path="/details">
+          <Route path="/details/:id" element={<Details />} />
+        </Route>
+        <Route path="/watch">
+          <Route path="/watch/:id" element={<Watch />} />
+        </Route>
+        <Route path="*" element={<Page404 />} />
+      </Route>
+    </Routes>
+  );
 }
 
 export default Router;

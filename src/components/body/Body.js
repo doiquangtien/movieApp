@@ -1,19 +1,20 @@
 import React from "react";
-import Listmovie from "./listmovie/Listmovie";
+import Listslider from "./listSlider/Listslider";
 import styles from "./body.module.scss";
-import clsx from "clsx";
+import { Box, Container } from "@mui/material";
+
 function Body() {
   return (
-    <div className={styles.body}>
-      <div className={clsx("grid", "wide")}>
+    <Container maxWidth="1400px" className={styles.body}>
+      <Box sx={{ flexGrow: 1, margin: "0 36px" }}>
         <span>Continue</span>
-        <Listmovie />
+        <Listslider />
         <span>Popular movies</span>
-        <Listmovie />
+        <Listslider />
         <span>Popular TV-series123</span>
-        <Listmovie />
-      </div>
-    </div>
+        <Listslider />
+      </Box>
+    </Container>
   );
 }
 
