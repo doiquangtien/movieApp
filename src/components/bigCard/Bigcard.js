@@ -1,8 +1,8 @@
 import React from "react";
 import PlayCircleFilledWhiteIcon from "@mui/icons-material/PlayCircleFilledWhite";
 import img1 from "../../img/banner.jpg";
-import styles from './episodeitem.module.scss'
-function Episodeitem() {
+import styles from "./bigcard.module.scss";
+function Bigcard() {
   return (
     <div className={styles.episodesWrap}>
       <div className={styles.episodesItem}>
@@ -16,4 +16,4 @@ function Episodeitem() {
   );
 }
 
-export default Episodeitem;
+export default Bigcard;

@@ -4,11 +4,10 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import clsx from "clsx";
 import styles from "./detailbody.module.scss";
 import Listslider from "../body/listSlider/Listslider";
 import Detailsub from "./detailsub/Detailsub";
-import Episodeitem from "../episodeItem/Episodeitem";
+import Bigcard from "../bigCard/Bigcard";
 import Castitem from "../castItem/Castitem";
 import { Container, Grid } from "@mui/material";
 function Detailbody() {
@@ -120,17 +119,43 @@ function Detailbody() {
                 </span>
                 <Grid container spacing={2} marginTop="20px">
                   <Grid item md={3}>
-                    <Episodeitem />
+                    <Bigcard />
                   </Grid>
                   <Grid item md={3}>
-                    <Episodeitem />
+                    <Bigcard />
                   </Grid>
                   <Grid item md={3}>
-                    <Episodeitem />
+                    <Bigcard />
                   </Grid>
                 </Grid>
               </TabPanel>
-              <TabPanel value="4">Item Three</TabPanel>
+              <TabPanel
+                value="4"
+                sx={{
+                  padding: "0",
+                }}
+              >
+                <span
+                  style={{
+                    marginLeft: "20px",
+                    fontSize: "22px",
+                    color: "var(--second-color)",
+                  }}
+                >
+                  Trailer
+                </span>
+                <Grid container spacing={2} marginTop="20px">
+                  <Grid item md={3}>
+                    <Bigcard />
+                  </Grid>
+                  <Grid item md={3}>
+                    <Bigcard />
+                  </Grid>
+                  <Grid item md={3}>
+                    <Bigcard />
+                  </Grid>
+                </Grid>
+              </TabPanel>
             </TabContext>
           </Box>
         </Box>

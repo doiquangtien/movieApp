@@ -4,146 +4,11 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import "react-slideshow-image/dist/styles.css";
 import styles from "./listSlider.module.scss";
-import img from "../../../img/johnwick.jpg";
+// import img from "../../../img/johnwick.jpg";
 import Itemcard from "../../itemCard/Itemcard";
-function Listmovie() {
+function Listmovie({ data }) {
   const slideRef = useRef();
-
-  const arrOdd = [
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " John Wick is a 2014 American neo-noir action thriller film directed by Chad Stahelski, in his directorial debut, and written by Derek Kolstad. It stars Keanu Reeves, Michael Nyqvist, Alfie Allen, Adrianne Palicki, Bridget Moynahan, Dean Winters, Ian McShane, John Leguizamo, and Willem Dafoe. It is the first installment in the John Wick franchise.",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " John Wick is a 2014 American neo-noir action thriller film directed by Chad Stahelski, in his directorial debut, and written by Derek Kolstad. It stars Keanu Reeves, Michael Nyqvist, Alfie Allen, Adrianne Palicki, Bridget Moynahan, Dean Winters, Ian McShane, John Leguizamo, and Willem Dafoe. It is the first installment in the John Wick franchise.",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " John Wick is a 2014 American neo-noir action thriller film directed by Chad Stahelski, in his directorial debut, and written by Derek Kolstad. It stars Keanu Reeves, Michael Nyqvist, Alfie Allen, Adrianne Palicki, Bridget Moynahan, Dean Winters, Ian McShane, John Leguizamo, and Willem Dafoe. It is the first installment in the John Wick franchise.",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " John Wick is a 2014 American neo-noir action thriller film directed by Chad Stahelski, in his directorial debut, and written by Derek Kolstad. It stars Keanu Reeves, Michael Nyqvist, Alfie Allen, Adrianne Palicki, Bridget Moynahan, Dean Winters, Ian McShane, John Leguizamo, and Willem Dafoe. It is the first installment in the John Wick franchise.",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " John Wick is a 2014 American neo-noir action thriller film directed by Chad Stahelski, in his directorial debut, and written by Derek Kolstad. It stars Keanu Reeves, Michael Nyqvist, Alfie Allen, Adrianne Palicki, Bridget Moynahan, Dean Winters, Ian McShane, John Leguizamo, and Willem Dafoe. It is the first installment in the John Wick franchise.",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " John Wick is a 2014 American neo-noir action thriller film directed by Chad Stahelski, in his directorial debut, and written by Derek Kolstad. It stars Keanu Reeves, Michael Nyqvist, Alfie Allen, Adrianne Palicki, Bridget Moynahan, Dean Winters, Ian McShane, John Leguizamo, and Willem Dafoe. It is the first installment in the John Wick franchise.",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " John Wick is a 2014 American neo-noir action thriller film directed by Chad Stahelski, in his directorial debut, and written by Derek Kolstad. It stars Keanu Reeves, Michael Nyqvist, Alfie Allen, Adrianne Palicki, Bridget Moynahan, Dean Winters, Ian McShane, John Leguizamo, and Willem Dafoe. It is the first installment in the John Wick franchise.",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " John Wick is a 2014 American neo-noir action thriller film directed by Chad Stahelski, in his directorial debut, and written by Derek Kolstad. It stars Keanu Reeves, Michael Nyqvist, Alfie Allen, Adrianne Palicki, Bridget Moynahan, Dean Winters, Ian McShane, John Leguizamo, and Willem Dafoe. It is the first installment in the John Wick franchise.",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " John Wick is a 2014 American neo-noir action thriller film directed by Chad Stahelski, in his directorial debut, and written by Derek Kolstad. It stars Keanu Reeves, Michael Nyqvist, Alfie Allen, Adrianne Palicki, Bridget Moynahan, Dean Winters, Ian McShane, John Leguizamo, and Willem Dafoe. It is the first installment in the John Wick franchise.",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " John Wick is a 2014 American neo-noir action thriller film directed by Chad Stahelski, in his directorial debut, and written by Derek Kolstad. It stars Keanu Reeves, Michael Nyqvist, Alfie Allen, Adrianne Palicki, Bridget Moynahan, Dean Winters, Ian McShane, John Leguizamo, and Willem Dafoe. It is the first installment in the John Wick franchise.",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-  ];
+  // console.log(data);
   const properties = {
     duration: 500,
     slidesToShow: 2,
@@ -155,8 +20,8 @@ function Listmovie() {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 6,
-          slidesToScroll: 6,
+          slidesToShow: 5,
+          slidesToScroll: 5,
         },
       },
       {
@@ -179,11 +44,19 @@ function Listmovie() {
   return (
     <div style={{ margin: "0 -20px", position: "relative" }}>
       <Slide ref={slideRef} {...properties}>
-        {arrOdd.map((odd, i) => (
-          <div key={i} style={{ padding: "0 22px" }}>
-            <Itemcard data={odd} />
-          </div>
-        ))}
+        {data !== null &&
+          data.length > 0 &&
+          data.map((item, i) => {
+            if (item.poster_path && item.backdrop_path !== null) {
+              let imagePost = `https://image.tmdb.org/t/p/original${item.poster_path}`;
+              let imageDrop = `https://image.tmdb.org/t/p/w500${item.backdrop_path}`;
+              return (
+                <div key={i} style={{ padding: "0 22px" }}>
+                  <Itemcard imgP={imagePost} imgD={imageDrop} data={item} />
+                </div>
+              );
+            }
+          })}
       </Slide>
       <div className={styles.btnBack} onClick={back}>
         <NavigateBeforeIcon className={styles.iconBack} />

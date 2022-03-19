@@ -30,55 +30,73 @@
                   cursor: pointer;
                 }
             }
-            .tabTitleWrap{
-               margin-top: 20px;
-               margin-left: 20px;
-               display: flex;
-               margin-bottom: 20px;
-               justify-content: space-between;
-               .tabTitlePlay{
+               .tabTitleWrap {
+                 margin-top: 20px;
+                 margin-left: 20px;
+                 display: flex;
+                 margin-bottom: 20px;
+                 justify-content: space-between;
+
+                 .tabTitlePlay {
                    display: flex;
                    align-items: center;
-                .tabTitle{
-                    color: #ececec;
-                   margin-left: 3px;
-                }
-               } 
-               .tabIcons{
-                margin-right: 20px;
-                color: #ececec;
-                &:hover{
-                color: var(--second-color);
-                  cursor: pointer;
-                }
-                .listIcon{    
-                font-size: 26px;              
-                 } 
-                 .moduleIcon{
-                font-size: 26px;              
+
+                   .tabTitle {
+                     color: #ececec;
+                     margin-left: 3px;
+                   }
                  }
-               }         
-            }
-            .scrollEps{
-              height: 400px;
-              overflow-y: auto;
-              .listEps{
-                color: #fff;
+
+                 .tabIcons {
+                   margin-right: 20px;
+                   color: #ececec;
+
+                   &:hover {
+                     color: var(--second-color);
+                     cursor: pointer;
+                   }
+
+                   .listIcon {
+                     font-size: 26px;
+                   }
+
+                   .moduleIcon {
+                     font-size: 26px;
+                   }
+                 }
+               }
+               .scrollEps {
+                 height:430px;
+                 overflow-y: auto;
+                   .listEps {
+                     color: #fff;
+
+                     span {
+                       padding: 8px 18px;
+                       background-color: #23252b;
+                       margin: 0 0 8px 8px;
+                       border-radius: 5px;
+                     }
+                   }
+
+                   .listEpsVideo {
+                     margin: 0px 5px;
+                   }
+
+                  
+                 }
+                 .scrollRecomend{
+                   height:500px;
+                   overflow-y: auto;
+                   .listRecomendVideo {
+                     margin: 0px 5px;
+                   }
+                 }
+ 
                 
-                span{
-                    padding: 8px 18px;
-                    background-color: #23252b;
-                    margin: 0 0 8px 8px;
-                    border-radius: 5px;
-                }
-              }
-              .listEpsVideo{
-                margin: 0px 5px;
-              }
-            }
-           
-    }     
-}
+    }
+  }     
+
 
 .playIcon{
   background-image: url(https://www.iqiyipic.com/lequ/20210524/playing_gif_green.gif);

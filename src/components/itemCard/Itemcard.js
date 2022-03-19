@@ -1,29 +1,33 @@
 import PlayCircleFilledWhiteIcon from "@mui/icons-material/PlayCircleFilledWhite";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import StarIcon from "@mui/icons-material/Star";
 import styles from "./item.module.scss";
 
-function Item({ data }) {
+function Itemcard({ data, imgP, imD }) {
   return (
     <>
       <div className={styles.list_item}>
         <div className={styles.listood_item}>
-          <img src={data.img} alt="" />
-          <span className={styles.odditem_name}>{data.name}</span>
+          <img src={imgP} alt="" />
+          <span className={styles.odditem_name}>{data.title || data.name}</span>
           <div className={styles.hovered}>
             <div className={styles.itemVideo}>
-              <video src={data.trailer} autoPlay muted loop />
               <div className={styles.icons}>
                 <PlayCircleFilledWhiteIcon className={styles.icon} />
                 <AddCircleIcon className={styles.icon} />
               </div>
             </div>
             <div className={styles.itemInfo}>
-              <div className={styles.itemName}>{data.name}</div>
+              <div className={styles.itemName}>{data.title || data.name}</div>
               <div className={styles.itemInfoTop}>
-                <span>1 hour 14 mins</span>
-                <span>+16</span>
-                <span>1999</span>
+                <span>
+                  <StarIcon className={styles.start} />
+                  {data.vote_average}
+                </span>
+                {data.adult === true ? <span>18 +</span> : <span>18 -</span>}
+
+                {data.release_date && <span>{data.release_date}</span>}
               </div>
               <div className={styles.genre}>
                 <span>Action</span>
@@ -39,11 +43,11 @@ function Item({ data }) {
                 <span>Movie</span>
 
                 <span>Movie</span>
-
               </div>
-              <div className={styles.desc}>{data.desc}</div>
-              <div className={styles.more}>More
-              <ArrowForwardIosIcon className={styles.iconMore} />
+              <div className={styles.desc}>{data.overview}</div>
+              <div className={styles.more}>
+                More
+                <ArrowForwardIosIcon className={styles.iconMore} />
               </div>
             </div>
           </div>
@@ -53,4 +57,4 @@ function Item({ data }) {
   );
 }
 
-export default Item;
+export default Itemcard;

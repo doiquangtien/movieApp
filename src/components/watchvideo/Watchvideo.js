@@ -1,32 +1,19 @@
 import React from "react";
-import { Container, createTheme, Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { Box } from "@mui/system";
 import Tab from "@mui/material/Tab";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
-import Listslider from "../../components/body/listSlider/Listslider";
 import StarIcon from "@mui/icons-material/Star";
-import Episodeitem from "../episodeItem/Episodeitem";
+import Bigcard from "../bigCard/Bigcard";
 import Castitem from "../castItem/Castitem";
-import video from "../../img/video.mp4";
+// import video from "../../img/video.mp4";
+import Smallcard from "../smallCard/Smallcard";
 import styles from "./watchvideo.module.scss";
-import img from "../../img/banner.jpg";
+// import img from "../../img/banner.jpg";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { ThemeProvider } from "styled-components";
 import { InfoOutlined, PlayArrow } from "@mui/icons-material";
-
-const theme = createTheme({
-  components: {
-    MuiTabPanel: {
-      styleOverrides: {
-        root: {
-          padding: 0,
-        },
-      },
-    },
-  },
-});
 
 function Watchvideo() {
   const [value, setValue] = React.useState("1");
@@ -34,33 +21,39 @@ function Watchvideo() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  console.log(icon);
+  const api = "https://www.2embed.ru/embed/tmdb/movie?id=691683";
+  console.log(api);
   return (
     <Container maxWidth="1400px" className={styles.container}>
       <Box sx={{ flexGrow: 1, margin: "0 36px" }}>
         <Grid container spacing={0}>
           <Grid item xs={12} sm={12} md={9.3}>
             <div className={styles.video}>
-              <video src={video} controls poster={img} />
+              {/* <video src={api} /> */}
+              <iframe
+                width="100%"
+                frameboder="0"
+                height="100%"
+                src="https://www.2embed.ru/embed/tmdb/movie?id=634649"
+                title="YouTube video player"
+              ></iframe>
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={2.7}>
             <div className={styles.rightBar}>
               <span className={styles.movieName}>Spider man no way home</span>
-              <ThemeProvider theme={theme}>
-                <TabContext value={value}>
-                  <Box sx={{ width: "100%" }}>
-                    <TabList
-                      indicatorColor="secondary"
-                      onChange={handleChange}
-                      aria-label="lab API tabs example"
-                    >
-                      <Tab className={styles.tab} label="Episodes" value="1" />
-                      <Tab className={styles.tab} label="Trailer" value="2" />
-                    </TabList>
-                  </Box>
-                </TabContext>
-              </ThemeProvider>
+              <TabContext value={value}>
+                <Box sx={{ width: "100%" }}>
+                  <TabList
+                    indicatorColor="secondary"
+                    onChange={handleChange}
+                    aria-label="lab API tabs example"
+                  >
+                    <Tab className={styles.tab} label="Episodes" value="1" />
+                    <Tab className={styles.tab} label="Recommend" value="2" />
+                  </TabList>
+                </Box>
+              </TabContext>
               <TabContext value={value}>
                 <TabPanel
                   value="1"
@@ -86,52 +79,67 @@ function Watchvideo() {
                       )}
                     </div>
                   </div>
-                  <div className={styles.scrollEps}>
-                    {icon ? (
-                      <Stack
-                        direction="row"
-                        className={styles.listEps}
-                        style={{
-                          display: "flex",
-                          flexWrap: "wrap",
-                          marginLeft: "20px",
-                        }}
-                        spacing={0}
-                      >
-                        <span>1</span>
-                        <span>2</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                        <span>3</span>
-                      </Stack>
-                    ) : (
-                      <div className={styles.listEpsVideo}>
-                        <Episodeitem />
-                        <Episodeitem />
-                        <Episodeitem />
-                        <Episodeitem />
-                        <Episodeitem />
-                      </div>
-                    )}
+                  <div className={styles.scrollWrap}>
+                    <div className={styles.scrollEps}>
+                      {icon ? (
+                        <Stack
+                          direction="row"
+                          className={styles.listEps}
+                          style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            marginLeft: "20px",
+                          }}
+                          spacing={0}
+                        >
+                          <span>1</span>
+                          <span>2</span>
+                          <span>3</span>
+                          <span>3</span>
+                          <span>3</span>
+                          <span>3</span>
+                          <span>3</span>
+                          <span>3</span>
+                          <span>3</span>
+                          <span>3</span>
+                          <span>3</span>
+                          <span>3</span>
+                        </Stack>
+                      ) : (
+                        <div className={styles.listEpsVideo}>
+                          <Smallcard />
+                          <Smallcard />
+                          <Smallcard />
+                          <Smallcard />
+                          <Smallcard />
+                          <Smallcard />
+                          <Smallcard />
+                          <Smallcard />
+                          <Smallcard />
+                          <Smallcard />
+                          <Smallcard />
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </TabPanel>
-                <TabPanel value="2">Item 4</TabPanel>
+                <TabPanel
+                  value="2"
+                  sx={{
+                    padding: "0",
+                  }}
+                >
+                  <div className={styles.scrollRecomend}>
+                    <div className={styles.listRecomendVideo}>
+                      <Bigcard />
+                      <Bigcard />
+                      <Bigcard />
+                      <Bigcard />
+                      <Bigcard />
+                      <Bigcard />
+                    </div>
+                  </div>
+                </TabPanel>
               </TabContext>
             </div>
           </Grid>
@@ -198,57 +206,49 @@ function Watchvideo() {
           </button>
         </div>
       </Box>
-      <Box sx={{ flexGrow: 1, margin: "36px" }}>
-        <TabContext value={value}>
-          <Box sx={{ borderBottom: "1px solid", borderColor: "#808080" }}>
-            <TabList
-              onChange={handleChange}
-              textColor="inherit"
-              aria-label="lab API tabs example"
-            >
-              <Tab className={styles.tab} label="Cast" value="1" />
-              <Tab className={styles.tab} label="Recommended" value="2" />
-            </TabList>
-          </Box>
-        </TabContext>
-        <TabContext value={value}>
-          <TabPanel value="1">
-            <span
-              style={{
-                marginLeft: "20px",
-                fontSize: "22px",
-                color: "var(--second-color)",
-              }}
-            >
-              Cast
-            </span>
-            <div className="row">
-              <div className="col l-2 m-4 c-6 ">
-                <Castitem />
-              </div>
-              <div className="col l-2 m-4 c-6 ">
-                <Castitem />
-              </div>
-              <div className="col l-2 m-4 c-6 ">
-                <Castitem />
-              </div>
-            </div>
-          </TabPanel>
-          <TabPanel value="2">
-            <div>
-              <span
-                style={{
-                  marginLeft: "20px",
-                  fontSize: "22px",
-                  color: "var(--second-color)",
-                }}
-              >
-                Recommended
-              </span>
-              <Listslider />
-            </div>
-          </TabPanel>
-        </TabContext>
+      <Box sx={{ flexGrow: 1, margin: "36px", borderTop: "1px solid #808080" }}>
+        <div
+          style={{
+            marginLeft: "20px",
+            fontSize: "22px",
+            color: "var(--second-color)",
+            marginTop: "20px",
+          }}
+        >
+          Cast
+        </div>
+        <Grid container spacing={2}>
+          <Grid item md={2}>
+            <Castitem />
+          </Grid>
+          <Grid item md={2}>
+            <Castitem />
+          </Grid>
+          <Grid item md={2}>
+            <Castitem />
+          </Grid>
+          <Grid item md={2}>
+            <Castitem />
+          </Grid>
+          <Grid item md={2}>
+            <Castitem />
+          </Grid>
+          <Grid item md={2}>
+            <Castitem />
+          </Grid>
+          <Grid item md={2}>
+            <Castitem />
+          </Grid>
+          <Grid item md={2}>
+            <Castitem />
+          </Grid>
+          <Grid item md={2}>
+            <Castitem />
+          </Grid>
+          <Grid item md={2}>
+            <Castitem />
+          </Grid>
+        </Grid>
       </Box>
     </Container>
   );

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import clsx from "clsx";
 import img from "../../img/banner1.jpg";
 import video from "../../img/video.mp4";
 import Item from "../itemCard/Itemcard";
