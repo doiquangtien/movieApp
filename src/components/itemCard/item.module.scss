@@ -1,13 +1,12 @@
 .list_item{
-    height: 345px;
-    // width: 215px;
+    height: 400px;
     position: relative;
     margin-top: 20px;
     margin-bottom: 20px;
     .listood_item{
         display: block;  
         width: 100%;
-        height: 300px;
+        height: 100%;
         position: relative;
         top:11px;
         text-decoration: none;
@@ -16,15 +15,22 @@
         cursor: pointer;
         img{
             width: 100%;
-            height: 90%;
+            height: 100%;
+
             object-fit: cover;
-            background-position: center top;
         }
         .odditem_name{
+          position: absolute;
+          text-align: center;
+          font-weight: 500;
+          padding: 5px 0;
+          margin:0;
+          bottom: 0;
+          right: 0;
+          left: 0;
+          background-color: rgba(0, 0, 0, 0.8);
           font-size: 16px;
-            width: 100%;
-            height: 10%;
-            color: #fff;
+          color: #fff;
         }
         .hovered{
           display: none;
@@ -37,18 +43,18 @@
             cursor: pointer;
             -webkit-box-shadow: 0px 0px 5px 1px rgba(255,255,255,0.46); 
             box-shadow: 0px 0px 5px 1px rgba(255,255,255,0.46);
-            width: 120%;
-            height: 345px;
+            width: 112%;
+            // height: 400px;
             z-index: 10;
-            top: -15px;
-            right: 22px;
+            // top: -15px;
+            right: 15px;
             border-radius: 5px ;
             img{
                 position: absolute;
                 top:0;
                 width: 100%;
                 height: 50%;
-                object-fit: cover;
+               background-size: cover;
             }
             .itemVideo{
                 position: absolute;
@@ -116,11 +122,12 @@
                 }
                 .genre {
                   padding: 5px 0;
-                  width:100%;
+                  width:90%;
                   color: #fff;
                   display: flex;
                   flex-wrap: wrap;
                   margin-right: 20px ;
+                  overflow: hidden;
                   span{
                   margin: 0;
                   font-size: 12px;

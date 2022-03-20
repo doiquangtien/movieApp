@@ -100,7 +100,7 @@ function Detailbody() {
                 >
                   Similar
                 </span>
-                <Listslider />
+                {/* <Listslider /> */}
               </TabPanel>
               <TabPanel
                 value="3"

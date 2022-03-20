@@ -1,179 +1,37 @@
-import { useState } from "react";
-import img from "../../img/banner1.jpg";
-import video from "../../img/video.mp4";
+import { useEffect } from "react";
 import Item from "../itemCard/Itemcard";
 import { useParams } from "react-router-dom";
 import { Box, Container, Grid } from "@mui/material";
+import { useSelector } from "react-redux";
+import { getAllMovies } from "../../redux/callApi";
+import { useDispatch } from "react-redux";
 
 function Listmovie() {
   const { type } = useParams();
-  const [list, setlist] = useState(12);
+  const dispatch = useDispatch();
+
+  const state = useSelector((state) => state.infoMovie);
+  useEffect(() => {
+    getAllMovies(dispatch, type);
+    console.log(type);
+  }, [type]);
 
   function jsUcfirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  const arrOdd = [
-    {
-      name: "Có cái nịt",
-      trailer: video,
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt 1",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-    {
-      name: "Có cái nịt 123",
-      trailer:
-        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761",
-      img: img,
-      desc: " Lorem ipsum dolor, sit amet consectetur adipisicing",
-    },
-  ];
-
-  let arr = arrOdd.slice(0, list);
-  const handleMore = () => {
-    arr = arrOdd.slice(
-      0,
-      setlist((prev) => {
-        return prev + 6;
-      })
-    );
-  };
-  const handleCollect = () => {
-    arr = arrOdd.slice(0, setlist(12));
-  };
+  // let arr = arrOdd.slice(0, list);
+  // const handleMore = () => {
+  //   arr = arrOdd.slice(
+  //     0,
+  //     setlist((prev) => {
+  //       return prev + 6;
+  //     })
+  //   );
+  // };
+  // const handleCollect = () => {
+  //   arr = arrOdd.slice(0, setlist(12));
+  // };
   return (
     <Container maxWidth="1400px">
       <Box
@@ -187,13 +45,22 @@ function Listmovie() {
         </span>
 
         <Grid container spacing={2}>
-          {arr.map((odd, i) => (
-            <Grid key={i} item md={2}>
-              <Item data={odd} />
-            </Grid>
-          ))}
+          {state.allMovie !== null &&
+            state.allMovie.length > 0 &&
+            state.allMovie.map((item, i) => {
+              if (item.poster_path && item.backdrop_path !== null) {
+                let imagePost = `https://image.tmdb.org/t/p/original${item.poster_path}`;
+                let imageDrop = `https://image.tmdb.org/t/p/w500${item.backdrop_path}`;
+                return (
+                  <Grid key={i} item md={2.4}>
+                    <Item imgP={imagePost} imgD={imageDrop} data={item} />
+                  </Grid>
+                );
+              }
+            })}
         </Grid>
-        <div
+
+        {/* <div
           style={{
             width: "100%",
             display: "flex",
@@ -233,7 +100,7 @@ function Listmovie() {
               Thu vào
             </button>
           )}
-        </div>
+        </div> */}
       </Box>
     </Container>
   );

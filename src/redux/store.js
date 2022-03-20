@@ -1,7 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import getApiReducer from "./getApiSlice";
+import infoMovieReducer from "./infoMovieSlice";
+import typeMovieReducer from "./typeSlice";
 export default configureStore({
   reducer: {
-    getApi: getApiReducer,
+    infoMovie: infoMovieReducer,
+    typeMovie: typeMovieReducer,
   },
 });

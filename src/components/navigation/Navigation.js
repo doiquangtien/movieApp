@@ -27,7 +27,6 @@ function Navigation() {
           <div
             className={styles.logo}
             onClick={() => {
-              localStorage.setItem("tab", 0);
               document.documentElement.scrollTop = 0;
             }}
           >

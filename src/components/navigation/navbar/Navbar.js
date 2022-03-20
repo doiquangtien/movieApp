@@ -1,62 +1,116 @@
-import { Box, Tab, Tabs } from "@mui/material";
+// import { Box, Tab, Tabs } from "@mui/material";
 import { Link } from "react-router-dom";
-import React from "react";
 import styles from "./navbar.module.scss";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import { useDispatch } from "react-redux";
+import { getType } from "../../../redux/typeSlice";
+
 function Navbar() {
-  const [value, setValue] = React.useState(() => {
-    let localtab = JSON.parse(localStorage.getItem("tab"));
-    return localtab || 0;
-  });
-
   const listType = [
-    "Action",
-    "Comedy",
-    "Drama",
-    "Fantasy",
-    "Horror",
-    "Mystery",
-    "Romance",
-    "Thriller",
-    "Western",
+    {
+      id: 28,
+      name: "Action",
+    },
+    {
+      id: 12,
+      name: "Adventure",
+    },
+    {
+      id: 16,
+      name: "Animation",
+    },
+    {
+      id: 35,
+      name: "Comedy",
+    },
+    {
+      id: 80,
+      name: "Crime",
+    },
+    {
+      id: 99,
+      name: "Documentary",
+    },
+    {
+      id: 18,
+      name: "Drama",
+    },
+    {
+      id: 10751,
+      name: "Family",
+    },
+    {
+      id: 14,
+      name: "Fantasy",
+    },
+    {
+      id: 36,
+      name: "History",
+    },
+    {
+      id: 27,
+      name: "Horror",
+    },
+    {
+      id: 10402,
+      name: "Music",
+    },
+    {
+      id: 9648,
+      name: "Mystery",
+    },
+    {
+      id: 10749,
+      name: "Romance",
+    },
+    {
+      id: 878,
+      name: "Science Fiction",
+    },
+    {
+      id: 10770,
+      name: "TV Movie",
+    },
+    {
+      id: 53,
+      name: "Thriller",
+    },
+    {
+      id: 10752,
+      name: "War",
+    },
+    {
+      id: 37,
+      name: "Western",
+    },
   ];
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    document.documentElement.scrollTop = 0;
-    localStorage.setItem("tab", newValue);
-  };
-
+  const dispatch = useDispatch();
   return (
     <div className={styles.navbar}>
-      <Box>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          textColor="inherit"
-          aria-label="secondary tabs example"
+      <div className={styles.subnav}>
+        <Link style={{ textDecoration: "none" }} to="/">
+          <div className={styles.forYou}>FOR YOU</div>
+        </Link>
+        <Link
+          onClick={() => {
+            dispatch(getType("movie"));
+          }}
+          style={{ textDecoration: "none" }}
+          to="/movie"
         >
-          <Tab
-            className={styles.navbarItem}
-            label="For you"
-            to="/"
-            component={Link}
-          />
-          <Tab
-            className={styles.navbarItem}
-            label="Movies"
-            to="/movies"
-            component={Link}
-          />
-          <Tab
-            className={styles.navbarItem}
-            label="TV Series"
-            to="/series"
-            component={Link}
-          />
-        </Tabs>
-      </Box>
+          <div className={styles.movies}>MOVIES</div>
+        </Link>
+        <Link
+          onClick={() => {
+            dispatch(getType("tv"));
+          }}
+          style={{ textDecoration: "none" }}
+          to="/tv"
+        >
+          <div className={styles.tvSeries}>TV SERIES</div>
+        </Link>
+      </div>
       <div className={styles.styleMovie}>
         <span>TYPES</span>
         <ArrowDropUpIcon className={styles.iconup} />
@@ -66,9 +120,9 @@ function Navbar() {
             <Link
               style={{ textDecoration: "none" }}
               key={i}
-              to={`/` + type.toLowerCase()}
+              to={`/` + type.name.toLowerCase()}
             >
-              <span>{type}</span>
+              <span>{type.name}</span>
             </Link>
           ))}
         </div>

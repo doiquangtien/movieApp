@@ -29,7 +29,6 @@ function Watchvideo() {
         <Grid container spacing={0}>
           <Grid item xs={12} sm={12} md={9.3}>
             <div className={styles.video}>
-              {/* <video src={api} /> */}
               <iframe
                 width="100%"
                 frameboder="0"

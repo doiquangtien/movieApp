@@ -8,7 +8,6 @@ import styles from "./listSlider.module.scss";
 import Itemcard from "../../itemCard/Itemcard";
 function Listmovie({ data }) {
   const slideRef = useRef();
-  // console.log(data);
   const properties = {
     duration: 500,
     slidesToShow: 2,
@@ -42,7 +41,7 @@ function Listmovie({ data }) {
   };
 
   return (
-    <div style={{ margin: "0 -20px", position: "relative" }}>
+    <div style={{ margin: "-16px", position: "relative" }}>
       <Slide ref={slideRef} {...properties}>
         {data !== null &&
           data.length > 0 &&
@@ -51,7 +50,7 @@ function Listmovie({ data }) {
               let imagePost = `https://image.tmdb.org/t/p/original${item.poster_path}`;
               let imageDrop = `https://image.tmdb.org/t/p/w500${item.backdrop_path}`;
               return (
-                <div key={i} style={{ padding: "0 22px" }}>
+                <div key={i} style={{ padding: "0 16px" }}>
                   <Itemcard imgP={imagePost} imgD={imageDrop} data={item} />
                 </div>
               );

@@ -6,11 +6,11 @@ import store from "./redux/store";
 function App() {
   return (
     <div className="app">
-      <BrowserRouter>
-        <Provider store={store}>
+      <Provider store={store}>
+        <BrowserRouter>
           <Router />
-        </Provider>
-      </BrowserRouter>
+        </BrowserRouter>
+      </Provider>
     </div>
   );
 }

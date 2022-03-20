@@ -4,9 +4,52 @@
     width: 90%;
     display: flex;
 
-    .navbarItem{
-        &:hover{
-            color: var(--second-color);
+    .subnav{
+        display: flex;
+        align-items: center;
+      
+        .forYou{
+            color: #939090;
+            position: relative;
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            padding: 0 14px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            letter-spacing: 0.02857em;
+              &:hover {
+                  color: var(--second-color);
+              }
+        }   
+        .movies{
+                color: #939090;
+                position: relative;
+                display: flex;
+                cursor: pointer;
+                align-items: center;
+                padding: 0 14px;
+                font-weight: 700;
+                font-size: 0.875rem;
+                letter-spacing: 0.02857em;
+                 &:hover {
+                     color: var(--second-color);
+                 }
+
+        }
+        .tvSeries{
+            color: #939090;
+            position: relative;
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            padding: 0 14px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            letter-spacing: 0.02857em;
+             &:hover {
+                 color: var(--second-color);
+             }
         }
     }
     
@@ -15,9 +58,9 @@
         position: relative;
         display: flex;
         cursor: pointer;
-        width: 130px;
+        width: 105px;
         align-items: center;
-        padding: 0 16px;
+        padding: 0 14px;
         font-weight: 700;
         font-size: 0.875rem;
         letter-spacing: 0.02857em;
@@ -65,7 +108,7 @@
                 z-index: 1;
                 position: absolute;
                 top: 115%;
-                right: -280px;
+                right: -304px;
                 background-color: var(--main-color);
                 padding: 20px;
                 list-style: none;
@@ -75,7 +118,7 @@
               span{
                 height : 20px;
                 color:var(--text-color); ;
-                padding : 0 20px 30px 0;
+                padding : 0 0 33px 0;
                 font-weight: 400;
                 display: block;
                 min-width: 120px;
