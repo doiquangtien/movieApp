@@ -107,39 +107,27 @@
                 }
                 .itemInfoTop {       
                   color: #fff;
-                   .start {
-                     font-size: 16px;
-                     margin-right: 2px;
-                     color: var(--second-color);
-                   }
+                  display: flex;
+
+                  .wrapVote{
+                    display: flex;
+                    align-items: center;
+                    height: 100%;
+                    .start {
+                      font-size: 16px;
+                      margin-right: 2px;
+                      color: var(--second-color);
+                    }
+                  }
                   span {
                     border: 1px solid gray;
                     font-size: 13px;
                     margin: 0;
-                    padding: 1px;
+                    padding: 2px;
                     margin-right: 10px;      
                   }
                 }
-                .genre {
-                  padding: 5px 0;
-                  width:90%;
-                  color: #fff;
-                  display: flex;
-                  flex-wrap: wrap;
-                  margin-right: 20px ;
-                  overflow: hidden;
-                  span{
-                  margin: 0;
-                  font-size: 12px;
-                  padding: 1px 3px;
-                  background-color: rgba(0, 0, 0, 0.5);
-                  margin-right: 5px ;
-                  margin-bottom: 2px;
-                  &:hover{
-                    color: var(--second-color);
-                  }
-                  }
-                }
+              
                 .desc {
                   font-size: 12px;
                   line-height: 15px;

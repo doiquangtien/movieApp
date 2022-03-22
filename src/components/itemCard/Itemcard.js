@@ -4,11 +4,11 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import StarIcon from "@mui/icons-material/Star";
 import styles from "./item.module.scss";
 import { Link } from "react-router-dom";
-
-function Itemcard({ data, imgP, imD }) {
+import Genre from "./Genre";
+function Itemcard({ data, imgP, mediaType }) {
   return (
     <>
-      <Link to={`/details/` + data.id}>
+      <Link to={`/details/` + mediaType + `/` + data.id}>
         <div className={styles.list_item}>
           <div className={styles.listood_item}>
             <img src={imgP} alt={data.title || data.name} />
@@ -26,27 +26,15 @@ function Itemcard({ data, imgP, imD }) {
               <div className={styles.itemInfo}>
                 <div className={styles.itemName}>{data.title || data.name}</div>
                 <div className={styles.itemInfoTop}>
-                  <span>
+                  <span className={styles.wrapVote}>
+                    {data.vote_average && data.vote_average.toFixed(1)}
                     <StarIcon className={styles.start} />
-                    {data.vote_average}
                   </span>
                   <span>16 +</span>
 
                   {data.release_date && <span>{data.release_date}</span>}
                 </div>
-                <div className={styles.genre}>
-                  <span>Science Fiction</span>
-                  <span>Movieasd</span>
-                  <span>Movieda</span>
-
-                  <span>Movie</span>
-
-                  <span>Movie</span>
-
-                  <span>Movie</span>
-
-                  <span>Movie</span>
-                </div>
+                <Genre genreId={data.genre_ids} />
                 <div className={styles.desc}>{data.overview}</div>
                 <div className={styles.more}>
                   More

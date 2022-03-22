@@ -26,6 +26,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      width: 100%;
       flex-wrap: wrap;
       // z-index: 2;
       position: absolute;
@@ -45,10 +46,15 @@
         width: 68%;
         max-width: 100%;
         color: #fff;
+       
         .infoName{
           font-size: 28px;
           font-weight: 700;
           margin-top: 20px ;
+           &:hover {
+             color: var(--second-color);
+             cursor: pointer;
+           }
         }
         .infoTag{
           display: flex;
@@ -85,8 +91,12 @@
             font-size: 16px;
             padding: 1px 3px;
             background-color: rgba(0, 0, 0, 0.5);
+            &:hover {
+              color: var(--second-color);
+               cursor: pointer;
+  
+            }
           }
-         
         }
         .region{
           display: flex;
@@ -124,14 +134,18 @@
         }
         .desc {
           font-size: 16px;
-          margin-bottom: 20px;
           line-height: 20px;
-                    height: 100px;
+                    height: 60px;
                     overflow: hidden;
                     // display: block;
                     display: -webkit-box;
                     -webkit-box-orient: vertical;
-                    -webkit-line-clamp: 5;
+                    -webkit-line-clamp: 3;
+        }
+        .rating{
+          margin: 8px 0;
+          display: flex;
+          align-items: center;
         }
         .buttons {
           display: flex;

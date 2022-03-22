@@ -1,3 +1,26 @@
+ .category {
+   position: absolute;
+   top: 80px;
+   left: 70px;
+   font-size: 30px;
+   font-weight: 500;
+   color: white;
+   display: flex;
+   align-items: center;
+   z-index: 10;
+  .listButtonGenre{
+        color:#fff;
+        font-size: 16px;
+    &:hover{
+       background-color: var(--second-color);
+       color: #000;
+    }
+    .textGenre{
+      padding:5px 0;
+    }
+  }
+ }
+
 .each-slide{
   width: 100vw;
   height: 100vh;
@@ -14,7 +37,69 @@
     width: 100%;
     height: 100%;
     background-size: cover;
-    }   
+    background-position: top;
+    background-repeat: no-repeat;
+    }
+     .info {
+       width: 35%;
+       position: absolute;
+       left: 60px;
+       bottom: 100px;
+       color: white;
+       display: flex;
+       flex-direction: column;
+       z-index: 10;
+       cursor: pointer;
+       .name{
+        font-size: 30px;
+        font-weight: 600;
+        &:hover{
+          color:var(--second-color)
+        }
+       }
+       .date {
+         font-size: 16px;
+         margin: 10px 0px;
+       }
+       .desc {
+        font-size: 16px;
+         margin: 10px 0px;
+       }
+
+       .buttons {
+         display: flex;
+
+         button {
+           padding: 10px 20px;
+           border: none;
+           border-radius: 5px;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           font-size: 18px;
+           font-weight: 500;
+           margin-right: 10px;
+           cursor: pointer;
+          &:hover{
+            opacity: 0.8;
+          }
+           &.play {
+             background-color: white;
+             color: var(--main-color);
+           }
+
+           &.more {
+             background-color: gray;
+             color: white;
+           }
+
+           span {
+             margin-left: 5px;
+           }
+         }
+       }
+     }
+    
 }
  .btnBack {
    position: absolute;
@@ -50,4 +135,4 @@
 
  }
  
-  
+ 

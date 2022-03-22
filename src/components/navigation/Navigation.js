@@ -15,6 +15,7 @@ function Navigation() {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
     return () => (window.onscroll = null);
   };
+  // console.log(isScrolled);
   return (
     <Container
       maxWidth="1400px"

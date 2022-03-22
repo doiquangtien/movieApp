@@ -11,6 +11,7 @@ import {
   getTopRateMovies,
   getTopRateTvSeries,
 } from "../../redux/callApi";
+import Slideshow from "../slideShow/Slideshow";
 
 function Body() {
   const state = useSelector((state) => state.infoMovie);
@@ -25,30 +26,33 @@ function Body() {
     getTopRateMovies(dispatch);
   }, [dispatch]);
   return (
-    <Container maxWidth="1400px" className={styles.body}>
-      <Box sx={{ flexGrow: 1, margin: "0 36px" }}>
-        <div className={styles.listSlide}>
-          <span>Trending</span>
-          <Listslider data={state.trendingMovies} />
-        </div>
-        <div className={styles.listSlide}>
-          <span>Popular movies</span>
-          <Listslider data={state.popularMovies} />
-        </div>
-        <div className={styles.listSlide}>
-          <span>Popular TV-series</span>
-          <Listslider data={state.popularTvseries} />
-        </div>
-        <div className={styles.listSlide}>
-          <span>Top Rate Movies</span>
-          <Listslider data={state.topRateMovies} />
-        </div>
-        <div className={styles.listSlide}>
-          <span>Top Rate TV-series</span>
-          <Listslider data={state.topRateTvseries} />
-        </div>
-      </Box>
-    </Container>
+    <>
+      <Slideshow bannerInfo={state.trendingMovies} />
+      <Container maxWidth="1400px" className={styles.body}>
+        <Box sx={{ flexGrow: 1, margin: "0 36px" }}>
+          <div className={styles.listSlide}>
+            <span>Trending</span>
+            <Listslider data={state.trendingMovies} />
+          </div>
+          <div className={styles.listSlide}>
+            <span>Popular movies</span>
+            <Listslider data={state.popularMovies} type={"movie"} />
+          </div>
+          <div className={styles.listSlide}>
+            <span>Popular TV-series</span>
+            <Listslider data={state.popularTvseries} type={"tv"} />
+          </div>
+          <div className={styles.listSlide}>
+            <span>Top Rate Movies</span>
+            <Listslider data={state.topRateMovies} type={"movie"} />
+          </div>
+          <div className={styles.listSlide}>
+            <span>Top Rate TV-series</span>
+            <Listslider data={state.topRateTvseries} type={"tv"} />
+          </div>
+        </Box>
+      </Container>
+    </>
   );
 }
 

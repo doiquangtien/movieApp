@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const typeSlide = createSlice({
   name: "typeMovie",
   initialState: {
-    typeMovie: null,
+    typeGen: null,
   },
   reducers: {
-    getType: (state, action) => {
-      state.typeMovie = action.payload;
+    getTypeGen: (state, action) => {
+      state.typeGen = action.payload;
     },
   },
 });
 
-export const { getType } = typeSlide.actions;
+export const { getTypeGen } = typeSlide.actions;
 export default typeSlide.reducer;

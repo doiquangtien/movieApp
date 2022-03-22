@@ -14,28 +14,32 @@ import styles from "./watchvideo.module.scss";
 // import img from "../../img/banner.jpg";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { InfoOutlined, PlayArrow } from "@mui/icons-material";
+import { useParams } from "react-router-dom";
 
 function Watchvideo() {
+  const { mediatype, id_watch } = useParams();
   const [value, setValue] = React.useState("1");
   const [icon, setIcon] = React.useState(true);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const api = "https://www.2embed.ru/embed/tmdb/movie?id=691683";
-  console.log(api);
+
   return (
     <Container maxWidth="1400px" className={styles.container}>
       <Box sx={{ flexGrow: 1, margin: "0 36px" }}>
         <Grid container spacing={0}>
           <Grid item xs={12} sm={12} md={9.3}>
             <div className={styles.video}>
-              <iframe
-                width="100%"
-                frameboder="0"
-                height="100%"
-                src="https://www.2embed.ru/embed/tmdb/movie?id=634649"
-                title="YouTube video player"
-              ></iframe>
+              {mediatype === "movie" && (
+                <iframe
+                  id="iframe"
+                  src={`https://www.2embed.ru/embed/tmdb/movie?id=${id_watch}`}
+                  width="100%"
+                  height="100%"
+                  frameborder="0"
+                  allowfullscreen
+                ></iframe>
+              )}
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={2.7}>
@@ -216,7 +220,7 @@ function Watchvideo() {
         >
           Cast
         </div>
-        <Grid container spacing={2}>
+        {/* <Grid container spacing={2}>
           <Grid item md={2}>
             <Castitem />
           </Grid>
@@ -247,7 +251,7 @@ function Watchvideo() {
           <Grid item md={2}>
             <Castitem />
           </Grid>
-        </Grid>
+        </Grid> */}
       </Box>
     </Container>
   );

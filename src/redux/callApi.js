@@ -6,7 +6,7 @@ import {
   getPopularMoviesAction,
   getTopRateMoviesAction,
   getTopRateTVseriesAction,
-  getAllMoviesAction,
+  getDetailsByIdAction,
 } from "./infoMovieSlice";
 const API_KEY = "9469ca4e1229b1db42ff4124c1655066";
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -64,13 +64,13 @@ export const getTopRateTvSeries = async (dispatch) => {
   }
 };
 
-export const getAllMovies = async (dispatch, type) => {
+export const getDetailsById = async (dispatch, mediatype, id_details) => {
   try {
     const res = await axios.get(
-      `${BASE_URL}/discover/${type}?api_key=${API_KEY}&with_genres=all&page=1`
+      `${BASE_URL}/${mediatype}/${id_details}?api_key=${API_KEY}&language=en&append_to_response=similar,credits`
     );
-    dispatch(getAllMoviesAction(res.data.results));
+    dispatch(getDetailsByIdAction(res.data));
   } catch (err) {
-    console.log("getAllMoviesAction error", err);
+    console.log("getDetailsById error", err);
   }
 };

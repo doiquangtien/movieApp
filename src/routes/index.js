@@ -9,12 +9,14 @@ function Router() {
     <Routes>
       <Route path="/">
         <Route index element={<Home />} />
-        <Route path="/:type" element={<MovieList />} />
+        <Route path="/:type" element={<MovieList />}>
+          <Route path="/:type/:id" element={<MovieList />} />
+        </Route>
         <Route path="/details">
-          <Route path="/details/:id" element={<Details />} />
+          <Route path="/details/:mediatype/:id_details" element={<Details />} />
         </Route>
         <Route path="/watch">
-          <Route path="/watch/:id" element={<Watch />} />
+          <Route path="/watch/:mediatype/:id_watch" element={<Watch />} />
         </Route>
         <Route path="*" element={<Page404 />} />
       </Route>

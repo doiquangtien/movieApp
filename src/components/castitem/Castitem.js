@@ -1,13 +1,21 @@
-import styles from './castitem.module.scss'
-import img from "../../img/avatar.jpg";
+import styles from "./castitem.module.scss";
 
-function Castitem() {
-  return(
+function Castitem({ data }) {
+  return (
     <div className={styles.castItem}>
-    <img src={img} alt="" />
-    <span className={styles.castName}>Đới Quang Tiến</span>
-  </div>
-  )
+      <img
+        src={`https://image.tmdb.org/t/p/original${data.profile_path}`}
+        alt={data.name || data.original_name}
+      />
+
+      <div className={styles.castTitle}>
+        <span className={styles.castName}>
+          {data.name || data.original_name}
+        </span>
+        <span className={styles.castCharacter}>{data.character}</span>
+      </div>
+    </div>
+  );
 }
 
 export default Castitem;

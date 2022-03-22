@@ -6,7 +6,7 @@ import "react-slideshow-image/dist/styles.css";
 import styles from "./listSlider.module.scss";
 // import img from "../../../img/johnwick.jpg";
 import Itemcard from "../../itemCard/Itemcard";
-function Listmovie({ data }) {
+function Listmovie({ data, type }) {
   const slideRef = useRef();
   const properties = {
     duration: 500,
@@ -41,7 +41,9 @@ function Listmovie({ data }) {
   };
 
   return (
-    <div style={{ margin: "-16px", position: "relative" }}>
+    <div
+      style={{ margin: "-16px", position: "relative", marginBottom: "20px" }}
+    >
       <Slide ref={slideRef} {...properties}>
         {data !== null &&
           data.length > 0 &&
@@ -51,7 +53,12 @@ function Listmovie({ data }) {
               let imageDrop = `https://image.tmdb.org/t/p/w500${item.backdrop_path}`;
               return (
                 <div key={i} style={{ padding: "0 16px" }}>
-                  <Itemcard imgP={imagePost} imgD={imageDrop} data={item} />
+                  <Itemcard
+                    imgP={imagePost}
+                    imgD={imageDrop}
+                    data={item}
+                    mediaType={item.media_type || type}
+                  />
                 </div>
               );
             }
