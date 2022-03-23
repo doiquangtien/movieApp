@@ -10,7 +10,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 function Detailsub({ data, type }) {
   const [value, setValue] = useState(5);
-  console.log(data);
+
   return (
     <>
       {data && (
@@ -66,7 +66,10 @@ function Detailsub({ data, type }) {
                 </div>
                 <div className={styles.region}>
                   <h3>Region:</h3>
-                  <span>{data.production_countries[0].name}</span>
+                  {data.production_countries[0] && (
+                    <span>{data.production_countries[0].name}</span>
+                  )}
+
                   <div className={styles.brokenLine}></div>
                   <h3>Dub:</h3>
                   <span>{data.spoken_languages[0].english_name}</span>

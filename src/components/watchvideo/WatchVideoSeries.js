@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Container, Grid } from "@mui/material";
-import Stack from "@mui/material/Stack";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getDetailsById } from "../../redux/callApi";
 import { Box } from "@mui/system";
+import { getSeasons } from "../../redux/callApi";
 import Tab from "@mui/material/Tab";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
@@ -15,7 +15,7 @@ import Castitem from "../castItem/Castitem";
 import Smallcard from "../smallCard/Smallcard";
 import styles from "./watchVideoSeries.module.scss";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-// import { InfoOutlined, PlayArrow } from "@mui/icons-material";
+import Seasons from "./seasons/Seasons";
 
 function WatchVideoMovie() {
   const { id_details, id_season, id_esp } = useParams();
@@ -29,10 +29,13 @@ function WatchVideoMovie() {
   useEffect(() => {
     getDetailsById(dispatch, "tv", id_details);
   }, [dispatch, id_details]);
-  console.log(state.detailMovie);
+  useEffect(() => {
+    getSeasons(dispatch, id_details, id_season);
+  }, [dispatch, id_details, id_season]);
+
   return (
     <>
-      {state.detailMovie && (
+      {state.detailMovie && state.seasonsMovie && (
         <Container maxWidth="1400px" className={styles.container}>
           <Box sx={{ flexGrow: 1, margin: "0 36px" }}>
             <Grid container spacing={0}>
@@ -40,7 +43,7 @@ function WatchVideoMovie() {
                 <div className={styles.video}>
                   <iframe
                     id="iframe"
-                    src={`https://www.2embed.ru/embed/tmdb/tv?id=60574&s=${id_season}&e=${id_esp}`}
+                    src={`https://www.2embed.ru/embed/tmdb/tv?id=${id_details}&s=${id_season}&e=${id_esp}`}
                     width="100%"
                     height="100%"
                     frameborder="0"
@@ -57,7 +60,7 @@ function WatchVideoMovie() {
                   <TabContext value={value}>
                     <Box sx={{ width: "100%" }}>
                       <TabList
-                        indicatorColor="secondary"
+                        indicatorColor="primary"
                         onChange={handleChange}
                         aria-label="lab API tabs example"
                       >
@@ -84,7 +87,9 @@ function WatchVideoMovie() {
                       <div className={styles.tabTitleWrap}>
                         <div className={styles.tabTitlePlay}>
                           <div className={styles.playIcon}></div>
-                          <span className={styles.tabTitle}>Episodes</span>
+                          <span className={styles.tabTitle}>
+                            Episodes {id_esp}
+                          </span>
                         </div>
                         <div
                           className={styles.tabIcons}
@@ -99,21 +104,75 @@ function WatchVideoMovie() {
                           )}
                         </div>
                       </div>
+                      <Seasons
+                        data={state.detailMovie.seasons}
+                        season={id_season}
+                        details={id_details}
+                      />
                       <div className={styles.scrollWrap}>
                         <div className={styles.scrollEps}>
                           {icon ? (
-                            <Stack
-                              direction="row"
-                              className={styles.listEps}
-                              style={{
-                                display: "flex",
-                                flexWrap: "wrap",
-                                marginLeft: "20px",
-                              }}
-                              spacing={0}
-                            >
-                              <span>1</span>
-                            </Stack>
+                            <>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexWrap: "wrap",
+                                  margin: "0 15px",
+                                }}
+                              >
+                                {state.seasonsMovie.episodes !== null &&
+                                  state.seasonsMovie.episodes.length > 0 &&
+                                  state.seasonsMovie.episodes.map((eps, i) => {
+                                    return (
+                                      <div
+                                        key={i}
+                                        style={{
+                                          backgroundColor: "#2d2f34",
+                                          margin: "8px",
+                                          width: "40px",
+                                          height: "40px",
+                                          borderRadius: "5px",
+                                        }}
+                                      >
+                                        <Link
+                                          style={{
+                                            textDecoration: "none",
+                                            display: "flex",
+                                            justifyContent: "center",
+                                          }}
+                                          to={
+                                            `/watch/tv/` +
+                                            id_details +
+                                            `/season/` +
+                                            id_season +
+                                            `/esp/` +
+                                            eps.episode_number
+                                          }
+                                        >
+                                          <span
+                                            style={
+                                              eps.episode_number ===
+                                              parseInt(id_esp)
+                                                ? {
+                                                    color: "#e7b524",
+                                                    fontWeight: "700",
+                                                    lineHeight: "40px",
+                                                  }
+                                                : {
+                                                    color: "#fff",
+                                                    fontWeight: "700",
+                                                    lineHeight: "40px",
+                                                  }
+                                            }
+                                          >
+                                            {eps.episode_number}
+                                          </span>
+                                        </Link>
+                                      </div>
+                                    );
+                                  })}
+                              </div>
+                            </>
                           ) : (
                             <div className={styles.listEpsVideo}>
                               <Smallcard />
@@ -143,7 +202,15 @@ function WatchVideoMovie() {
                           {state.detailMovie.similar.results
                             .slice(0, 10)
                             .map((similar, i) => {
-                              return <Bigcard key={i} data={similar} />;
+                              return (
+                                <Link
+                                  key={i}
+                                  style={{ textDecoration: "none" }}
+                                  to={`/details/tv/` + similar.id}
+                                >
+                                  <Bigcard key={i} data={similar} />
+                                </Link>
+                              );
                             })}
                         </div>
                       </div>
@@ -178,7 +245,9 @@ function WatchVideoMovie() {
             </div>
             <div className={styles.region}>
               <h3>Region:</h3>
-              <span>{state.detailMovie.production_countries[0].name}</span>
+              {state.detailMovie.production_countries[0] && (
+                <span>{state.detailMovie.production_countries[0].name}</span>
+              )}
               <div className={styles.brokenLine}></div>
               <h3>Dub:</h3>
               <span>{state.detailMovie.spoken_languages[0].english_name}</span>

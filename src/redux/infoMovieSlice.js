@@ -9,6 +9,7 @@ const infoMovieSlice = createSlice({
     topRateMovies: null,
     topRateTvseries: null,
     detailMovie: null,
+    seasonsMovie: null,
   },
   reducers: {
     getTrending: (state, action) => {
@@ -29,6 +30,9 @@ const infoMovieSlice = createSlice({
     getDetailsByIdAction: (state, action) => {
       state.detailMovie = action.payload;
     },
+    getSeasonsAction: (state, action) => {
+      state.seasonsMovie = action.payload;
+    },
   },
 });
 
@@ -39,5 +43,6 @@ export const {
   getTopRateMoviesAction,
   getTopRateTVseriesAction,
   getDetailsByIdAction,
+  getSeasonsAction,
 } = infoMovieSlice.actions;
 export default infoMovieSlice.reducer;

@@ -12,7 +12,7 @@
         flex-direction: column;
         background-color: #1a1c22;
         height: 100%;
-
+        width: 100%;
         .tab {
             color: #fff;
             background-color: #2d2f34;
@@ -33,16 +33,17 @@
         }
 
         .tabTitleWrap {
-            margin-top: 20px;
+            margin-top: 10px;
             margin-left: 20px;
+            position: relative;
             display: flex;
-            margin-bottom: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
             justify-content: space-between;
 
             .tabTitlePlay {
                 display: flex;
                 align-items: center;
-
                 .tabTitle {
                     color: #ececec;
                     margin-left: 3px;
@@ -51,7 +52,7 @@
 
             .tabIcons {
                 margin-right: 20px;
-                color: #ececec;
+                color: #ececec; 
 
                 &:hover {
                     color: var(--second-color);
@@ -69,9 +70,8 @@
         }
 
         .scrollEps {
-            height: 430px;
+            height: 390px;
             overflow-y: auto;
-
             .listEps {
                 color: #fff;
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Container, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getDetailsById } from "../../redux/callApi";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
@@ -15,6 +15,7 @@ import Bigcard from "../bigCard/Bigcard";
 import EpisodesCard from "../bigCard/EpisodesCard";
 import Castitem from "../castItem/Castitem";
 function Detailbody() {
+  let navigate = useNavigate();
   const { mediatype, id_details } = useParams();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.infoMovie);
@@ -22,7 +23,6 @@ function Detailbody() {
   useEffect(() => {
     getDetailsById(dispatch, mediatype, id_details);
   }, [dispatch, mediatype, id_details]);
-  // console.log(state.detailMovie.credits.cast);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -53,7 +53,12 @@ function Detailbody() {
                         label="Recommended"
                         value="2"
                       />
-                      <Tab className={styles.tab} label="Episodes" value="3" />
+                      {mediatype === "movie" && (
+                        <Tab className={styles.tab} label="Watch" value="3" />
+                      )}
+                      {mediatype === "tv" && (
+                        <Tab className={styles.tab} label="Seasons" value="3" />
+                      )}
                       <Tab className={styles.tab} label="Trailer" value="4" />
                     </TabList>
                   </Box>
@@ -114,32 +119,64 @@ function Detailbody() {
                       padding: "0",
                     }}
                   >
-                    <span
-                      style={{
-                        marginLeft: "20px",
-                        fontSize: "22px",
-                        color: "var(--second-color)",
-                      }}
-                    >
-                      Episodes
-                    </span>
-                    {mediatype === "tv" ? (
-                      <Grid container spacing={2} marginTop="20px">
-                        <Grid item md={3}>
-                          <EpisodesCard />
-                        </Grid>
-                        <Grid item md={3}>
-                          <EpisodesCard />
-                        </Grid>
-                        <Grid item md={3}>
-                          <EpisodesCard />
-                        </Grid>
-                      </Grid>
-                    ) : (
+                    {mediatype === "tv" && (
                       <div>
+                        <span
+                          style={{
+                            marginLeft: "20px",
+                            fontSize: "22px",
+                            color: "var(--second-color)",
+                          }}
+                        >
+                          Seasons
+                        </span>
+
                         <Grid container spacing={2} marginTop="20px">
-                          <Grid item md={3}>
-                            <Bigcard data={state.detailMovie} />
+                          {state.detailMovie.seasons &&
+                            state.detailMovie.seasons.map((data, i) => {
+                              return (
+                                <>
+                                  <Grid
+                                    key={i}
+                                    item
+                                    md={2.4}
+                                    onClick={() => {
+                                      navigate(
+                                        `/watch/tv/` +
+                                          id_details +
+                                          `/season/` +
+                                          data.season_number +
+                                          `/esp/1`
+                                      );
+                                    }}
+                                  >
+                                    <EpisodesCard data={data} />
+                                  </Grid>
+                                </>
+                              );
+                            })}
+                        </Grid>
+                      </div>
+                    )}
+                    {mediatype === "movie" && (
+                      <div>
+                        <span
+                          style={{
+                            marginLeft: "20px",
+                            fontSize: "22px",
+                            color: "var(--second-color)",
+                          }}
+                        >
+                          Watch movie
+                        </span>
+                        <Grid container spacing={2} marginTop="20px">
+                          <Grid item md={2.4}>
+                            <Link
+                              style={{ textDecoration: "none" }}
+                              to={`/watch/movie/` + id_details}
+                            >
+                              <Bigcard data={state.detailMovie} />
+                            </Link>
                           </Grid>
                         </Grid>
                       </div>

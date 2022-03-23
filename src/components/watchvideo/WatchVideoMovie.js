@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Container, Grid } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getDetailsById } from "../../redux/callApi";
 import { Box } from "@mui/system";
 import Tab from "@mui/material/Tab";
@@ -78,7 +78,15 @@ function WatchVideoMovie() {
                           {state.detailMovie.similar.results
                             .slice(0, 10)
                             .map((similar, i) => {
-                              return <Bigcard key={i} data={similar} />;
+                              return (
+                                <Link
+                                  key={i}
+                                  style={{ textDecoration: "none" }}
+                                  to={`/details/movie/` + similar.id}
+                                >
+                                  <Bigcard key={i} data={similar} />;
+                                </Link>
+                              );
                             })}
                         </div>
                       </div>
