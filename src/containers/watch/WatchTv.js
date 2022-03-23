@@ -1,15 +1,15 @@
 import Navigation from "../../components/navigation/Navigation";
 import Footer from "../../components/footer/Footer";
-import WatchVideoMovie from "../../components/watchvideo/WatchVideoMovie";
+import WatchVideoSeries from "../../components/watchvideo/WatchVideoSeries";
 
-function Watch() {
+function WatchTv() {
   return (
     <div>
       <Navigation />
-      <WatchVideoMovie />
+      <WatchVideoSeries />
       <Footer />
     </div>
   );
 }
 
-export default Watch;
+export default WatchTv;

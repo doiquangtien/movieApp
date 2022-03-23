@@ -14,7 +14,7 @@
                 color: #fff;
                 background-color: #2d2f34;
                 font-size: 14px;
-                width: 50%;
+                width: 100%;
             }
             .movieName{
                 color: var(--text-color);
@@ -26,61 +26,7 @@
                   cursor: pointer;
                 }
             }
-               .tabTitleWrap {
-                 margin-top: 20px;
-                 margin-left: 20px;
-                 display: flex;
-                 margin-bottom: 20px;
-                 justify-content: space-between;
-
-                 .tabTitlePlay {
-                   display: flex;
-                   align-items: center;
-
-                   .tabTitle {
-                     color: #ececec;
-                     margin-left: 3px;
-                   }
-                 }
-
-                 .tabIcons {
-                   margin-right: 20px;
-                   color: #ececec;
-
-                   &:hover {
-                     color: var(--second-color);
-                     cursor: pointer;
-                   }
-
-                   .listIcon {
-                     font-size: 26px;
-                   }
-
-                   .moduleIcon {
-                     font-size: 26px;
-                   }
-                 }
-               }
-               .scrollEps {
-                 height:430px;
-                 overflow-y: auto;
-                   .listEps {
-                     color: #fff;
-
-                     span {
-                       padding: 8px 18px;
-                       background-color: #23252b;
-                       margin: 0 0 8px 8px;
-                       border-radius: 5px;
-                     }
-                   }
-
-                   .listEpsVideo {
-                     margin: 0px 5px;
-                   }
-
-                  
-                 }
+              
                  .scrollRecomend{
                    height:500px;
                    overflow-y: auto;
@@ -101,7 +47,7 @@
   margin-right: 4px;                 
 }
 ::-webkit-scrollbar {
-width: 5px;
+width: 10px;
 }
 ::-webkit-scrollbar-track {
 background: #f1f1f1; 

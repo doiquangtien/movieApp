@@ -1,6 +1,8 @@
 import DetailGenre from "./DetailGenre";
 import DetaileCast from "./DetaileCast";
-import { InfoOutlined, PlayArrow } from "@mui/icons-material";
+import { PlayArrow } from "@mui/icons-material";
+import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
+import ShareIcon from "@mui/icons-material/Share";
 import styles from "./detailsub.module.scss";
 import StarIcon from "@mui/icons-material/Star";
 import { Rating } from "@mui/material";
@@ -38,12 +40,22 @@ function Detailsub({ data, type }) {
                   <div className={styles.brokenLine}></div>
                   <span>C16</span>
                   <div className={styles.brokenLine}></div>
-                  <span>{data.release_date || data.first_air_date}</span>
+
+                  {type === "movie" && (
+                    <span>{data.release_date || data.first_air_date}</span>
+                  )}
+                  {type === "tv" && (
+                    <>
+                      <span>
+                        {data.first_air_date} to {data.last_air_date}
+                      </span>
+                    </>
+                  )}
                   <div className={styles.brokenLine}></div>
                   {type === "movie" && <span>{data.runtime} minutes</span>}
                   {type === "tv" && (
                     <>
-                      <span>{data.number_of_episodes} episode</span>
+                      <span>{data.number_of_episodes} episodes</span>
                       <div className={styles.brokenLine}></div>
                       <span>{data.number_of_seasons} seasons</span>
                     </>
@@ -79,23 +91,36 @@ function Detailsub({ data, type }) {
                   <span>({data.vote_count} vote)</span>
                 </div>
                 <div className={styles.buttons}>
-                  <Link to={`/watch/` + type + `/` + data.id}>
-                    <button className={styles.play}>
-                      <PlayArrow />
-                      <span>Play</span>
-                    </button>
-                  </Link>
+                  {type === "movie" && (
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      to={`/watch/movie/` + data.id}
+                    >
+                      <button className={styles.play}>
+                        <PlayArrow />
+                        <span>Play</span>
+                      </button>
+                    </Link>
+                  )}
+                  {type === "tv" && (
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      to={`/watch/tv/` + data.id + `/season/` + 1 + `/esp/` + 1}
+                    >
+                      <button className={styles.play}>
+                        <PlayArrow />
+                        <span>Play</span>
+                      </button>
+                    </Link>
+                  )}
+
                   <button className={styles.more}>
-                    <InfoOutlined />
-                    <span>Info</span>
+                    <BookmarkAddIcon />
+                    <span>Add to favorites</span>
                   </button>
                   <button className={styles.more}>
-                    <InfoOutlined />
-                    <span>Info</span>
-                  </button>
-                  <button className={styles.more}>
-                    <InfoOutlined />
-                    <span>Info</span>
+                    <ShareIcon />
+                    <span>Share</span>
                   </button>
                 </div>
               </div>

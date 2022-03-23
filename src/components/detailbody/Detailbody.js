@@ -12,6 +12,7 @@ import styles from "./detailbody.module.scss";
 import Listslider from "../body/listSlider/Listslider";
 import Detailsub from "./detailsub/Detailsub";
 import Bigcard from "../bigCard/Bigcard";
+import EpisodesCard from "../bigCard/EpisodesCard";
 import Castitem from "../castItem/Castitem";
 function Detailbody() {
   const { mediatype, id_details } = useParams();
@@ -106,6 +107,7 @@ function Detailbody() {
                       type={mediatype}
                     />
                   </TabPanel>
+
                   <TabPanel
                     value="3"
                     sx={{
@@ -121,18 +123,29 @@ function Detailbody() {
                     >
                       Episodes
                     </span>
-                    <Grid container spacing={2} marginTop="20px">
-                      <Grid item md={3}>
-                        <Bigcard />
+                    {mediatype === "tv" ? (
+                      <Grid container spacing={2} marginTop="20px">
+                        <Grid item md={3}>
+                          <EpisodesCard />
+                        </Grid>
+                        <Grid item md={3}>
+                          <EpisodesCard />
+                        </Grid>
+                        <Grid item md={3}>
+                          <EpisodesCard />
+                        </Grid>
                       </Grid>
-                      <Grid item md={3}>
-                        <Bigcard />
-                      </Grid>
-                      <Grid item md={3}>
-                        <Bigcard />
-                      </Grid>
-                    </Grid>
+                    ) : (
+                      <div>
+                        <Grid container spacing={2} marginTop="20px">
+                          <Grid item md={3}>
+                            <Bigcard data={state.detailMovie} />
+                          </Grid>
+                        </Grid>
+                      </div>
+                    )}
                   </TabPanel>
+
                   <TabPanel
                     value="4"
                     sx={{
@@ -150,13 +163,13 @@ function Detailbody() {
                     </span>
                     <Grid container spacing={2} marginTop="20px">
                       <Grid item md={3}>
-                        <Bigcard />
+                        Tiến
                       </Grid>
                       <Grid item md={3}>
-                        <Bigcard />
+                        Tiến
                       </Grid>
                       <Grid item md={3}>
-                        <Bigcard />
+                        Tiến
                       </Grid>
                     </Grid>
                   </TabPanel>

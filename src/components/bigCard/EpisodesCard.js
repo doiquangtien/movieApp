@@ -1,22 +1,18 @@
 import PlayCircleFilledWhiteIcon from "@mui/icons-material/PlayCircleFilledWhite";
 import styles from "./bigcard.module.scss";
-function Bigcard(data) {
+
+function EpisodesCard() {
   return (
     <div className={styles.episodesWrap}>
       <div className={styles.episodesItem}>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${data.data.backdrop_path}`}
-          alt=""
-        />
+        <img src="" alt="" />
       </div>
       <div className={styles.icons}>
         <PlayCircleFilledWhiteIcon className={styles.icon} />
       </div>
-      <span className={styles.episodesNumber}>
-        {data.data.title || data.data.original_title}
-      </span>
+      <span className={styles.episodesNumber}>Tiến</span>
     </div>
   );
 }
 
-export default Bigcard;
+export default EpisodesCard;
