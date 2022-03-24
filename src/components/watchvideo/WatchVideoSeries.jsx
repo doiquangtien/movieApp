@@ -11,7 +11,7 @@ import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import DetailGenre from "../detailbody/detailsub/DetailGenre";
 import StarIcon from "@mui/icons-material/Star";
 import Bigcard from "../bigCard/Bigcard";
-import Castitem from "../castItem/Castitem";
+import Castitem from "../castitem/Castitem"
 import styles from "./watchVideoSeries.module.scss";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import Seasons from "./seasons/Seasons";
@@ -189,15 +189,11 @@ function WatchVideoMovie() {
                             <div className={styles.listEpsVideo}>
                               {state.seasonsMovie.episodes &&
                                 state.seasonsMovie.episodes.map((data, i) => {
-                                  setTimeout(() => {
-                                    if (
-                                      data.episode_number === parseInt(id_esp)
-                                    ) {
+                                  setTimeout(() => {                              
                                       refScroll.current.scrollIntoView({
                                         behavior: "smooth",
                                         block: "end",
-                                      });
-                                    }
+                                      });                                    
                                   }, 300);
                                   return (
                                     <Link

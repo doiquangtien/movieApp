@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { Container, Grid } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getDetailsById } from "../../redux/callApi";
+import Castitem from "../castitem/Castitem"
 import Bigcard from "../bigCard/Bigcard";
-import Castitem from "../castItem/Castitem";
 import { Box } from "@mui/system";
 import Tab from "@mui/material/Tab";
 
@@ -18,7 +18,7 @@ function WatchVideoMovie() {
   const { id_details } = useParams();
   const state = useSelector((state) => state.infoMovie);
   const dispatch = useDispatch();
-  const [value, setValue] = React.useState("1");
+  const [value, setValue] = useState("1");
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

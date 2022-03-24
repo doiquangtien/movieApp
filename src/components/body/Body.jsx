@@ -3,7 +3,7 @@ import Listslider from "./listSlider/Listslider";
 import styles from "./body.module.scss";
 import { Box, Container } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-// import Slideshow from "../slideShow/Slideshow";
+import Slideshow from "../slideshow/Slideshow"
 
 import {
   getTrendingMovies,
@@ -31,7 +31,7 @@ function Body() {
   }, [dispatch]);
   return (
     <>
-      {/* <Slideshow bannerInfo={state.trendingMovies} /> */}
+      <Slideshow bannerInfo={state.trendingMovies} />
       <Container maxWidth="1400px" className={styles.body}>
         <Box sx={{ flexGrow: 1, margin: "0 36px" }}>
           <div className={styles.listSlide}>

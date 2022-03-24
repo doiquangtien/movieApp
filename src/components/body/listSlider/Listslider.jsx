@@ -6,7 +6,7 @@ import "react-slideshow-image/dist/styles.css";
 import styles from "./listSlider.module.scss";
 // import img from "../../../img/johnwick.jpg";
 import Itemcard from "../../itemCard/Itemcard";
-function Listmovie({ data, type }) {
+function Listslider({ data, type }) {
   const slideRef = useRef();
   const properties = {
     duration: 500,
@@ -75,4 +75,4 @@ function Listmovie({ data, type }) {
   );
 }
 
-export default Listmovie;
+export default Listslider;

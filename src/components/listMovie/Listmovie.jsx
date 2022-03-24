@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Itemcard from "../itemCard/Itemcard";
 import axios from "axios";
-// import Slideshow from "../../components/slideShow/Slideshow";
+import Slideshow from "../slideshow/Slideshow"
 import { useParams } from "react-router-dom";
 import { Box, Container, Grid } from "@mui/material";
 import { useSelector } from "react-redux";
@@ -12,7 +12,6 @@ function Listmovie() {
   const { typeGen } = useSelector((state) => state.typeMovie);
   const [dataMovie, setDataMovie] = useState(null);
   const [dataMovieGen, setDataMovieGen] = useState(null);
-  // console.log(type, id);
   const [page, setPage] = useState(2);
 
   useEffect(() => {
@@ -95,11 +94,11 @@ function Listmovie() {
   };
   return (
     <>
-      {/* {id ? (
+      {id ? (
         <Slideshow type={type} bannerInfo={dataMovieGen} />
       ) : (
         <Slideshow type={type} bannerInfo={dataMovie} />
-      )} */}
+      )}
 
       <Container maxWidth="1400px">
         <Box
