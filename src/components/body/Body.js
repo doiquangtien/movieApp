@@ -3,7 +3,7 @@ import Listslider from "./listSlider/Listslider";
 import styles from "./body.module.scss";
 import { Box, Container } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import Slideshow from "../slideShow/Slideshow";
+import Slideshow from "../../components/slideShow/Slideshow";
 
 import {
   getTrendingMovies,

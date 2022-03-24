@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Itemcard from "../itemCard/Itemcard";
 import axios from "axios";
-import Slideshow from "../slideShow/Slideshow";
+import Slideshow from "../../components/slideShow/Slideshow";
 import { useParams } from "react-router-dom";
 import { Box, Container, Grid } from "@mui/material";
 import { useSelector } from "react-redux";
