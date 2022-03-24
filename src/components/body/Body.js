@@ -19,11 +19,15 @@ function Body() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const abortController = new AbortController();
     getTrendingMovies(dispatch);
     getPopularMovies(dispatch);
     getPopularTVseries(dispatch);
     getTopRateTvSeries(dispatch);
     getTopRateMovies(dispatch);
+    return () => {
+      abortController.abort();
+    };
   }, [dispatch]);
   return (
     <>

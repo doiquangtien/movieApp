@@ -14,12 +14,13 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import { tvGenres, movieGenres } from "../../dataGenre/DataGenre";
 import "./slideshow.scss";
 import Genre from "../itemCard/Genre";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Collapse, List, ListItemButton, ListItemText } from "@mui/material";
 
 function Slideshow({ type, bannerInfo }) {
   const slideRef = useRef();
   const [open, setOpen] = useState(true);
+  const navigate = useNavigate();
   // const [genName, setGenName] = useState("Genre");
   // const dispatch = useDispatch();
   const handleClick = () => {
@@ -159,6 +160,7 @@ function Slideshow({ type, bannerInfo }) {
                     </span>
                     <Genre genreId={item.genre_ids} mediaType={type} />
                     <span className="desc">{item.overview}</span>
+
                     <div className="buttons">
                       <button className="play">
                         <PlayArrow />

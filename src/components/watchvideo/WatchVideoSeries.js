@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
@@ -12,10 +12,10 @@ import DetailGenre from "../detailbody/detailsub/DetailGenre";
 import StarIcon from "@mui/icons-material/Star";
 import Bigcard from "../bigCard/Bigcard";
 import Castitem from "../castItem/Castitem";
-import Smallcard from "../smallCard/Smallcard";
 import styles from "./watchVideoSeries.module.scss";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import Seasons from "./seasons/Seasons";
+import clsx from "clsx";
 
 function WatchVideoMovie() {
   const { id_details, id_season, id_esp } = useParams();
@@ -23,14 +23,26 @@ function WatchVideoMovie() {
   const dispatch = useDispatch();
   const [value, setValue] = useState("1");
   const [icon, setIcon] = useState(true);
+  const refScroll = useRef();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   useEffect(() => {
+    const abortController = new AbortController();
+
     getDetailsById(dispatch, "tv", id_details);
+    return () => {
+      abortController.abort();
+    };
   }, [dispatch, id_details]);
   useEffect(() => {
+    const abortController = new AbortController();
+
     getSeasons(dispatch, id_details, id_season);
+
+    return () => {
+      abortController.abort();
+    };
   }, [dispatch, id_details, id_season]);
 
   return (
@@ -175,17 +187,92 @@ function WatchVideoMovie() {
                             </>
                           ) : (
                             <div className={styles.listEpsVideo}>
-                              <Smallcard />
-                              <Smallcard />
-                              <Smallcard />
-                              <Smallcard />
-                              <Smallcard />
-                              <Smallcard />
-                              <Smallcard />
-                              <Smallcard />
-                              <Smallcard />
-                              <Smallcard />
-                              <Smallcard />
+                              {state.seasonsMovie.episodes &&
+                                state.seasonsMovie.episodes.map((data, i) => {
+                                  setTimeout(() => {
+                                    if (
+                                      data.episode_number === parseInt(id_esp)
+                                    ) {
+                                      refScroll.current.scrollIntoView({
+                                        behavior: "smooth",
+                                        block: "end",
+                                      });
+                                    }
+                                  }, 300);
+                                  return (
+                                    <Link
+                                      key={i}
+                                      style={{
+                                        textDecoration: "none",
+                                      }}
+                                      to={
+                                        `/watch/tv/` +
+                                        id_details +
+                                        `/season/` +
+                                        id_season +
+                                        `/esp/` +
+                                        data.episode_number
+                                      }
+                                    >
+                                      {data.episode_number ===
+                                      parseInt(id_esp) ? (
+                                        <div
+                                          ref={refScroll}
+                                          className={clsx(
+                                            styles.smallCard,
+                                            `${data.episode_number}`
+                                          )}
+                                          style={{
+                                            backgroundColor: "#2d2f34",
+                                            color: "#e7b524",
+                                          }}
+                                        >
+                                          <div className={styles.cardImg}>
+                                            {data.still_path !== null ? (
+                                              <img
+                                                src={`https://image.tmdb.org/t/p/w400${data.still_path}`}
+                                                alt=""
+                                              />
+                                            ) : (
+                                              <img
+                                                src={`https://image.tmdb.org/t/p/w300${state.detailMovie.backdrop_path}`}
+                                                alt=""
+                                              />
+                                            )}
+                                          </div>
+                                          <div className={styles.cardDesc}>
+                                            <span>{data.name}</span>
+                                          </div>
+                                        </div>
+                                      ) : (
+                                        <div
+                                          className={styles.smallCard}
+                                          style={{
+                                            backgroundColor: "#1a1c22",
+                                            color: "#fff",
+                                          }}
+                                        >
+                                          <div className={styles.cardImg}>
+                                            {data.still_path !== null ? (
+                                              <img
+                                                src={`https://image.tmdb.org/t/p/w400${data.still_path}`}
+                                                alt=""
+                                              />
+                                            ) : (
+                                              <img
+                                                src={`https://image.tmdb.org/t/p/w300${state.detailMovie.backdrop_path}`}
+                                                alt=""
+                                              />
+                                            )}
+                                          </div>
+                                          <div className={styles.cardDesc}>
+                                            <span>{data.name}</span>
+                                          </div>
+                                        </div>
+                                      )}
+                                    </Link>
+                                  );
+                                })}
                             </div>
                           )}
                         </div>
@@ -243,7 +330,7 @@ function WatchVideoMovie() {
             <div className={styles.infoType}>
               <DetailGenre data={state.detailMovie.genres} />
             </div>
-            <div className={styles.region}>
+            {/* <div className={styles.region}>
               <h3>Region:</h3>
               {state.detailMovie.production_countries[0] && (
                 <span>{state.detailMovie.production_countries[0].name}</span>
@@ -251,7 +338,7 @@ function WatchVideoMovie() {
               <div className={styles.brokenLine}></div>
               <h3>Dub:</h3>
               <span>{state.detailMovie.spoken_languages[0].english_name}</span>
-            </div>
+            </div> */}
             <div className={styles.desc}>
               <h3>Description:</h3>
               <span>{state.detailMovie.overview}</span>

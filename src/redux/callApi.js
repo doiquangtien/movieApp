@@ -65,7 +65,12 @@ export const getTopRateTvSeries = async (dispatch) => {
   }
 };
 
-export const getDetailsById = async (dispatch, mediatype, id_details) => {
+export const getDetailsById = async (
+  dispatch,
+  mediatype,
+  id_details,
+  isApiSub
+) => {
   try {
     const res = await axios.get(
       `${BASE_URL}/${mediatype}/${id_details}?api_key=${API_KEY}&language=en&append_to_response=similar,credits`

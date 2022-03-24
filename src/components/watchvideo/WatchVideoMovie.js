@@ -25,7 +25,7 @@ function WatchVideoMovie() {
   useEffect(() => {
     getDetailsById(dispatch, "movie", id_details);
   }, [dispatch, id_details]);
-  console.log(state.detailMovie);
+
   return (
     <>
       {state.detailMovie && (
@@ -40,7 +40,6 @@ function WatchVideoMovie() {
                     width="100%"
                     height="100%"
                     frameborder="0"
-                    allowfullscreen
                   ></iframe>
                 </div>
               </Grid>
@@ -84,7 +83,7 @@ function WatchVideoMovie() {
                                   style={{ textDecoration: "none" }}
                                   to={`/details/movie/` + similar.id}
                                 >
-                                  <Bigcard key={i} data={similar} />;
+                                  <Bigcard key={i} data={similar} />
                                 </Link>
                               );
                             })}
@@ -120,13 +119,7 @@ function WatchVideoMovie() {
             <div className={styles.infoType}>
               <DetailGenre data={state.detailMovie.genres} />
             </div>
-            <div className={styles.region}>
-              <h3>Region:</h3>
-              <span>{state.detailMovie.production_countries[0].name}</span>
-              <div className={styles.brokenLine}></div>
-              <h3>Dub:</h3>
-              <span>{state.detailMovie.spoken_languages[0].english_name}</span>
-            </div>
+
             <div className={styles.desc}>
               <h3>Description:</h3>
               <span>{state.detailMovie.overview}</span>

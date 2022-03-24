@@ -7,64 +7,66 @@ import { Link } from "react-router-dom";
 
 function Seasons({ data, season, details }) {
   return (
-    <div
-      style={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "end",
-        marginBottom: " 20px",
-      }}
-    >
-      <div style={{ marginRight: "20px" }}>
-        <PopupState variant="popover" popupId="demo-popup-menu">
-          {(popupState) => (
-            <React.Fragment>
-              <Button
-                style={{
-                  backgroundColor: "#2d2f34",
-                  color: "#fff",
-                  width: "110px",
-                }}
-                variant="contained"
-                {...bindTrigger(popupState)}
-              >
-                Season {season}
-              </Button>
-              <Menu {...bindMenu(popupState)}>
-                <div
+    data && (
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "end",
+          marginBottom: " 20px",
+        }}
+      >
+        <div style={{ marginRight: "20px" }}>
+          <PopupState variant="popover" popupId="demo-popup-menu">
+            {(popupState) => (
+              <React.Fragment>
+                <Button
                   style={{
+                    backgroundColor: "#2d2f34",
+                    color: "#fff",
                     width: "110px",
                   }}
+                  variant="contained"
+                  {...bindTrigger(popupState)}
                 >
-                  {data.map((ses, i) => {
-                    return (
-                      <Link
-                        style={{ textDecoration: "none" }}
-                        key={i}
-                        to={
-                          `/watch/tv/` +
-                          details +
-                          "/season/" +
-                          ses.season_number +
-                          "/esp/1"
-                        }
-                      >
-                        <MenuItem
-                          style={{ color: "#000" }}
-                          onClick={popupState.close}
+                  Season {season}
+                </Button>
+                <Menu {...bindMenu(popupState)}>
+                  <div
+                    style={{
+                      width: "110px",
+                    }}
+                  >
+                    {data.map((ses, i) => {
+                      return (
+                        <Link
+                          style={{ textDecoration: "none" }}
+                          key={i}
+                          to={
+                            `/watch/tv/` +
+                            details +
+                            "/season/" +
+                            ses.season_number +
+                            "/esp/1"
+                          }
                         >
-                          Season {ses.season_number}
-                        </MenuItem>
-                      </Link>
-                    );
-                  })}
-                </div>
-              </Menu>
-            </React.Fragment>
-          )}
-        </PopupState>
+                          <MenuItem
+                            style={{ color: "#000" }}
+                            onClick={popupState.close}
+                          >
+                            Season {ses.season_number}
+                          </MenuItem>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </Menu>
+              </React.Fragment>
+            )}
+          </PopupState>
+        </div>
       </div>
-    </div>
+    )
   );
 }
 

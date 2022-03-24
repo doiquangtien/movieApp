@@ -21,7 +21,11 @@ function Detailbody() {
   const state = useSelector((state) => state.infoMovie);
   const [value, setValue] = useState("1");
   useEffect(() => {
+    const abortController = new AbortController();
     getDetailsById(dispatch, mediatype, id_details);
+    return () => {
+      abortController.abort();
+    };
   }, [dispatch, mediatype, id_details]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -59,7 +63,7 @@ function Detailbody() {
                       {mediatype === "tv" && (
                         <Tab className={styles.tab} label="Seasons" value="3" />
                       )}
-                      <Tab className={styles.tab} label="Trailer" value="4" />
+                      {/* <Tab className={styles.tab} label="Trailer" value="4" /> */}
                     </TabList>
                   </Box>
                 </TabContext>
@@ -80,15 +84,16 @@ function Detailbody() {
                       Cast
                     </span>
                     <Grid container spacing={2}>
-                      {state.detailMovie.credits.cast
-                        .slice(0, 12)
-                        .map((cast, i) => {
-                          return (
-                            <Grid key={i} item md={2}>
-                              <Castitem data={cast} />
-                            </Grid>
-                          );
-                        })}
+                      {state.detailMovie.credits.cast &&
+                        state.detailMovie.credits.cast
+                          .slice(0, 12)
+                          .map((cast, i) => {
+                            return (
+                              <Grid key={i} item md={2}>
+                                <Castitem data={cast} />
+                              </Grid>
+                            );
+                          })}
                     </Grid>
                   </TabPanel>
                   <TabPanel
@@ -135,24 +140,25 @@ function Detailbody() {
                           {state.detailMovie.seasons &&
                             state.detailMovie.seasons.map((data, i) => {
                               return (
-                                <>
-                                  <Grid
-                                    key={i}
-                                    item
-                                    md={2.4}
-                                    onClick={() => {
-                                      navigate(
-                                        `/watch/tv/` +
-                                          id_details +
-                                          `/season/` +
-                                          data.season_number +
-                                          `/esp/1`
-                                      );
-                                    }}
-                                  >
-                                    <EpisodesCard data={data} />
-                                  </Grid>
-                                </>
+                                <Grid
+                                  key={i}
+                                  item
+                                  md={2.4}
+                                  onClick={() => {
+                                    navigate(
+                                      `/watch/tv/` +
+                                        id_details +
+                                        `/season/` +
+                                        data.season_number +
+                                        `/esp/1`
+                                    );
+                                  }}
+                                >
+                                  <EpisodesCard
+                                    data={data}
+                                    data1={state.detailMovie}
+                                  />
+                                </Grid>
                               );
                             })}
                         </Grid>
@@ -183,7 +189,7 @@ function Detailbody() {
                     )}
                   </TabPanel>
 
-                  <TabPanel
+                  {/* <TabPanel
                     value="4"
                     sx={{
                       padding: "0",
@@ -209,7 +215,7 @@ function Detailbody() {
                         Tiến
                       </Grid>
                     </Grid>
-                  </TabPanel>
+                  </TabPanel> */}
                 </TabContext>
               </Box>
             </Box>
