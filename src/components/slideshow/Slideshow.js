@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import { Slide } from "react-slideshow-image";
 // import { getTypeGen } from "../../redux/typeSlice";
 // import { useDispatch } from "react-redux";
-import "react-slideshow-image/dist/styles.css";
 import {
   ExpandLess,
   ExpandMore,
