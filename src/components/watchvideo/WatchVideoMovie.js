@@ -4,13 +4,13 @@ import { Container, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getDetailsById } from "../../redux/callApi";
+import Bigcard from "../bigCard/Bigcard";
+import Castitem from "../castItem/Castitem";
 import { Box } from "@mui/system";
 import Tab from "@mui/material/Tab";
 
 import DetailGenre from "../detailbody/detailsub/DetailGenre";
 import StarIcon from "@mui/icons-material/Star";
-import Bigcard from "../bigCard/Bigcard";
-import Castitem from "../castItem/Castitem";
 import styles from "./watchvideo.module.scss";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 
