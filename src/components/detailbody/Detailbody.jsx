@@ -13,7 +13,7 @@ import Listslider from "../body/listSlider/Listslider";
 import Detailsub from "./detailsub/Detailsub";
 import Bigcard from "../bigCard/Bigcard";
 import EpisodesCard from "../bigCard/EpisodesCard";
-import Castitem from "../castItem/Castitem.js";
+import Castitem from "../castItem/Castitem";
 function Detailbody() {
   let navigate = useNavigate();
   const { mediatype, id_details } = useParams();
