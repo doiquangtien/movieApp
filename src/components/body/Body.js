@@ -31,7 +31,7 @@ function Body() {
   }, [dispatch]);
   return (
     <>
-      <Slideshow bannerInfo={state.trendingMovies} type={null} />
+      <Slideshow bannerInfo={state.trendingMovies} />
       <Container maxWidth="1400px" className={styles.body}>
         <Box sx={{ flexGrow: 1, margin: "0 36px" }}>
           <div className={styles.listSlide}>
