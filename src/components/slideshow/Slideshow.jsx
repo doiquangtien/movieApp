@@ -13,13 +13,13 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import { tvGenres, movieGenres } from "../../dataGenre/DataGenre";
 import "./slideshow.scss";
 import Genre from "../itemCard/Genre";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Collapse, List, ListItemButton, ListItemText } from "@mui/material";
 
 function Slideshow({ type, bannerInfo }) {
+  const navigate = useNavigate();
   const slideRef = useRef();
   const [open, setOpen] = useState(true);
-
   // const [genName, setGenName] = useState("Genre");
   // const dispatch = useDispatch();
   const handleClick = () => {
@@ -43,7 +43,15 @@ function Slideshow({ type, bannerInfo }) {
   //   return string.charAt(0).toLowerCase() + string.slice(1);
   // }
   return (
-    <div style={{ marginBottom: "50px", width: "100%", position: "relative" }}>
+    <div
+      style={{
+        marginBottom: "50px",
+        width: "100%",
+        position: "relative",
+        top: "0",
+        minHeight: "100vh",
+      }}
+    >
       <div className="category">
         {type === "movie" && (
           <>
@@ -159,17 +167,54 @@ function Slideshow({ type, bannerInfo }) {
                     </span>
                     <Genre genreId={item.genre_ids} mediaType={type} />
                     <span className="desc">{item.overview}</span>
-
-                    <div className="buttons">
-                      <button className="play">
-                        <PlayArrow />
-                        <span>Play</span>
-                      </button>
-                      <button className="more">
-                        <InfoOutlined />
-                        <span>Info</span>
-                      </button>
-                    </div>
+                    {item.media_type && (
+                      <div className="buttons">
+                        <button
+                          className="play"
+                          onClick={() =>
+                            navigate(
+                              `/details/` + item.media_type + `/` + item.id
+                            )
+                          }
+                        >
+                          <PlayArrow />
+                          <span>Play</span>
+                        </button>
+                        <button
+                          className="more"
+                          onClick={() =>
+                            navigate(
+                              `/details/` + item.media_type + `/` + item.id
+                            )
+                          }
+                        >
+                          <InfoOutlined />
+                          <span>Info</span>
+                        </button>
+                      </div>
+                    )}
+                    {type && (
+                      <div className="buttons">
+                        <button
+                          className="play"
+                          onClick={() =>
+                            navigate(`/details/` + type + `/` + item.id)
+                          }
+                        >
+                          <PlayArrow />
+                          <span>Play</span>
+                        </button>
+                        <button
+                          className="more"
+                          onClick={() =>
+                            navigate(`/details/` + type + `/` + item.id)
+                          }
+                        >
+                          <InfoOutlined />
+                          <span>Info</span>
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               );

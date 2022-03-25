@@ -4,7 +4,9 @@ function Bigcard(data) {
     <div className={styles.episodesWrap}>
       <div className={styles.episodesItem}>
         <img
-          src={`https://image.tmdb.org/t/p/w500${data.data.poster_path}`}
+          src={`https://image.tmdb.org/t/p/w500${
+            data.data.poster_path || data.data.backdrop_path
+          }`}
           alt=""
         />
       </div>

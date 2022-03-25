@@ -6,12 +6,13 @@ import { getDetailsById } from "../../redux/callApi";
 import { Box } from "@mui/system";
 import { getSeasons } from "../../redux/callApi";
 import Tab from "@mui/material/Tab";
+import Loading from "../loading/Loading";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import DetailGenre from "../detailbody/detailsub/DetailGenre";
 import StarIcon from "@mui/icons-material/Star";
 import Bigcard from "../bigCard/Bigcard";
-import Castitem from "../castitem/Castitem"
+import Castitem from "../castitem/Castitem";
 import styles from "./watchVideoSeries.module.scss";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import Seasons from "./seasons/Seasons";
@@ -23,22 +24,30 @@ function WatchVideoMovie() {
   const dispatch = useDispatch();
   const [value, setValue] = useState("1");
   const [icon, setIcon] = useState(true);
+  const [load, setLoad] = useState(false);
   const refScroll = useRef();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   useEffect(() => {
     const abortController = new AbortController();
-
-    getDetailsById(dispatch, "tv", id_details);
+    const loadDetails = async () => {
+      await getDetailsById(dispatch, "tv", id_details);
+      setLoad(true);
+    };
+    loadDetails();
     return () => {
       abortController.abort();
     };
   }, [dispatch, id_details]);
   useEffect(() => {
     const abortController = new AbortController();
-
-    getSeasons(dispatch, id_details, id_season);
+    const loadSeason = async () => {
+      await getSeasons(dispatch, id_details, id_season);
+      setLoad(true);
+    };
+    loadSeason();
 
     return () => {
       abortController.abort();
@@ -53,13 +62,17 @@ function WatchVideoMovie() {
             <Grid container spacing={0}>
               <Grid item xs={12} sm={12} md={9.3}>
                 <div className={styles.video}>
-                  <iframe
-                    id="iframe"
-                    src={`https://www.2embed.ru/embed/tmdb/tv?id=${id_details}&s=${id_season}&e=${id_esp}`}
-                    width="100%"
-                    height="100%"
-                    frameborder="0"
-                  ></iframe>
+                  {load ? (
+                    <iframe
+                      id="iframe"
+                      src={`https://www.2embed.ru/embed/tmdb/tv?id=${id_details}&s=${id_season}&e=${id_esp}`}
+                      width="100%"
+                      height="100%"
+                      frameborder="0"
+                    ></iframe>
+                  ) : (
+                    <Loading />
+                  )}
                 </div>
               </Grid>
               <Grid item xs={12} sm={12} md={2.7}>
@@ -121,157 +134,149 @@ function WatchVideoMovie() {
                         season={id_season}
                         details={id_details}
                       />
-                      <div className={styles.scrollWrap}>
-                        <div className={styles.scrollEps}>
-                          {icon ? (
-                            <>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  flexWrap: "wrap",
-                                  margin: "0 15px",
-                                }}
-                              >
-                                {state.seasonsMovie.episodes !== null &&
-                                  state.seasonsMovie.episodes.length > 0 &&
-                                  state.seasonsMovie.episodes.map((eps, i) => {
-                                    return (
-                                      <div
-                                        key={i}
-                                        style={{
-                                          backgroundColor: "#2d2f34",
-                                          margin: "8px",
-                                          width: "40px",
-                                          height: "40px",
-                                          borderRadius: "5px",
-                                        }}
-                                      >
-                                        <Link
-                                          style={{
-                                            textDecoration: "none",
-                                            display: "flex",
-                                            justifyContent: "center",
-                                          }}
-                                          to={
-                                            `/watch/tv/` +
-                                            id_details +
-                                            `/season/` +
-                                            id_season +
-                                            `/esp/` +
-                                            eps.episode_number
-                                          }
-                                        >
-                                          <span
-                                            style={
-                                              eps.episode_number ===
-                                              parseInt(id_esp)
-                                                ? {
-                                                    color: "#e7b524",
-                                                    fontWeight: "700",
-                                                    lineHeight: "40px",
-                                                  }
-                                                : {
-                                                    color: "#fff",
-                                                    fontWeight: "700",
-                                                    lineHeight: "40px",
-                                                  }
-                                            }
-                                          >
-                                            {eps.episode_number}
-                                          </span>
-                                        </Link>
-                                      </div>
-                                    );
-                                  })}
-                              </div>
-                            </>
-                          ) : (
-                            <div className={styles.listEpsVideo}>
-                              {state.seasonsMovie.episodes &&
-                                state.seasonsMovie.episodes.map((data, i) => {
-                                  setTimeout(() => {                              
-                                      refScroll.current.scrollIntoView({
-                                        behavior: "smooth",
-                                        block: "end",
-                                      });                                    
-                                  }, 300);
+                      <div className={styles.scrollEps}>
+                        {icon ? (
+                          <>
+                            <div
+                              style={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                margin: "0 15px",
+                              }}
+                            >
+                              {state.seasonsMovie.episodes !== null &&
+                                state.seasonsMovie.episodes.length > 0 &&
+                                state.seasonsMovie.episodes.map((eps, i) => {
                                   return (
-                                    <Link
+                                    <div
                                       key={i}
                                       style={{
-                                        textDecoration: "none",
+                                        backgroundColor: "#2d2f34",
+                                        margin: "8px",
+                                        width: "40px",
+                                        height: "40px",
+                                        borderRadius: "5px",
                                       }}
-                                      to={
-                                        `/watch/tv/` +
-                                        id_details +
-                                        `/season/` +
-                                        id_season +
-                                        `/esp/` +
-                                        data.episode_number
-                                      }
                                     >
-                                      {data.episode_number ===
-                                      parseInt(id_esp) ? (
-                                        <div
-                                          ref={refScroll}
-                                          className={clsx(
-                                            styles.smallCard,
-                                            `${data.episode_number}`
-                                          )}
-                                          style={{
-                                            backgroundColor: "#2d2f34",
-                                            color: "#e7b524",
-                                          }}
+                                      <Link
+                                        style={{
+                                          textDecoration: "none",
+                                          display: "flex",
+                                          justifyContent: "center",
+                                        }}
+                                        to={
+                                          `/watch/tv/` +
+                                          id_details +
+                                          `/season/` +
+                                          id_season +
+                                          `/esp/` +
+                                          eps.episode_number
+                                        }
+                                      >
+                                        <span
+                                          style={
+                                            eps.episode_number ===
+                                            parseInt(id_esp)
+                                              ? {
+                                                  color: "#e7b524",
+                                                  fontWeight: "700",
+                                                  lineHeight: "40px",
+                                                }
+                                              : {
+                                                  color: "#fff",
+                                                  fontWeight: "700",
+                                                  lineHeight: "40px",
+                                                }
+                                          }
                                         >
-                                          <div className={styles.cardImg}>
-                                            {data.still_path !== null ? (
-                                              <img
-                                                src={`https://image.tmdb.org/t/p/w400${data.still_path}`}
-                                                alt=""
-                                              />
-                                            ) : (
-                                              <img
-                                                src={`https://image.tmdb.org/t/p/w300${state.detailMovie.backdrop_path}`}
-                                                alt=""
-                                              />
-                                            )}
-                                          </div>
-                                          <div className={styles.cardDesc}>
-                                            <span>{data.name}</span>
-                                          </div>
-                                        </div>
-                                      ) : (
-                                        <div
-                                          className={styles.smallCard}
-                                          style={{
-                                            backgroundColor: "#1a1c22",
-                                            color: "#fff",
-                                          }}
-                                        >
-                                          <div className={styles.cardImg}>
-                                            {data.still_path !== null ? (
-                                              <img
-                                                src={`https://image.tmdb.org/t/p/w400${data.still_path}`}
-                                                alt=""
-                                              />
-                                            ) : (
-                                              <img
-                                                src={`https://image.tmdb.org/t/p/w300${state.detailMovie.backdrop_path}`}
-                                                alt=""
-                                              />
-                                            )}
-                                          </div>
-                                          <div className={styles.cardDesc}>
-                                            <span>{data.name}</span>
-                                          </div>
-                                        </div>
-                                      )}
-                                    </Link>
+                                          {eps.episode_number}
+                                        </span>
+                                      </Link>
+                                    </div>
                                   );
                                 })}
                             </div>
-                          )}
-                        </div>
+                          </>
+                        ) : (
+                          <div className={styles.listEpsVideo}>
+                            {state.seasonsMovie.episodes &&
+                              state.seasonsMovie.episodes.map((data, i) => {
+                                return (
+                                  <Link
+                                    key={i}
+                                    style={{
+                                      textDecoration: "none",
+                                    }}
+                                    to={
+                                      `/watch/tv/` +
+                                      id_details +
+                                      `/season/` +
+                                      id_season +
+                                      `/esp/` +
+                                      data.episode_number
+                                    }
+                                  >
+                                    {data.episode_number ===
+                                    parseInt(id_esp) ? (
+                                      <div
+                                        ref={refScroll}
+                                        className={clsx(
+                                          styles.smallCard,
+                                          `${data.episode_number}`
+                                        )}
+                                        style={{
+                                          backgroundColor: "#2d2f34",
+                                          color: "#e7b524",
+                                        }}
+                                      >
+                                        <div className={styles.cardImg}>
+                                          {data.still_path !== null ? (
+                                            <img
+                                              src={`https://image.tmdb.org/t/p/w400${data.still_path}`}
+                                              alt=""
+                                            />
+                                          ) : (
+                                            <img
+                                              src={`https://image.tmdb.org/t/p/w300${state.detailMovie.backdrop_path}`}
+                                              alt=""
+                                            />
+                                          )}
+                                        </div>
+                                        <div className={styles.cardDesc}>
+                                          <span>{data.name}</span>
+                                        </div>
+                                      </div>
+                                    ) : (
+                                      <div
+                                        className={styles.smallCard}
+                                        style={{
+                                          backgroundColor: "#1a1c22",
+                                          color: "#fff",
+                                        }}
+                                      >
+                                        <div className={styles.cardImg}>
+                                          {data.still_path !== null ? (
+                                            <img
+                                              src={`https://image.tmdb.org/t/p/w400${data.still_path}`}
+                                              alt=""
+                                            />
+                                          ) : (
+                                            <img
+                                              src={`https://image.tmdb.org/t/p/w300${state.detailMovie.backdrop_path}`}
+                                              alt=""
+                                            />
+                                          )}
+                                        </div>
+                                        <div className={styles.cardDesc}>
+                                          <span>{data.name}</span>
+                                        </div>
+                                      </div>
+                                    )}
+                                  </Link>
+                                );
+                              })}
+                          </div>
+                        )}
                       </div>
                     </TabPanel>
                     <TabPanel
@@ -281,21 +286,25 @@ function WatchVideoMovie() {
                       }}
                     >
                       <div className={styles.scrollRecomend}>
-                        <div className={styles.listRecomendVideo}>
-                          {state.detailMovie.similar.results
-                            .slice(0, 10)
-                            .map((similar, i) => {
-                              return (
-                                <Link
-                                  key={i}
-                                  style={{ textDecoration: "none" }}
-                                  to={`/details/tv/` + similar.id}
-                                >
-                                  <Bigcard key={i} data={similar} />
-                                </Link>
-                              );
-                            })}
-                        </div>
+                        {load ? (
+                          <div className={styles.listRecomendVideo}>
+                            {state.detailMovie.similar.results
+                              .slice(0, 10)
+                              .map((similar, i) => {
+                                return (
+                                  <Link
+                                    key={i}
+                                    style={{ textDecoration: "none" }}
+                                    to={`/details/movie/` + similar.id}
+                                  >
+                                    <Bigcard key={i} data={similar} />
+                                  </Link>
+                                );
+                              })}
+                          </div>
+                        ) : (
+                          <Loading />
+                        )}
                       </div>
                     </TabPanel>
                   </TabContext>
@@ -326,15 +335,7 @@ function WatchVideoMovie() {
             <div className={styles.infoType}>
               <DetailGenre data={state.detailMovie.genres} />
             </div>
-            {/* <div className={styles.region}>
-              <h3>Region:</h3>
-              {state.detailMovie.production_countries[0] && (
-                <span>{state.detailMovie.production_countries[0].name}</span>
-              )}
-              <div className={styles.brokenLine}></div>
-              <h3>Dub:</h3>
-              <span>{state.detailMovie.spoken_languages[0].english_name}</span>
-            </div> */}
+
             <div className={styles.desc}>
               <h3>Description:</h3>
               <span>{state.detailMovie.overview}</span>
@@ -353,15 +354,19 @@ function WatchVideoMovie() {
             >
               Cast
             </div>
-            <Grid container spacing={2}>
-              {state.detailMovie.credits.cast.slice(0, 12).map((cast, i) => {
-                return (
-                  <Grid key={i} item md={2}>
-                    <Castitem data={cast} />
-                  </Grid>
-                );
-              })}
-            </Grid>
+            {load ? (
+              <Grid container spacing={2}>
+                {state.detailMovie.credits.cast.slice(0, 12).map((cast, i) => {
+                  return (
+                    <Grid key={i} item md={2}>
+                      <Castitem data={cast} />
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            ) : (
+              <Loading />
+            )}
           </Box>
         </Container>
       )}

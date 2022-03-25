@@ -4,9 +4,9 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import "react-slideshow-image/dist/styles.css";
 import styles from "./listSlider.module.scss";
-// import img from "../../../img/johnwick.jpg";
+import Loading from "../../loading/Loading";
 import Itemcard from "../../itemCard/Itemcard";
-function Listslider({ data, type }) {
+function Listslider({ data, type, load }) {
   const slideRef = useRef();
   const properties = {
     duration: 500,
@@ -44,30 +44,34 @@ function Listslider({ data, type }) {
     <div
       style={{ margin: "-16px", position: "relative", marginBottom: "20px" }}
     >
-      <Slide ref={slideRef} {...properties}>
-        {data !== null &&
-          data.length > 0 &&
-          data.map((item, i) => {
-            if (item.poster_path && item.backdrop_path !== null) {
-              let imagePost = `https://image.tmdb.org/t/p/original${item.poster_path}`;
-              let imageDrop = `https://image.tmdb.org/t/p/w500${item.backdrop_path}`;
-              return (
-                <div key={i} style={{ padding: "0 16px" }}>
-                  <Itemcard
-                    imgP={imagePost}
-                    imgD={imageDrop}
-                    data={item}
-                    mediaType={item.media_type || type}
-                  />
-                </div>
-              );
-            }
-          })}
-      </Slide>
+      {load ? (
+        <Slide ref={slideRef} {...properties}>
+          {data !== null &&
+            data.length > 0 &&
+            data.map((item, i) => {
+              if (item.poster_path && item.backdrop_path !== null) {
+                let imagePost = `https://image.tmdb.org/t/p/original${item.poster_path}`;
+                let imageDrop = `https://image.tmdb.org/t/p/w500${item.backdrop_path}`;
+                return (
+                  <div key={i} style={{ padding: "0 16px" }}>
+                    <Itemcard
+                      imgP={imagePost}
+                      imgD={imageDrop}
+                      data={item}
+                      mediaType={item.media_type || type}
+                    />
+                  </div>
+                );
+              }
+            })}
+        </Slide>
+      ) : (
+        <Loading />
+      )}
+
       <div className={styles.btnBack} onClick={back}>
         <NavigateBeforeIcon className={styles.iconBack} />
       </div>
-
       <div className={styles.btnNext} onClick={next}>
         <NavigateNextIcon className={styles.iconNext} />
       </div>

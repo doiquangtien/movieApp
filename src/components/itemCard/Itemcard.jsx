@@ -5,19 +5,29 @@ import StarIcon from "@mui/icons-material/Star";
 import styles from "./item.module.scss";
 import { Link } from "react-router-dom";
 import Genre from "./Genre";
-function Itemcard({ data, imgP, mediaType }) {
+function Itemcard({ data, imgP, mediaType, imgD }) {
   return (
     <>
       <Link to={`/details/` + mediaType + `/` + data.id}>
         <div className={styles.list_item}>
           <div className={styles.listood_item}>
-            <img src={imgP} alt={data.title || data.name} />
+            <img
+              className={styles.imgP}
+              src={imgP}
+              alt={data.title || data.name}
+            />
 
             <span className={styles.odditem_name}>
               {data.title || data.name}
             </span>
             <div className={styles.hovered}>
               <div className={styles.itemVideo}>
+                <img
+                  className={styles.imgD}
+                  src={imgD}
+                  alt={data.title || data.name}
+                />
+
                 <div className={styles.icons}>
                   <PlayCircleFilledWhiteIcon className={styles.icon} />
                   <AddCircleIcon className={styles.icon} />

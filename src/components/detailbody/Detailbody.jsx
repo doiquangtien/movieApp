@@ -9,12 +9,15 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import styles from "./detailbody.module.scss";
-import Listslider from "../body/listSlider/Listslider";
 import Detailsub from "./detailsub/Detailsub";
+import Loading from "../loading/Loading";
 import Bigcard from "../bigCard/Bigcard";
 import EpisodesCard from "../bigCard/EpisodesCard";
-import Castitem from "../castitem/Castitem"
+import Castitem from "../castitem/Castitem";
+
 function Detailbody() {
+  const [load, setLoad] = useState(false);
+
   let navigate = useNavigate();
   const { mediatype, id_details } = useParams();
   const dispatch = useDispatch();
@@ -22,7 +25,11 @@ function Detailbody() {
   const [value, setValue] = useState("1");
   useEffect(() => {
     const abortController = new AbortController();
-    getDetailsById(dispatch, mediatype, id_details);
+    const loadDetails = async () => {
+      await getDetailsById(dispatch, mediatype, id_details);
+      setLoad(true);
+    };
+    loadDetails();
     return () => {
       abortController.abort();
     };
@@ -63,7 +70,6 @@ function Detailbody() {
                       {mediatype === "tv" && (
                         <Tab className={styles.tab} label="Seasons" value="3" />
                       )}
-                      {/* <Tab className={styles.tab} label="Trailer" value="4" /> */}
                     </TabList>
                   </Box>
                 </TabContext>
@@ -83,18 +89,22 @@ function Detailbody() {
                     >
                       Cast
                     </span>
-                    <Grid container spacing={2}>
-                      {state.detailMovie.credits.cast &&
-                        state.detailMovie.credits.cast
-                          .slice(0, 12)
-                          .map((cast, i) => {
-                            return (
-                              <Grid key={i} item md={2}>
-                                <Castitem data={cast} />
-                              </Grid>
-                            );
-                          })}
-                    </Grid>
+                    {load ? (
+                      <Grid container spacing={2} marginTop="6px">
+                        {state.detailMovie.credits.cast &&
+                          state.detailMovie.credits.cast
+                            .slice(0, 12)
+                            .map((cast, i) => {
+                              return (
+                                <Grid key={i} item md={2}>
+                                  <Castitem data={cast} />
+                                </Grid>
+                              );
+                            })}
+                      </Grid>
+                    ) : (
+                      <Loading />
+                    )}
                   </TabPanel>
                   <TabPanel
                     value="2"
@@ -111,11 +121,30 @@ function Detailbody() {
                     >
                       Similar
                     </span>
-
-                    <Listslider
-                      data={state.detailMovie.similar.results.slice(0, 10)}
-                      type={mediatype}
-                    />
+                    {load ? (
+                      <Grid container spacing={2} marginTop="20px">
+                        {state.detailMovie.similar.results
+                          .slice(0, 10)
+                          .map((data, i) => {
+                            return (
+                              <Grid
+                                key={i}
+                                item
+                                md={2.4}
+                                onClick={() =>
+                                  navigate(
+                                    `/details/` + mediatype + `/` + data.id
+                                  )
+                                }
+                              >
+                                <Bigcard data={data} />
+                              </Grid>
+                            );
+                          })}
+                      </Grid>
+                    ) : (
+                      <Loading />
+                    )}
                   </TabPanel>
 
                   <TabPanel
@@ -135,33 +164,36 @@ function Detailbody() {
                         >
                           Seasons
                         </span>
-
-                        <Grid container spacing={2} marginTop="20px">
-                          {state.detailMovie.seasons &&
-                            state.detailMovie.seasons.map((data, i) => {
-                              return (
-                                <Grid
-                                  key={i}
-                                  item
-                                  md={2.4}
-                                  onClick={() => {
-                                    navigate(
-                                      `/watch/tv/` +
-                                        id_details +
-                                        `/season/` +
-                                        data.season_number +
-                                        `/esp/1`
-                                    );
-                                  }}
-                                >
-                                  <EpisodesCard
-                                    data={data}
-                                    data1={state.detailMovie}
-                                  />
-                                </Grid>
-                              );
-                            })}
-                        </Grid>
+                        {load ? (
+                          <Grid container spacing={2} marginTop="20px">
+                            {state.detailMovie.seasons &&
+                              state.detailMovie.seasons.map((data, i) => {
+                                return (
+                                  <Grid
+                                    key={i}
+                                    item
+                                    md={2.4}
+                                    onClick={() => {
+                                      navigate(
+                                        `/watch/tv/` +
+                                          id_details +
+                                          `/season/` +
+                                          data.season_number +
+                                          `/esp/1`
+                                      );
+                                    }}
+                                  >
+                                    <EpisodesCard
+                                      data={data}
+                                      data1={state.detailMovie}
+                                    />
+                                  </Grid>
+                                );
+                              })}
+                          </Grid>
+                        ) : (
+                          <Loading />
+                        )}
                       </div>
                     )}
                     {mediatype === "movie" && (
@@ -188,34 +220,6 @@ function Detailbody() {
                       </div>
                     )}
                   </TabPanel>
-
-                  {/* <TabPanel
-                    value="4"
-                    sx={{
-                      padding: "0",
-                    }}
-                  >
-                    <span
-                      style={{
-                        marginLeft: "20px",
-                        fontSize: "22px",
-                        color: "var(--second-color)",
-                      }}
-                    >
-                      Trailer
-                    </span>
-                    <Grid container spacing={2} marginTop="20px">
-                      <Grid item md={3}>
-                        Tiến
-                      </Grid>
-                      <Grid item md={3}>
-                        Tiến
-                      </Grid>
-                      <Grid item md={3}>
-                        Tiến
-                      </Grid>
-                    </Grid>
-                  </TabPanel> */}
                 </TabContext>
               </Box>
             </Box>

@@ -1,5 +1,5 @@
 .list_item{
-    height: 400px;
+    height: 52vh;
     position: relative;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -13,7 +13,7 @@
         color: #fff;
         overflow: hidden;
         cursor: pointer;
-        img{
+        .imgP {
             width: 100%;
             height: 100%;
 
@@ -43,29 +43,26 @@
             cursor: pointer;
             -webkit-box-shadow: 0px 0px 5px 1px rgba(255,255,255,0.46); 
             box-shadow: 0px 0px 5px 1px rgba(255,255,255,0.46);
-            width: 112%;
+            width: 100%;
+            transform: scale(1.03);
+            transition: all 0.3s linear;
             // height: 400px;
             z-index: 10;
             // top: -15px;
-            right: 15px;
             border-radius: 5px ;
-            img{
-                position: absolute;
-                top:0;
-                width: 100%;
-                height: 50%;
-               background-size: cover;
+            .imgP {
+                display: none;
             }
             .itemVideo{
                 position: absolute;
                 top:0;
                 width: 100%;
-                height: 50%;
-                video {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    position: absolute;
+                height: 55%;
+                .imgD {
+                   width: 100%;
+                   height: 100%;
+
+                   object-fit: cover;
                     
                   }
                   .icons {
@@ -95,7 +92,7 @@
                 display: block;
                 margin-left: 10px;
                 width: 100%;
-                height: 50%;
+                height: 45%;
                 .itemName{
                   font-size: 14px;
                   line-height: 14px;

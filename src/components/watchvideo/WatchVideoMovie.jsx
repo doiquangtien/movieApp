@@ -1,29 +1,30 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Container, Grid } from "@mui/material";
+import Loading from "../loading/Loading";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getDetailsById } from "../../redux/callApi";
-import Castitem from "../castitem/Castitem"
+import Castitem from "../castitem/Castitem";
 import Bigcard from "../bigCard/Bigcard";
 import { Box } from "@mui/system";
-import Tab from "@mui/material/Tab";
 
 import DetailGenre from "../detailbody/detailsub/DetailGenre";
 import StarIcon from "@mui/icons-material/Star";
 import styles from "./watchvideo.module.scss";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
 
 function WatchVideoMovie() {
   const { id_details } = useParams();
   const state = useSelector((state) => state.infoMovie);
   const dispatch = useDispatch();
-  const [value, setValue] = useState("1");
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  const [load, setLoad] = useState(false);
+
   useEffect(() => {
-    getDetailsById(dispatch, "movie", id_details);
+    const loadDetail = async () => {
+      await getDetailsById(dispatch, "movie", id_details);
+      setLoad(true);
+    };
+    loadDetail();
   }, [dispatch, id_details]);
 
   return (
@@ -34,13 +35,17 @@ function WatchVideoMovie() {
             <Grid container spacing={0}>
               <Grid item xs={12} sm={12} md={9.3}>
                 <div className={styles.video}>
-                  <iframe
-                    id="iframe"
-                    src={`https://www.2embed.ru/embed/tmdb/movie?id=${id_details}`}
-                    width="100%"
-                    height="100%"
-                    frameborder="0"
-                  ></iframe>
+                  {load ? (
+                    <iframe
+                      id="iframe"
+                      src={`https://www.2embed.ru/embed/tmdb/movie?id=${id_details}`}
+                      width="100%"
+                      height="100%"
+                      frameborder="0"
+                    ></iframe>
+                  ) : (
+                    <Loading />
+                  )}
                 </div>
               </Grid>
               <Grid item xs={12} sm={12} md={2.7}>
@@ -50,47 +55,29 @@ function WatchVideoMovie() {
                       state.detailMovie.title ||
                       state.detailMovie.name}
                   </span>
-                  <TabContext value={value}>
-                    <Box sx={{ width: "100%" }}>
-                      <TabList
-                        indicatorColor="primary"
-                        onChange={handleChange}
-                        aria-label="lab API tabs example"
-                      >
-                        <Tab
-                          className={styles.tab}
-                          label="Recommend"
-                          value="1"
-                        />
-                      </TabList>
-                    </Box>
-                  </TabContext>
-                  <TabContext value={value}>
-                    <TabPanel
-                      value="1"
-                      sx={{
-                        padding: "0",
-                      }}
-                    >
-                      <div className={styles.scrollRecomend}>
-                        <div className={styles.listRecomendVideo}>
-                          {state.detailMovie.similar.results
-                            .slice(0, 10)
-                            .map((similar, i) => {
-                              return (
-                                <Link
-                                  key={i}
-                                  style={{ textDecoration: "none" }}
-                                  to={`/details/movie/` + similar.id}
-                                >
-                                  <Bigcard key={i} data={similar} />
-                                </Link>
-                              );
-                            })}
-                        </div>
+                  <div className={styles.wrapRc}>RECOMMEND</div>
+
+                  <div className={styles.scrollRecomend}>
+                    {load ? (
+                      <div className={styles.listRecomendVideo}>
+                        {state.detailMovie.similar.results
+                          .slice(0, 10)
+                          .map((similar, i) => {
+                            return (
+                              <Link
+                                key={i}
+                                style={{ textDecoration: "none" }}
+                                to={`/details/movie/` + similar.id}
+                              >
+                                <Bigcard key={i} data={similar} />
+                              </Link>
+                            );
+                          })}
                       </div>
-                    </TabPanel>
-                  </TabContext>
+                    ) : (
+                      <Loading />
+                    )}
+                  </div>
                 </div>
               </Grid>
             </Grid>
@@ -138,15 +125,19 @@ function WatchVideoMovie() {
             >
               Cast
             </div>
-            <Grid container spacing={2}>
-              {state.detailMovie.credits.cast.slice(0, 12).map((cast, i) => {
-                return (
-                  <Grid key={i} item md={2}>
-                    <Castitem data={cast} />
-                  </Grid>
-                );
-              })}
-            </Grid>
+            {load ? (
+              <Grid container spacing={2}>
+                {state.detailMovie.credits.cast.slice(0, 12).map((cast, i) => {
+                  return (
+                    <Grid key={i} item md={2}>
+                      <Castitem data={cast} />
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            ) : (
+              <Loading />
+            )}
           </Box>
         </Container>
       )}

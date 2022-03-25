@@ -64,18 +64,7 @@ function Detailsub({ data, type }) {
                 <div className={styles.infoType}>
                   <DetailGenre data={data.genres} />
                 </div>
-                {/* <div className={styles.region}>
-                  <h3>Region:</h3>
-                  {data.production_countries[0] && (
-                    <span>{data.production_countries[0].name}</span>
-                  )}
 
-                  <div className={styles.brokenLine}></div>
-                  <h3>Dub:</h3>
-                  {data.spoken_languages[0].english_name && (
-                    <span>{data.spoken_languages[0].english_name}</span>
-                  )}
-                </div> */}
                 <div className={styles.cast}>
                   <h3>Cast:</h3>
                   <DetaileCast data={data.credits.cast} />

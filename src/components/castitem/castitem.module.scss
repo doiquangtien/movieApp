@@ -1,17 +1,21 @@
 .castItem{
     width: 100%;
-    height: 350px;
+    height: 40vh;
     margin-top: 20px;
     margin-bottom: 20px;
     text-decoration: none;
    
     color: #fff;
     cursor: pointer;
-    img{
-        width: 100%;
+    .castImg{
         height: 87%;
-        object-fit: cover;
-        border-radius: 5px;
+        border: none;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
     }
     .castTitle{
          display: flex;
