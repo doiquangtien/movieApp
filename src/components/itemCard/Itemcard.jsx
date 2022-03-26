@@ -4,7 +4,6 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import StarIcon from "@mui/icons-material/Star";
 import styles from "./item.module.scss";
 import { Link } from "react-router-dom";
-import Genre from "./Genre";
 function Itemcard({ data, imgP, mediaType, imgD }) {
   return (
     <>
@@ -44,7 +43,6 @@ function Itemcard({ data, imgP, mediaType, imgD }) {
 
                   {data.release_date && <span>{data.release_date}</span>}
                 </div>
-                <Genre genreId={data.genre_ids} />
                 <div className={styles.desc}>{data.overview}</div>
                 <div className={styles.more}>
                   More

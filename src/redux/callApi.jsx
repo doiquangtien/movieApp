@@ -8,7 +8,7 @@ import {
   getTopRateTVseriesAction,
   getDetailsByIdAction,
   getSeasonsAction,
-  getSearchAction
+  getSearchAction,
 } from "./infoMovieSlice";
 const API_KEY = "9469ca4e1229b1db42ff4124c1655066";
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -66,11 +66,7 @@ export const getTopRateTvSeries = async (dispatch) => {
   }
 };
 
-export const getDetailsById = async (
-  dispatch,
-  mediatype,
-  id_details
-) => {
+export const getDetailsById = async (dispatch, mediatype, id_details) => {
   try {
     const res = await axios.get(
       `${BASE_URL}/${mediatype}/${id_details}?api_key=${API_KEY}&language=en&append_to_response=similar,credits`
@@ -95,7 +91,7 @@ export const getSeasons = async (dispatch, id_details, id_esp) => {
 export const getSearch = async (dispatch, keywords) => {
   try {
     const res = await axios.get(
-      `${BASE_URL}/search/multi/?api_key=${API_KEY}&language=en-US&include_adult=false&query=${keywords}`
+      `${BASE_URL}/search/multi?api_key=${API_KEY}&language=en-US&include_adult=false&query=${keywords}`
     );
     dispatch(getSearchAction(res.data.results));
   } catch (err) {

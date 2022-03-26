@@ -1,5 +1,5 @@
 import styles from "./castitem.module.scss";
-
+import img from "../../img/person.jpg";
 function Castitem({ data }) {
   return (
     <>
@@ -12,7 +12,9 @@ function Castitem({ data }) {
             />
           </div>
         ) : (
-          <div className={styles.castImg}></div>
+          <div className={styles.castImg}>
+            <img src={img} alt="" />
+          </div>
         )}
 
         <div className={styles.castTitle}>

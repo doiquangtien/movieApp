@@ -1,20 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Itemcard from "../itemCard/Itemcard";
 import axios from "axios";
 import Slideshow from "../slideshow/Slideshow";
 import { useParams } from "react-router-dom";
 import { Box, Container, Grid } from "@mui/material";
-import { useSelector } from "react-redux";
 import Loading from "../loading/Loading";
+import { allGenres } from "../../dataGenre/DataGenre";
+import { useDispatch, useSelector } from "react-redux";
+import { getPage } from "../../redux/typeSlice";
 const API_KEY = "9469ca4e1229b1db42ff4124c1655066";
 const BASE_URL = "https://api.themoviedb.org/3";
 function Listmovie() {
   const { type, id } = useParams();
-  const { typeGen } = useSelector((state) => state.typeMovie);
   const [dataMovie, setDataMovie] = useState(null);
   const [dataMovieGen, setDataMovieGen] = useState(null);
-  const [page, setPage] = useState(2);
+  // const [page, setPage] = useState(2);
   const [load, setLoad] = useState(false);
+  const dispatch = useDispatch();
+  const { page } = useSelector((state) => state.typeMovie);
+  const genName = useMemo(() => {
+    const result = allGenres.filter(function (gen) {
+      return gen.id === parseInt(id);
+    });
+    return result;
+  }, [id]);
   useEffect(() => {
     const abortController = new AbortController();
     const getAllMovies = async () => {
@@ -54,7 +63,7 @@ function Listmovie() {
     return () => {
       abortController.abort();
     };
-  }, [id]);
+  }, [type, id]);
   const getListMoviesByGenre = async () => {
     try {
       const res = await axios.get(
@@ -86,12 +95,10 @@ function Listmovie() {
   const handleMore = async () => {
     const abortController = new AbortController();
     setLoad(false);
-
-    setPage(page + 1);
     const data = await getAllMovies();
     setDataMovie([...dataMovie, ...data]);
     setLoad(true);
-
+    dispatch(getPage(page + 1));
     return () => {
       abortController.abort();
     };
@@ -100,9 +107,9 @@ function Listmovie() {
     const abortController = new AbortController();
     setLoad(false);
 
-    setPage(page + 1);
     const data = await getListMoviesByGenre();
     setDataMovieGen([...dataMovieGen, ...data]);
+    dispatch(getPage(page + 1));
     setLoad(true);
 
     return () => {
@@ -119,12 +126,11 @@ function Listmovie() {
             margin: "0 36px",
           }}
         >
-          {typeGen && (
+          {id ? (
             <span style={{ color: "#fff", fontSize: "24px" }}>
-              List {jsUcfirst(type + ` ` + typeGen)}
+              List {jsUcfirst(type) + ` ` + genName[0].name}
             </span>
-          )}
-          {type && (
+          ) : (
             <span style={{ color: "#fff", fontSize: "24px" }}>
               List {jsUcfirst(type)}
             </span>

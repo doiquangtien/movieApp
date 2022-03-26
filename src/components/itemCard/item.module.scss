@@ -130,6 +130,7 @@
                   line-height: 15px;
                   font-weight: 400;
                   margin-right: 10px ;
+                  margin-top: 20px;
                   color:var(--text-color);
                   height: 45px;
                   overflow: hidden;
@@ -139,14 +140,14 @@
                   -webkit-line-clamp: 3;
                 }
                 .more{
-                  margin-top: 10px;
+                  position: absolute;
+                  bottom: 40px;
+                  right: 20px;
                   font-size: 13px;
-                  margin-right: 20px ;
                   height: 16px;
                   line-height: 16px;
                   display: flex;
                   align-items: center;
-                  float: right;
                   &:hover{
                     color: var(--second-color);
                   }

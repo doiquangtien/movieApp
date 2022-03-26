@@ -5,6 +5,7 @@ const typeSlide = createSlice({
   initialState: {
     typeGen: null,
     inputSearch: "",
+    page: 2,
   },
   reducers: {
     getTypeGen: (state, action) => {
@@ -13,8 +14,11 @@ const typeSlide = createSlice({
     getInputSearch: (state, action) => {
       state.inputSearch = action.payload;
     },
+    getPage: (state, action) => {
+      state.page = action.payload;
+    },
   },
 });
 
-export const { getTypeGen, getInputSearch } = typeSlide.actions;
+export const { getTypeGen, getInputSearch, getPage } = typeSlide.actions;
 export default typeSlide.reducer;

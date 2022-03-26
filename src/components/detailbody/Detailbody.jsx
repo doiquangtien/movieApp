@@ -58,24 +58,24 @@ function Detailbody() {
                       textColor="inherit"
                       aria-label="lab API tabs example"
                     >
-                      <Tab className={styles.tab} label="Cast" value="1" />
+                      {mediatype === "movie" && (
+                        <Tab className={styles.tab} label="Watch" value="1" />
+                      )}
+                      {mediatype === "tv" && (
+                        <Tab className={styles.tab} label="Seasons" value="1" />
+                      )}
                       <Tab
                         className={styles.tab}
                         label="Recommended"
                         value="2"
                       />
-                      {mediatype === "movie" && (
-                        <Tab className={styles.tab} label="Watch" value="3" />
-                      )}
-                      {mediatype === "tv" && (
-                        <Tab className={styles.tab} label="Seasons" value="3" />
-                      )}
+                      <Tab className={styles.tab} label="Cast" value="3" />
                     </TabList>
                   </Box>
                 </TabContext>
                 <TabContext value={value}>
                   <TabPanel
-                    value="1"
+                    value="3"
                     sx={{
                       padding: "0",
                     }}
@@ -148,7 +148,7 @@ function Detailbody() {
                   </TabPanel>
 
                   <TabPanel
-                    value="3"
+                    value="1"
                     sx={{
                       padding: "0",
                     }}

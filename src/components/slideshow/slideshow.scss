@@ -43,8 +43,8 @@
      .info {
        width: 35%;
        position: absolute;
-       left: 60px;
-       bottom: 100px;
+       left: 80px;
+       bottom: 150px;
        color: white;
        display: flex;
        flex-direction: column;
@@ -84,7 +84,7 @@
             opacity: 0.8;
           }
            &.play {
-             background-color: white;
+             background-color: var(--second-color);
              color: var(--main-color);
            }
 

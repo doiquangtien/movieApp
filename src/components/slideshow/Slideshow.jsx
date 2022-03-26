@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Slide } from "react-slideshow-image";
-// import { getTypeGen } from "../../redux/typeSlice";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getPage } from "../../redux/typeSlice";
 import {
   ExpandLess,
   ExpandMore,
@@ -12,16 +12,15 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import { tvGenres, movieGenres } from "../../dataGenre/DataGenre";
 import "./slideshow.scss";
-import Genre from "../itemCard/Genre";
 import { Link, useNavigate } from "react-router-dom";
 import { Collapse, List, ListItemButton, ListItemText } from "@mui/material";
 
 function Slideshow({ type, bannerInfo }) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const slideRef = useRef();
   const [open, setOpen] = useState(true);
-  // const [genName, setGenName] = useState("Genre");
-  // const dispatch = useDispatch();
+
   const handleClick = () => {
     setOpen(!open);
   };
@@ -35,13 +34,11 @@ function Slideshow({ type, bannerInfo }) {
   };
 
   const properties = {
-    duration: 2000,
+    duration: 3000,
     easing: "ease",
     arrows: false,
   };
-  // function jsUcfirst(string) {
-  //   return string.charAt(0).toLowerCase() + string.slice(1);
-  // }
+
   return (
     <div
       style={{
@@ -79,6 +76,7 @@ function Slideshow({ type, bannerInfo }) {
                       key={i}
                       onClick={() => {
                         setOpen(true);
+                        dispatch(getPage(2));
                       }}
                       to={`/` + type + `/` + genre.id}
                       style={{ textDecoration: "none" }}
@@ -124,6 +122,7 @@ function Slideshow({ type, bannerInfo }) {
                     key={i}
                     onClick={() => {
                       setOpen(true);
+                      dispatch(getPage(2));
                     }}
                     to={`/` + type + `/` + genre.id}
                     style={{ textDecoration: "none" }}
@@ -165,7 +164,6 @@ function Slideshow({ type, bannerInfo }) {
                     <span className="date">
                       Release date : {item.release_date || item.first_air_date}
                     </span>
-                    <Genre genreId={item.genre_ids} mediaType={type} />
                     <span className="desc">{item.overview}</span>
                     {item.media_type && (
                       <div className="buttons">
