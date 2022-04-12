@@ -61,18 +61,14 @@ function WatchVideoMovie() {
             <Grid container spacing={0}>
               <Grid item xs={12} sm={12} md={9.3}>
                 <div className={styles.video}>
-                  {load ? (
-                    <iframe
-                      title="Movie"
-                      src={`https://www.2embed.ru/embed/tmdb/tv?id=${id_details}&s=${id_season}&e=${id_esp}`}
-                      width="100%"
-                      height="100%"
-                      frameborder="0"
-                      allowFullScreen
-                    ></iframe>
-                  ) : (
-                    <Loading />
-                  )}
+                  <iframe
+                    title="Movie"
+                    src={`https://www.2embed.ru/embed/tmdb/tv?id=${id_details}&s=${id_season}&e=${id_esp}`}
+                    width="100%"
+                    height="100%"
+                    frameborder="0"
+                    allowFullScreen
+                  ></iframe>
                 </div>
               </Grid>
               <Grid item xs={12} sm={12} md={2.7}>

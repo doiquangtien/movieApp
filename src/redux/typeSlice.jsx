@@ -6,6 +6,7 @@ const typeSlide = createSlice({
     typeGen: null,
     inputSearch: "",
     page: 2,
+    currentUser: JSON.parse(localStorage.getItem("user")) || null,
   },
   reducers: {
     getTypeGen: (state, action) => {
@@ -17,8 +18,12 @@ const typeSlide = createSlice({
     getPage: (state, action) => {
       state.page = action.payload;
     },
+    getCurrentUser: (state, action) => {
+      state.currentUser = action.payload;
+    },
   },
 });
 
-export const { getTypeGen, getInputSearch, getPage } = typeSlide.actions;
+export const { getTypeGen, getInputSearch, getPage, getCurrentUser } =
+  typeSlide.actions;
 export default typeSlide.reducer;

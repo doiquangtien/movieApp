@@ -14,11 +14,15 @@ function SearchMovie() {
   const state = useSelector((state) => state.infoMovie);
   const key = useQuery().get("keywords");
   useEffect(() => {
+    const abortController = new AbortController();
     const loadSearch = async () => {
       await getSearch(dispatch, key);
       setLoad(true);
     };
     loadSearch();
+    return () => {
+      abortController.abort();
+    };
   }, [key, dispatch]);
   return (
     <>

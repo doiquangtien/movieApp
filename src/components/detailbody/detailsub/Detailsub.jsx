@@ -8,9 +8,28 @@ import StarIcon from "@mui/icons-material/Star";
 import { Rating } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import { setDoc, doc, addDoc, collection } from "firebase/firestore";
+import { db } from "../../../firebase";
+import { useSelector } from "react-redux";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
+
 function Detailsub({ data, type }) {
   const [value, setValue] = useState(5);
-
+  const state = useSelector((state) => state.typeMovie);
+  const handleFavorites = async () => {
+    try {
+      // const res = await createUserWithEmailAndPassword(auth,data.email,data.password)
+      const res = await addDoc(collection(db, state.currentUser.uid), {
+        id: data.id,
+        type: type,
+        backdrop_path: data.backdrop_path,
+      });
+      // console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       {data && (
@@ -109,7 +128,7 @@ function Detailsub({ data, type }) {
 
                   <button className={styles.more}>
                     <BookmarkAddIcon />
-                    <span>Add to favorites</span>
+                    <span onClick={handleFavorites}>Add to favorites</span>
                   </button>
                   <button className={styles.more}>
                     <ShareIcon />

@@ -96,7 +96,7 @@ function Detailbody() {
                             .slice(0, 12)
                             .map((cast, i) => {
                               return (
-                                <Grid key={i} item md={2}>
+                                <Grid key={i} item md={2} xs={6} sm={6}>
                                   <Castitem data={cast} />
                                 </Grid>
                               );
@@ -131,6 +131,8 @@ function Detailbody() {
                                 key={i}
                                 item
                                 md={2.4}
+                                xs={12}
+                                sm={6}
                                 onClick={() =>
                                   navigate(
                                     `/details/` + mediatype + `/` + data.id
@@ -173,6 +175,8 @@ function Detailbody() {
                                     key={i}
                                     item
                                     md={2.4}
+                                    xs={12}
+                                    sm={6}
                                     onClick={() => {
                                       navigate(
                                         `/watch/tv/` +

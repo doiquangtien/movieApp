@@ -10,11 +10,7 @@ function Itemcard({ data, imgP, mediaType, imgD }) {
       <Link to={`/details/` + mediaType + `/` + data.id}>
         <div className={styles.list_item}>
           <div className={styles.listood_item}>
-            <img
-              className={styles.imgP}
-              src={imgP}
-              alt={data.title || data.name}
-            />
+            <img className={styles.imgP} src={imgP} alt={imgP} />
 
             <span className={styles.odditem_name}>
               {data.title || data.name}

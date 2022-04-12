@@ -45,9 +45,9 @@ function Seasons({ data, season, details }) {
                           to={
                             `/watch/tv/` +
                             details +
-                            "/season/" +
+                            `/season/` +
                             ses.season_number +
-                            "/esp/1"
+                            `/esp/1`
                           }
                         >
                           <MenuItem

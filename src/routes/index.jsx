@@ -1,4 +1,6 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
+import Register from "../containers/auth/Register";
+import Login from "../containers/auth/Login";
 import Navigation from "../components/navigation/Navigation";
 import Footer from "../components/footer/Footer";
 import Home from "../containers/home/Home";
@@ -8,14 +10,37 @@ import Page404 from "../containers/Page404";
 import Watch from "../containers/watch/Watch";
 import WatchTv from "../containers/watch/WatchTv";
 import Search from "../containers/search/Search";
+import Favorites from "../containers/Favorites";
+import { useSelector } from "react-redux";
 
 function Router() {
+  const { currentUser } = useSelector((state) => state.typeMovie);
+  const RequireAuth = ({ children }) => {
+    return currentUser ? <Navigate to="/" /> : children;
+  };
   return (
     <>
       <Navigation />
       <Routes>
+        <Route
+          path="/register"
+          element={
+            <RequireAuth>
+              <Register />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RequireAuth>
+              <Login />
+            </RequireAuth>
+          }
+        />
         <Route path="/">
           <Route index element={<Home />} />
+          <Route path="/favorites" element={<Favorites />} />
           <Route path="/search" element={<Search />} />
           <Route path="/:type" element={<MovieList />}>
             <Route path="/:type/:id" element={<MovieList />} />

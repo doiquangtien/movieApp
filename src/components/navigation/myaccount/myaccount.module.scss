@@ -1,4 +1,4 @@
-.myaccount{
+    .myaccount{
     display: flex;
     justify-content: space-around;
     .myaccountitem{
@@ -8,7 +8,7 @@
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        padding-left: 30px;
+        padding-left: 50px;
         color: #fff;       
         span{
         margin-top:5px ;
@@ -27,7 +27,7 @@
         }.usermenu{
             display: block;
         }
-        .usermenu{
+        .usermenu{      
             &::before{ 
                 content: "";
                 position: absolute;
@@ -35,7 +35,7 @@
                 border-style: solid ;
                 border-color: transparent transparent #ccc transparent;
                 top: -18px;
-                right: 39px;
+                right: 62px;
             }
             &::after{ 
                  content: "";
@@ -49,8 +49,8 @@
             display: none;
             z-index: 1;
             position: absolute;
-            top: 115%;
-            right: -37px;
+            top: 135%;
+            right: -53px;
             background-color: var(--main-color);
             padding-left: 0;
             list-style: none;
@@ -65,8 +65,11 @@
                 font-weight: 400;
                 padding: 12px 12px;
                 display: block;
+                font-weight: 500;
+                // border-bottom: 1px solid var(--second-color);
                 &:hover{
-                color: var(--second-color)
+                color: var(--second-color);
+                
                 }
             }
         }
@@ -78,7 +81,7 @@
                 border-style: solid;
                 border-color: transparent transparent #ccc transparent;
                 top: -18px;
-                right: 39px;
+                right: 103px;
             }
              &::after {
                  content: "";
@@ -92,12 +95,12 @@
             display: none;
             z-index: 1;
             position: absolute;
-            top: 115%;
-            right: -27px;
+            top: 135%;
+            right: -91px;
             background-color: var(--main-color);
             padding-left: 0;
             list-style: none;
-            width: 154px;
+            width: 250px;
             box-shadow: 0 0 3px #ccc;
             border-radius: 3px;
 

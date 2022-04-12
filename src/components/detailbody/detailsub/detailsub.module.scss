@@ -19,19 +19,21 @@
   
   .container{
     position: relative;
+    top:0;
     width: 1200px;
+    height: 100%;
     max-width: calc(100% - 32px);
     margin: 0 auto;
     .info {
       display: flex;
       justify-content: space-between;
+
       align-items: center;
       width: 100%;
       flex-wrap: wrap;
       // z-index: 2;
       position: absolute;
-      margin-top: 200px;
-      margin-bottom: 20px;
+      top:200px;
       .imgsub{
           overflow: hidden;
           img {
