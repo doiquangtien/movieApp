@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./auth.scss";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -15,8 +15,9 @@ const schema = yup.object().shape({
 function LoginForm(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [messageErr, setMessageErr] = useState(false);
   const handleLogin = ({ email, password }) => {
-    console.log(email, password);
+    // console.log(email, password);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -24,6 +25,7 @@ function LoginForm(props) {
         dispatch(getCurrentUser(user));
       })
       .catch((error) => {
+        setMessageErr(true);
         console.log("sai");
       });
   };
@@ -102,6 +104,11 @@ function LoginForm(props) {
                   <div className="forgot">
                     <p>Forgot your password?</p>
                   </div>
+                  {messageErr && (
+                    <span style={{ color: "red" }}>
+                      Wrong email or password !
+                    </span>
+                  )}
                   <button type="submit" className="signup-btn">
                     Login
                   </button>

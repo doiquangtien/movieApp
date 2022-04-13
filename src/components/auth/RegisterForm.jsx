@@ -1,9 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./auth.scss";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../firebase";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 const schema = yup.object().shape({
   firstname: yup.string().required("This field must be required!"),
   lastname: yup.string().required("This field must be required!"),
@@ -17,6 +19,22 @@ const schema = yup.object().shape({
 });
 
 function RegisterForm(props) {
+  const navigate = useNavigate();
+  const [messageErr, setMessageErr] = useState(false);
+  const handleRegister = async ({ firstname, lastname, email, password }) => {
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      await setDoc(doc(db, "users", res.user.uid), {
+        name: firstname + " " + lastname,
+        favorites: [],
+        timeStamp: serverTimestamp(),
+      });
+      navigate("/login");
+    } catch (err) {
+      setMessageErr(true);
+      console.log(err);
+    }
+  };
   return (
     <Formik
       initialValues={{
@@ -28,7 +46,7 @@ function RegisterForm(props) {
       }}
       validationSchema={schema}
       onSubmit={(values) => {
-        console.log(values);
+        handleRegister(values);
       }}
     >
       {(props) => {
@@ -36,7 +54,7 @@ function RegisterForm(props) {
           <div className="split-screen">
             <div className="left">
               <section className="copy">
-                <h1>Welcome to RankWork</h1>
+                <h1>Welcome to Movie World</h1>
                 <p>Over 500 free Movie</p>
               </section>
             </div>
@@ -62,7 +80,7 @@ function RegisterForm(props) {
                         type="text"
                         id="firstname"
                         name="firstname"
-                        placeholder="Monkey"
+                        placeholder="John"
                         style={
                           props.errors.firstname && props.touched.firstname
                             ? { border: "solid 1px red" }
@@ -82,7 +100,7 @@ function RegisterForm(props) {
                         type="text"
                         id="lastname"
                         name="lastname"
-                        placeholder="D. Luffy"
+                        placeholder="Wick"
                         style={
                           props.errors.lastname && props.touched.lastname
                             ? { border: "solid 1px red" }
@@ -103,13 +121,18 @@ function RegisterForm(props) {
                       type="email"
                       id="InputEmail"
                       name="email"
-                      placeholder="Email@rankwork.com"
+                      placeholder="MovieWorld@gmail.com"
                       style={
                         props.errors.email && props.touched.email
                           ? { border: "solid 1px red" }
                           : null
                       }
                     />
+                    {messageErr && (
+                      <span style={{ color: "red" }}>
+                        Email already exists !
+                      </span>
+                    )}
                     <small
                       className="form-text text-danger"
                       style={{ color: "red" }}

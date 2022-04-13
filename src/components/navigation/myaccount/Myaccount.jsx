@@ -4,13 +4,16 @@ import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
 import styles from "./myaccount.module.scss";
 import Avatar from "@mui/material/Avatar";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getCurrentUser } from "../../../redux/typeSlice";
+import { deepOrange } from "@mui/material/colors";
 
 function Myaccount() {
   const state = useSelector((state) => state.typeMovie);
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   React.useEffect(() => {
     localStorage.setItem("user", JSON.stringify(state.currentUser));
@@ -29,18 +32,26 @@ function Myaccount() {
             </ul>
           </div>
           <div className={clsx(styles.myaccountitem, styles.profile)}>
-            <Avatar>{state.currentUser.email.charAt(0).toUpperCase()}</Avatar>
+            <Avatar sx={{ bgcolor: deepOrange[500] }}>
+              {state.currentUser.email.charAt(0).toUpperCase()}
+            </Avatar>
             <ul className={styles.usermenu}>
+              <li className={styles.useritem}>
+                <span>{state.currentUser.email}</span>
+              </li>
               <li className={styles.useritem}>
                 <span>Profile</span>
               </li>
-              <li className={styles.useritem}>
-                <span>Favorites</span>
-              </li>
+              <Link to="/favorites">
+                <li className={styles.useritem}>
+                  <span>Favorites</span>
+                </li>
+              </Link>
               <li className={styles.useritem}>
                 <span
                   onClick={() => {
                     dispatch(getCurrentUser(null));
+                    navigate("/login");
                   }}
                 >
                   Logout

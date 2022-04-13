@@ -6,25 +6,102 @@ import ShareIcon from "@mui/icons-material/Share";
 import styles from "./detailsub.module.scss";
 import StarIcon from "@mui/icons-material/Star";
 import { Rating } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState, forwardRef } from "react";
 import { Link } from "react-router-dom";
-
-import { setDoc, doc, addDoc, collection } from "firebase/firestore";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import { updateDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { useSelector } from "react-redux";
-// import { createUserWithEmailAndPassword } from "firebase/auth";
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+// import Loading from "../../loading/Loading";
 
+const Alert = forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 function Detailsub({ data, type }) {
+  const [open, setOpen] = useState(false);
   const [value, setValue] = useState(5);
+  const [severity12, setSeverity] = useState({
+    severity: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
   const state = useSelector((state) => state.typeMovie);
-  const handleFavorites = async () => {
+  const movieFa = [{ id_fa: data.id, backdrop_path: data.backdrop_path }];
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+  // useEffect(() => {
+  //   const fecthData = async () => {
+  //     try {
+  //       const docRef = doc(db, "users", state.currentUser.uid);
+  //       const docSnap = await getDoc(docRef);
+  //       // setDatafa(docSnap.data().favorites);
+
+  //       if (docSnap.exists()) {
+  //         console.log("Document data:", docSnap.data().favorites);
+  //         return docSnap.data().favorites;
+
+  //       } else {
+  //         // doc.data() will be undefined in this case
+  //         console.log("No such document!");
+  //       }
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   fecthData();
+  // }, []);
+  const fecthData = async () => {
     try {
-      // const res = await createUserWithEmailAndPassword(auth,data.email,data.password)
-      const res = await addDoc(collection(db, state.currentUser.uid), {
-        id: data.id,
-        type: type,
-        backdrop_path: data.backdrop_path,
+      const docRef = doc(db, "users", state.currentUser.uid);
+      const docSnap = await getDoc(docRef);
+      // setDatafa(docSnap.data().favorites);
+
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data().favorites);
+        return docSnap.data().favorites;
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleFavorites = async () => {
+    const data = await fecthData();
+    const ids = new Set(data.map((d) => d.id_fa));
+    const newData = [...data, ...movieFa.filter((d) => !ids.has(d.id_fa))];
+    movieFa.filter((d) => {
+      if (!ids.has(d.id_fa)) {
+        setSeverity({
+          severity: "success",
+          message: "Add new favorite success !",
+        });
+      } else {
+        setSeverity({
+          severity: "warning",
+          message: "Movies already exist !",
+        });
+      }
+    });
+
+    setLoading(true);
+
+    try {
+      await updateDoc(doc(db, "users", state.currentUser.uid), {
+        favorites: newData,
       });
+      setLoading(false);
+      setOpen(true);
       // console.log(res);
     } catch (err) {
       console.log(err);
@@ -137,6 +214,27 @@ function Detailsub({ data, type }) {
                 </div>
               </div>
             </div>
+            <Stack spacing={2} sx={{ width: "100%" }}>
+              <Snackbar
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+              >
+                <Alert severity={severity12.severity} sx={{ width: "100%" }}>
+                  {severity12.message}
+                </Alert>
+              </Snackbar>
+            </Stack>
+            <Backdrop
+              sx={{
+                color: "#fff",
+                zIndex: (theme) => theme.zIndex.drawer + 1,
+              }}
+              open={loading}
+            >
+              <CircularProgress color="inherit" />
+            </Backdrop>
           </div>
         </div>
       )}
