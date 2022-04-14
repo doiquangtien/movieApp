@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 import Search from "./search/Search";
 import Navbar from "./navbar/Navbar";
@@ -6,11 +6,16 @@ import Myaccount from "./myaccount/Myaccount";
 import Toggledarkmode from "./toggledarkmode/Toggledarkmode";
 import styles from "./navigation.module.scss";
 import logo from "../../img/logo192.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Box, Container, Grid } from "@mui/material";
 
 function Navigation() {
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+  }, [location.pathname]);
+
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
     return () => (window.onscroll = null);

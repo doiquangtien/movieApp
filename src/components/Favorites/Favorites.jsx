@@ -1,53 +1,127 @@
 import { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import "./favorites.scss";
 import { useSelector } from "react-redux";
 import { Container, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import Bigcard from "../bigCard/Bigcard";
 import Loading from "../loading/Loading";
+import { useNavigate } from "react-router-dom";
 function FavoritesBody() {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const state = useSelector((state) => state.typeMovie);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fecthData = async () => {
+    // const fecthData = async () => {
+    //   try {
+    //     const docRef = doc(db, "users", state.currentUser.uid);
+    //     const docSnap = await getDoc(docRef);
+
+    //     if (docSnap.exists()) {
+    //       // console.log("Document data:", docSnap.data().favorites);
+    //       setData(docSnap.data().favorites);
+    //       setLoading(true);
+    //     } else {
+    //       // doc.data() will be undefined in this case
+    //       console.log("No such document!");
+    //     }
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
+    // fecthData();
+    const unsub = onSnapshot(doc(db, "users", state.currentUser.uid), (doc) => {
+      setLoading(true);
+      setData(doc.data().favorites);
+    });
+    return () => {
+      unsub();
+    };
+  }, []);
+
+  const handleDeleteAll = async () => {
+    const proceed = window.confirm("Are you sure you want to delete?");
+    if (proceed) {
       try {
-        const docRef = doc(db, "users", state.currentUser.uid);
-        const docSnap = await getDoc(docRef);
-        setLoading(true);
-        if (docSnap.exists()) {
-          console.log("Document data:", docSnap.data().favorites);
-          setData(docSnap.data().favorites);
-        } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-        }
+        await updateDoc(doc(db, "users", state.currentUser.uid), {
+          favorites: [],
+        });
       } catch (err) {
         console.log(err);
       }
-    };
-    fecthData();
-  }, []);
-  console.log(data);
+    }
+  };
+
   return (
     <Container
       maxWidth="1400px"
-      style={{ marginTop: "90px", minHeight: "100vh" }}
+      style={{ marginTop: "100px", minHeight: "100vh" }}
     >
       <Box sx={{ flexGrow: 1, margin: "0 36px" }}>
-        <h1 style={{ color: "#fff" }}>Favorites</h1>
+        <div
+          style={{
+            color: "#fff",
+            fontSize: "30px",
+            fontWeight: "500",
+            textAlign: "center",
+            margin: "30px 0",
+          }}
+        >
+          Your Favorite Movie List
+        </div>
+        <div className="line"></div>
+
         {loading ? (
-          <Grid container spacing={0}>
-            {data.map((item, i) => {
-              return (
-                <Grid key={i} item xs={12} sm={12} md={2.4}>
-                  <Bigcard data={item} />
+          <>
+            {data.length > 0 ? (
+              <>
+                <button className="empty-btn" onClick={handleDeleteAll}>
+                  Delete All
+                </button>
+                <Grid container spacing={2}>
+                  {data.map((item, i) => {
+                    return (
+                      <Grid
+                        key={i}
+                        item
+                        xs={12}
+                        sm={4}
+                        md={2.4}
+                        onClick={() => {
+                          navigate(`/details/${item.type}/${item.id_fa}`);
+                        }}
+                      >
+                        <Bigcard data={item} />
+                      </Grid>
+                    );
+                  })}
                 </Grid>
-              );
-            })}
-          </Grid>
+              </>
+            ) : (
+              <div className="empty-history">
+                <img
+                  className="empty-img"
+                  src="//www.iqiyipic.com/common/fix/empty_history.png"
+                  alt=""
+                />
+                <p className="empty-title">No Favorite Movie List</p>
+                <p className="empty-desc">
+                  Try adding more movie to your Favorite Later !
+                </p>
+                <button
+                  className="empty-btn"
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  Watch Now
+                </button>
+              </div>
+            )}
+          </>
         ) : (
           <Loading />
         )}

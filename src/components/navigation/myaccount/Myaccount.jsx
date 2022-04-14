@@ -42,7 +42,7 @@ function Myaccount() {
               <li className={styles.useritem}>
                 <span>Profile</span>
               </li>
-              <Link to="/favorites">
+              <Link to="/favorites" style={{ textDecoration: "none" }}>
                 <li className={styles.useritem}>
                   <span>Favorites</span>
                 </li>

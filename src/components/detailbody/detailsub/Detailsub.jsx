@@ -6,16 +6,16 @@ import ShareIcon from "@mui/icons-material/Share";
 import styles from "./detailsub.module.scss";
 import StarIcon from "@mui/icons-material/Star";
 import { Rating } from "@mui/material";
-import { useEffect, useState, forwardRef } from "react";
+import { useState, forwardRef } from "react";
 import { Link } from "react-router-dom";
-import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
+
 import { updateDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { useSelector } from "react-redux";
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import ModalLoading from "../../ModalLoading/ModalLoading";
 // import Loading from "../../loading/Loading";
 
 const Alert = forwardRef(function Alert(props, ref) {
@@ -29,8 +29,18 @@ function Detailsub({ data, type }) {
     message: "",
   });
   const [loading, setLoading] = useState(false);
+
   const state = useSelector((state) => state.typeMovie);
-  const movieFa = [{ id_fa: data.id, backdrop_path: data.backdrop_path }];
+  const movieFa = [
+    {
+      id_fa: data.id,
+      backdrop_path: data.backdrop_path || "",
+      type: type,
+      poster_path: data.poster_path || "",
+      name_movie: data.original_title || data.name || data.title,
+    },
+  ];
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -38,38 +48,15 @@ function Detailsub({ data, type }) {
 
     setOpen(false);
   };
-  // useEffect(() => {
-  //   const fecthData = async () => {
-  //     try {
-  //       const docRef = doc(db, "users", state.currentUser.uid);
-  //       const docSnap = await getDoc(docRef);
-  //       // setDatafa(docSnap.data().favorites);
 
-  //       if (docSnap.exists()) {
-  //         console.log("Document data:", docSnap.data().favorites);
-  //         return docSnap.data().favorites;
-
-  //       } else {
-  //         // doc.data() will be undefined in this case
-  //         console.log("No such document!");
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   fecthData();
-  // }, []);
   const fecthData = async () => {
     try {
       const docRef = doc(db, "users", state.currentUser.uid);
       const docSnap = await getDoc(docRef);
-      // setDatafa(docSnap.data().favorites);
 
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data().favorites);
         return docSnap.data().favorites;
       } else {
-        // doc.data() will be undefined in this case
         console.log("No such document!");
       }
     } catch (err) {
@@ -216,9 +203,10 @@ function Detailsub({ data, type }) {
             </div>
             <Stack spacing={2} sx={{ width: "100%" }}>
               <Snackbar
+                style={{ marginTop: "50px" }}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}
                 open={open}
-                autoHideDuration={6000}
+                autoHideDuration={1500}
                 onClose={handleClose}
               >
                 <Alert severity={severity12.severity} sx={{ width: "100%" }}>
@@ -226,15 +214,7 @@ function Detailsub({ data, type }) {
                 </Alert>
               </Snackbar>
             </Stack>
-            <Backdrop
-              sx={{
-                color: "#fff",
-                zIndex: (theme) => theme.zIndex.drawer + 1,
-              }}
-              open={loading}
-            >
-              <CircularProgress color="inherit" />
-            </Backdrop>
+            <ModalLoading load={loading} />
           </div>
         </div>
       )}

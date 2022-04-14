@@ -11,7 +11,10 @@ function Bigcard(data) {
         />
       </div>
       <span className={styles.episodesNumber}>
-        {data.data.title || data.data.original_title || data.data.name}
+        {data.data.title ||
+          data.data.original_title ||
+          data.data.name ||
+          data.data.name_movie}
       </span>
     </div>
   );

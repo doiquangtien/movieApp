@@ -65,7 +65,7 @@ function WatchVideoMovie() {
                                 style={{ textDecoration: "none" }}
                                 to={`/details/movie/` + similar.id}
                               >
-                                <Bigcard key={i} data={similar} />
+                                <Bigcard data={similar} />
                               </Link>
                             );
                           })}
