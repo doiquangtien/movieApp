@@ -16,21 +16,23 @@ import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import ModalLoading from "../../ModalLoading/ModalLoading";
+import AlertDialogSlide from "../../DialogLogin/DIalogLogin";
 // import Loading from "../../loading/Loading";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 function Detailsub({ data, type }) {
+  const state = useSelector((state) => state.typeMovie);
   const [open, setOpen] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+
   const [value, setValue] = useState(5);
   const [severity12, setSeverity] = useState({
     severity: "",
     message: "",
   });
   const [loading, setLoading] = useState(false);
-
-  const state = useSelector((state) => state.typeMovie);
   const movieFa = [
     {
       id_fa: data.id,
@@ -40,7 +42,13 @@ function Detailsub({ data, type }) {
       name_movie: data.original_title || data.name || data.title,
     },
   ];
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
 
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -89,7 +97,6 @@ function Detailsub({ data, type }) {
       });
       setLoading(false);
       setOpen(true);
-      // console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -192,7 +199,17 @@ function Detailsub({ data, type }) {
 
                   <button className={styles.more}>
                     <BookmarkAddIcon />
-                    <span onClick={handleFavorites}>Add to favorites</span>
+                    {state.currentUser ? (
+                      <span onClick={handleFavorites}>Add to favorites</span>
+                    ) : (
+                      <>
+                        <span onClick={handleOpenDialog}>Add to favorites</span>
+                        <AlertDialogSlide
+                          open={openDialog}
+                          handleClose={handleCloseDialog}
+                        />
+                      </>
+                    )}
                   </button>
                   <button className={styles.more}>
                     <ShareIcon />
@@ -206,10 +223,14 @@ function Detailsub({ data, type }) {
                 style={{ marginTop: "50px" }}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}
                 open={open}
-                autoHideDuration={1500}
+                autoHideDuration={4000}
                 onClose={handleClose}
               >
-                <Alert severity={severity12.severity} sx={{ width: "100%" }}>
+                <Alert
+                  onClose={handleClose}
+                  severity={severity12.severity}
+                  sx={{ width: "100%" }}
+                >
                   {severity12.message}
                 </Alert>
               </Snackbar>
