@@ -12,3 +12,7 @@ html{
 .d-flex{
     display: flex;
 }
+.hover :hover{
+    color: var(--second-color);
+    cursor: pointer;
+}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import "./favorites.scss";
 import { useSelector } from "react-redux";

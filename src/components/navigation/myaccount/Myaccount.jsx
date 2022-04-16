@@ -9,15 +9,37 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getCurrentUser } from "../../../redux/typeSlice";
 import { deepOrange } from "@mui/material/colors";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../firebase";
 
 function Myaccount() {
   const state = useSelector((state) => state.typeMovie);
+  const [data, setData] = React.useState([]);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
   React.useEffect(() => {
     localStorage.setItem("user", JSON.stringify(state.currentUser));
   });
+  React.useEffect(() => {
+    const fecthData = async () => {
+      try {
+        const docRef = doc(db, "users", state.currentUser.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          // console.log("Document data:", docSnap.data().favorites);
+          setData(docSnap.data());
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fecthData();
+  }, []);
   return (
     <>
       {state.currentUser ? (
@@ -32,16 +54,25 @@ function Myaccount() {
             </ul>
           </div>
           <div className={clsx(styles.myaccountitem, styles.profile)}>
-            <Avatar sx={{ bgcolor: deepOrange[500] }}>
-              {state.currentUser.email.charAt(0).toUpperCase()}
-            </Avatar>
+            <Avatar alt="Remy Sharp" src={data.img} />
+
+            {/* {data.img ? (
+              <Avatar alt="Remy Sharp" src={data.img} />
+            ) : (
+              <Avatar sx={{ bgcolor: deepOrange[500] }}>
+                {state.currentUser.email.charAt(0).toUpperCase()}
+              </Avatar>
+            )} */}
+
             <ul className={styles.usermenu}>
               <li className={styles.useritem}>
                 <span>{state.currentUser.email}</span>
               </li>
-              <li className={styles.useritem}>
-                <span>Profile</span>
-              </li>
+              <Link to="/profile" style={{ textDecoration: "none" }}>
+                <li className={styles.useritem}>
+                  <span>Profile</span>
+                </li>
+              </Link>
               <Link to="/favorites" style={{ textDecoration: "none" }}>
                 <li className={styles.useritem}>
                   <span>Favorites</span>

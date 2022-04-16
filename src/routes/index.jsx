@@ -11,13 +11,14 @@ import Watch from "../containers/watch/Watch";
 import WatchTv from "../containers/watch/WatchTv";
 import Search from "../containers/search/Search";
 import Favorites from "../containers/Favorites";
+import Profile from "../containers/Profile";
 import { useSelector } from "react-redux";
-
 function Router() {
   const { currentUser } = useSelector((state) => state.typeMovie);
   const RequireAuth = ({ children }) => {
     return currentUser ? <Navigate to="/" /> : children;
   };
+
   return (
     <>
       <Navigation />
@@ -41,6 +42,7 @@ function Router() {
         <Route path="/">
           <Route index element={<Home />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/search" element={<Search />} />
           <Route path="/:type" element={<MovieList />}>
             <Route path="/:type/:id" element={<MovieList />} />
