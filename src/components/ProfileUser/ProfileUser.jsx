@@ -1,4 +1,4 @@
-import { Container, Grid } from "@mui/material";
+import { Alert, Container, Grid, Snackbar, Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -13,14 +13,24 @@ import { useSelector } from "react-redux";
 import ModalLoading from "../ModalLoading/ModalLoading";
 import Loading from "../loading/Loading";
 import CircularStatic from "./Progress";
+
 function ProfileUser() {
   const [file, setFile] = useState("");
   const [data, setData] = useState([]);
   const state = useSelector((state) => state.typeMovie);
   const [percent, setPercent] = useState(true);
+  const [btnUpdate, setbtnUpdate] = useState(true);
   const [loading, setLoading] = useState(false);
   const [loadingForm, setLoadingForm] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [open, setOpen] = useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const [valueInput, setValueInput] = useState({
     firstname: "",
@@ -103,6 +113,7 @@ function ProfileUser() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setbtnUpdate(true);
     setLoading(true);
     await updateDoc(doc(db, "users", state.currentUser.uid), {
       firstname: valueInput.firstname,
@@ -112,13 +123,13 @@ function ProfileUser() {
       img: valueInput.img,
     });
     setLoading(false);
+    setOpen(true);
   };
   return (
     <Container maxWidth="1400px" style={{ marginTop: "90px", height: "100vh" }}>
       {loadingForm ? (
         <Box sx={{ flexGrow: 1, margin: "0 36px" }}>
           <ModalLoading load={loading} />
-
           <Grid className="wrap-profile" container spacing={0}>
             <Grid className="left" item md={3}>
               <div className="wrap-left">
@@ -173,13 +184,14 @@ function ProfileUser() {
                   </div>
                   {data && (
                     <div className="right-input">
-                      <form onSubmit={handleSubmit}>
+                      <form>
                         <div className="formInput-img">
                           <label htmlFor="file">
                             Image:
                             <DriveFolderUploadIcon className="icon" />
                           </label>
                           <input
+                            disabled={btnUpdate}
                             onChange={(e) => setFile(e.target.files[0])}
                             type="file"
                             id="file"
@@ -189,6 +201,7 @@ function ProfileUser() {
                         <div className="formInput">
                           <label>First name</label>
                           <input
+                            disabled={btnUpdate}
                             value={valueInput.firstname || ""}
                             name="firstname"
                             onChange={handleInput}
@@ -199,6 +212,7 @@ function ProfileUser() {
                         <div className="formInput">
                           <label>Last name</label>
                           <input
+                            disabled={btnUpdate}
                             name="lastname"
                             value={valueInput.lastname || ""}
                             onChange={handleInput}
@@ -209,6 +223,7 @@ function ProfileUser() {
                         <div className="formInput">
                           <label>Phone</label>
                           <input
+                            disabled={btnUpdate}
                             name="phonenumber"
                             value={valueInput.phonenumber || ""}
                             onChange={handleInput}
@@ -219,6 +234,7 @@ function ProfileUser() {
                         <div className="formInput">
                           <label>Country</label>
                           <input
+                            disabled={btnUpdate}
                             name="country"
                             value={valueInput.country || ""}
                             onChange={handleInput}
@@ -226,9 +242,35 @@ function ProfileUser() {
                             placeholder="VN"
                           />
                         </div>
-                        <button disabled={percent === false} type="submit">
-                          Send
-                        </button>
+                        {btnUpdate ? (
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setbtnUpdate(false);
+                            }}
+                          >
+                            Update
+                          </button>
+                        ) : (
+                          <div>
+                            <button
+                              disabled={percent === false}
+                              onClick={handleSubmit}
+                            >
+                              Send
+                            </button>
+                            <button
+                              className="btn-cancel"
+                              disabled={percent === false}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setbtnUpdate(true);
+                              }}
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        )}
                       </form>
                     </div>
                   )}
@@ -236,6 +278,23 @@ function ProfileUser() {
               </div>
             </Grid>
           </Grid>
+          <Stack spacing={2} sx={{ width: "100%" }}>
+            <Snackbar
+              style={{ marginTop: "50px" }}
+              anchorOrigin={{ vertical: "top", horizontal: "right" }}
+              open={open}
+              autoHideDuration={3000}
+              onClose={handleClose}
+            >
+              <Alert
+                onClose={handleClose}
+                severity="success"
+                sx={{ width: "100%" }}
+              >
+                Update successful
+              </Alert>
+            </Snackbar>
+          </Stack>
         </Box>
       ) : (
         <Loading />

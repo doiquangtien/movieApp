@@ -38,6 +38,5 @@ CircularProgressWithLabel.propTypes = {
 };
 
 export default function CircularStatic({ progress1 }) {
-  console.log(progress1);
   return <CircularProgressWithLabel value={progress1} />;
 }

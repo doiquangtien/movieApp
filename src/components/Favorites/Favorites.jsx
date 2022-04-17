@@ -42,8 +42,26 @@ function FavoritesBody() {
     };
   }, []);
 
+  const handleDelete = async (id) => {
+    const newData = data.filter((item) => item.id_fa !== id);
+    const proceed = window.confirm(
+      "Are you sure you want to delete this movie?"
+    );
+    if (proceed) {
+      try {
+        await updateDoc(doc(db, "users", state.currentUser.uid), {
+          favorites: newData,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   const handleDeleteAll = async () => {
-    const proceed = window.confirm("Are you sure you want to delete?");
+    const proceed = window.confirm(
+      "Are you sure you want to delete all movie?"
+    );
     if (proceed) {
       try {
         await updateDoc(doc(db, "users", state.currentUser.uid), {
@@ -84,17 +102,22 @@ function FavoritesBody() {
                 <Grid container spacing={2}>
                   {data.map((item, i) => {
                     return (
-                      <Grid
-                        key={i}
-                        item
-                        xs={12}
-                        sm={4}
-                        md={2.4}
-                        onClick={() => {
-                          navigate(`/details/${item.type}/${item.id_fa}`);
-                        }}
-                      >
-                        <Bigcard data={item} />
+                      <Grid key={i} item xs={12} sm={4} md={2.4}>
+                        <div
+                          onClick={() => {
+                            navigate(`/details/${item.type}/${item.id_fa}`);
+                          }}
+                        >
+                          <Bigcard data={item} />
+                        </div>
+                        <button
+                          className="empty-btn"
+                          onClick={() => {
+                            handleDelete(item.id_fa);
+                          }}
+                        >
+                          Delete
+                        </button>
                       </Grid>
                     );
                   })}

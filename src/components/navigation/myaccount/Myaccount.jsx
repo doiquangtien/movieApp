@@ -1,6 +1,11 @@
 import * as React from "react";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import LoginIcon from "@mui/icons-material/InputOutlined";
 import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
+import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import LogoutIcon from "@mui/icons-material/Logout";
 import styles from "./myaccount.module.scss";
 import Avatar from "@mui/material/Avatar";
 import clsx from "clsx";
@@ -8,8 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getCurrentUser } from "../../../redux/typeSlice";
-import { deepOrange } from "@mui/material/colors";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase";
 
 function Myaccount() {
@@ -22,24 +26,36 @@ function Myaccount() {
     localStorage.setItem("user", JSON.stringify(state.currentUser));
   });
   React.useEffect(() => {
-    const fecthData = async () => {
-      try {
-        const docRef = doc(db, "users", state.currentUser.uid);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          // console.log("Document data:", docSnap.data().favorites);
-          setData(docSnap.data());
-        } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
+    if (state.currentUser) {
+      const unsub = onSnapshot(
+        doc(db, "users", state.currentUser.uid),
+        (doc) => {
+          setData(doc.data());
         }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fecthData();
-  }, []);
+      );
+      return () => {
+        unsub();
+      };
+    }
+
+    // const fecthData = async () => {
+    //   try {
+    //     const docRef = doc(db, "users", state.currentUser.uid);
+    //     const docSnap = await getDoc(docRef);
+
+    //     if (docSnap.exists()) {
+    //       // console.log("Document data:", docSnap.data().favorites);
+    //       setData(docSnap.data());
+    //     } else {
+    //       // doc.data() will be undefined in this case
+    //       console.log("No such document!");
+    //     }
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
+    // fecthData();
+  }, [state.currentUser]);
   return (
     <>
       {state.currentUser ? (
@@ -59,34 +75,46 @@ function Myaccount() {
             {/* {data.img ? (
               <Avatar alt="Remy Sharp" src={data.img} />
             ) : (
-              <Avatar sx={{ bgcolor: deepOrange[500] }}>
-                {state.currentUser.email.charAt(0).toUpperCase()}
-              </Avatar>
+              <Avatar>{state.currentUser.email.charAt(0).toUpperCase()}</Avatar>
             )} */}
 
             <ul className={styles.usermenu}>
+              <li className={clsx(styles.useritem, styles.useritemFirst)}>
+                <Avatar alt="Remy Sharp" src={data.img} />
+                <span>{data.firstname + " " + data.lastname}</span>
+              </li>
               <li className={styles.useritem}>
+                <MailOutlineIcon />
                 <span>{state.currentUser.email}</span>
               </li>
-              <Link to="/profile" style={{ textDecoration: "none" }}>
-                <li className={styles.useritem}>
-                  <span>Profile</span>
-                </li>
-              </Link>
-              <Link to="/favorites" style={{ textDecoration: "none" }}>
-                <li className={styles.useritem}>
-                  <span>Favorites</span>
-                </li>
-              </Link>
-              <li className={styles.useritem}>
-                <span
-                  onClick={() => {
-                    dispatch(getCurrentUser(null));
-                    navigate("/login");
-                  }}
-                >
-                  Logout
-                </span>
+              <li
+                className={styles.useritem}
+                onClick={() => {
+                  navigate("/profile");
+                }}
+              >
+                <PersonOutlineRoundedIcon />
+                <span>Profile</span>
+              </li>
+
+              <li
+                className={styles.useritem}
+                onClick={() => {
+                  navigate("/favorites");
+                }}
+              >
+                <BookmarkBorderIcon />
+                <span>Favorites</span>
+              </li>
+              <li
+                className={styles.useritem}
+                onClick={() => {
+                  dispatch(getCurrentUser(null));
+                  navigate("/login");
+                }}
+              >
+                <LogoutIcon />
+                <span>Logout</span>
               </li>
             </ul>
           </div>
@@ -104,14 +132,16 @@ function Myaccount() {
           </div>
           <div className={clsx(styles.myaccountitem, styles.profile)}>
             <PersonOutlineRoundedIcon sx={{ fontSize: "40px" }} />
-            <ul className={styles.usermenu}>
+            <ul className={clsx(styles.usermenu)}>
               <Link to="/login" style={{ textDecoration: "none" }}>
                 <li className={styles.useritem}>
+                  <LoginIcon />
                   <span>Login</span>
                 </li>
               </Link>
               <Link to="/register" style={{ textDecoration: "none" }}>
                 <li className={styles.useritem}>
+                  <HowToRegOutlinedIcon />
                   <span>Register</span>
                 </li>
               </Link>

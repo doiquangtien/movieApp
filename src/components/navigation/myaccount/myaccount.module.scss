@@ -27,6 +27,7 @@
         }.usermenu{
             display: block;
         }
+       
         .usermenu{      
             &::before{ 
                 content: "";
@@ -54,19 +55,30 @@
             background-color: var(--main-color);
             padding-left: 0;
             list-style: none;
-            min-width: 154px;
+            min-width: 220px;
             box-shadow: 0 0 3px #ccc;
             border-radius: 3px;
-            .useritem span{
+             .useritemFirst{
+                    background: url(//www.iqiyipic.com/lequ/20211013/person-backgroud.png) center center / cover no-repeat;
+                    font-size: 16px;
+                    height: 80px;
+                    
+                }
+            .useritem{
+                padding:5px 10px;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                span{
                 z-index: 2;
                 text-decoration: none;
                 font-size: 14px;
-                color: #fff;
                 font-weight: 400;
                 padding: 12px 12px;
                 display: block;
                 font-weight: 500;
                 // border-bottom: 1px solid var(--second-color);
+                }                         
                 &:hover{
                 color: var(--second-color);
                 

@@ -122,12 +122,19 @@
                                 background-color: inherit;
                                 border: none;
                                 border-bottom: 1px solid #fff;
+                                &:disabled{
+                                    color: rgba(255, 255, 255, 0.788);
+                                }
                             }
                            
                         }
+                        .btn-cancel{
+                            margin-left: 100px ;
+                        }
                          button{
                                 width: 150px;
-                                padding: 10px;
+                                padding: 15px;
+                                border-radius: 5px;
                                 border: none;
                                 background-color: teal;
                                 font-weight: bold;

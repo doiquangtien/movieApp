@@ -8,7 +8,6 @@ import StarIcon from "@mui/icons-material/Star";
 import { Rating } from "@mui/material";
 import { useState, forwardRef } from "react";
 import { Link } from "react-router-dom";
-
 import { updateDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { useSelector } from "react-redux";
@@ -223,7 +222,7 @@ function Detailsub({ data, type }) {
                 style={{ marginTop: "50px" }}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}
                 open={open}
-                autoHideDuration={4000}
+                autoHideDuration={3000}
                 onClose={handleClose}
               >
                 <Alert
