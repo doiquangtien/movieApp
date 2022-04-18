@@ -11,13 +11,82 @@ import { Box } from "@mui/system";
 import DetailGenre from "../detailbody/detailsub/DetailGenre";
 import StarIcon from "@mui/icons-material/Star";
 import styles from "./watchvideo.module.scss";
+import Comments from "../Comments/Comments";
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 function WatchVideoMovie() {
   const { id_details } = useParams();
   const state = useSelector((state) => state.infoMovie);
+  const { currentUser } = useSelector((state) => state.typeMovie);
   const dispatch = useDispatch();
   const [load, setLoad] = useState(false);
+  const [data, setData] = useState(null);
 
+  // useEffect(() => {
+  //   const unsub = onSnapshot(
+  //     doc(db, "commentsRoom", idCommentRoom),
+  //     (doc) => {
+  //       setBackendComments(doc.data());
+  //     }
+  //   );
+  //   return () => {
+  //     unsub();
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    const fecthData = async () => {
+      const list = [];
+      try {
+        const querySnapshot = await getDocs(collection(db, "commentsRoom"));
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          list.push(doc.id);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+      // console.log(list);
+      return list;
+    };
+
+    const createCommentRoom = async () => {
+      const data = await fecthData();
+      const newData = data.filter((item) => item === id_details);
+      // console.log(newData);
+      if (newData == false) {
+        try {
+          await setDoc(doc(db, "commentsRoom", id_details), {
+            comment: [],
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    };
+    createCommentRoom();
+  }, [id_details]);
+
+  useEffect(() => {
+    const fecthData = async () => {
+      try {
+        const docRef = doc(db, "users", currentUser.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          // console.log("Document data:", docSnap.data().favorites);
+          setData(docSnap.data());
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fecthData();
+  }, []);
   useEffect(() => {
     const loadDetail = async () => {
       await getDetailsById(dispatch, "movie", id_details);
@@ -34,14 +103,14 @@ function WatchVideoMovie() {
             <Grid container spacing={0}>
               <Grid item xs={12} sm={12} md={9.3}>
                 <div className={styles.video}>
-                  <iframe
+                  {/* <iframe
                     title="Movie"
                     src={`https://www.2embed.ru/embed/tmdb/movie?id=${id_details}`}
                     width="100%"
                     height="100%"
                     frameborder="0"
                     allowFullScreen
-                  ></iframe>
+                  ></iframe> */}
                 </div>
               </Grid>
               <Grid item xs={12} sm={12} md={2.7}>
@@ -77,10 +146,8 @@ function WatchVideoMovie() {
                 </div>
               </Grid>
             </Grid>
-          </Box>
-          <Box sx={{ flexGrow: 1, margin: "0 36px", color: "#fff" }}>
             <Grid container spacing={0}>
-              <Grid item xs={12} sm={12} md={9.3}>
+              <Grid item xs={12} sm={12} md={9.3} sx={{ color: "#fff" }}>
                 <div className={styles.infoName}>
                   {state.detailMovie.original_title ||
                     state.detailMovie.title ||
@@ -111,6 +178,13 @@ function WatchVideoMovie() {
                 </div>
               </Grid>
             </Grid>
+            {data && (
+              <Comments
+                currentUserId={currentUser.uid}
+                name={data.firstname + " " + data.lastname}
+                idCommentRoom={id_details}
+              />
+            )}
           </Box>
         </Container>
       )}

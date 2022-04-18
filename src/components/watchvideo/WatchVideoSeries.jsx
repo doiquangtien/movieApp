@@ -16,18 +16,75 @@ import styles from "./watchVideoSeries.module.scss";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import Seasons from "./seasons/Seasons";
 import clsx from "clsx";
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import Comments from "../Comments/Comments";
 
 function WatchVideoMovie() {
   const { id_details, id_season, id_esp } = useParams();
   const state = useSelector((state) => state.infoMovie);
+  const { currentUser } = useSelector((state) => state.typeMovie);
   const dispatch = useDispatch();
   const [value, setValue] = useState("1");
   const [icon, setIcon] = useState(true);
   const [load, setLoad] = useState(false);
+  const [data, setData] = useState(null);
   const refScroll = useRef();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  useEffect(() => {
+    const fecthData = async () => {
+      const list = [];
+      try {
+        const querySnapshot = await getDocs(collection(db, "commentsRoom"));
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          list.push(doc.id);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+      // console.log(list);
+      return list;
+    };
+
+    const createCommentRoom = async () => {
+      const data = await fecthData();
+      const newData = data.filter((item) => item === id_details);
+      console.log(newData);
+      if (newData == false) {
+        try {
+          await setDoc(doc(db, "commentsRoom", id_details), {
+            comment: [],
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    };
+    createCommentRoom();
+  }, [id_details]);
+
+  useEffect(() => {
+    const fecthData = async () => {
+      try {
+        const docRef = doc(db, "users", currentUser.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          // console.log("Document data:", docSnap.data().favorites);
+          setData(docSnap.data());
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fecthData();
+  }, []);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -340,6 +397,13 @@ function WatchVideoMovie() {
                 </div>
               </Grid>
             </Grid>
+            {data && (
+              <Comments
+                currentUserId={currentUser.uid}
+                name={data.firstname + " " + data.lastname}
+                idCommentRoom={id_details}
+              />
+            )}
           </Box>
         </Container>
       )}
