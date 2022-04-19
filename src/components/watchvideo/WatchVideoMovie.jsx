@@ -12,16 +12,14 @@ import DetailGenre from "../detailbody/detailsub/DetailGenre";
 import StarIcon from "@mui/icons-material/Star";
 import styles from "./watchvideo.module.scss";
 import Comments from "../Comments/Comments";
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 function WatchVideoMovie() {
   const { id_details } = useParams();
   const state = useSelector((state) => state.infoMovie);
-  const { currentUser } = useSelector((state) => state.typeMovie);
   const dispatch = useDispatch();
   const [load, setLoad] = useState(false);
-  const [data, setData] = useState(null);
 
   // useEffect(() => {
   //   const unsub = onSnapshot(
@@ -69,25 +67,6 @@ function WatchVideoMovie() {
   }, [id_details]);
 
   useEffect(() => {
-    const fecthData = async () => {
-      try {
-        const docRef = doc(db, "users", currentUser.uid);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          // console.log("Document data:", docSnap.data().favorites);
-          setData(docSnap.data());
-        } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fecthData();
-  }, []);
-  useEffect(() => {
     const loadDetail = async () => {
       await getDetailsById(dispatch, "movie", id_details);
       setLoad(true);
@@ -103,14 +82,14 @@ function WatchVideoMovie() {
             <Grid container spacing={0}>
               <Grid item xs={12} sm={12} md={9.3}>
                 <div className={styles.video}>
-                  {/* <iframe
+                  <iframe
                     title="Movie"
                     src={`https://www.2embed.ru/embed/tmdb/movie?id=${id_details}`}
                     width="100%"
                     height="100%"
-                    frameborder="0"
+                    frameBorder="0"
                     allowFullScreen
-                  ></iframe> */}
+                  ></iframe>
                 </div>
               </Grid>
               <Grid item xs={12} sm={12} md={2.7}>
@@ -147,7 +126,16 @@ function WatchVideoMovie() {
               </Grid>
             </Grid>
             <Grid container spacing={0}>
-              <Grid item xs={12} sm={12} md={9.3} sx={{ color: "#fff" }}>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={9.3}
+                sx={{
+                  color: "#fff",
+                  borderBottom: "1px solid rgba(204, 204, 204, 0.3)",
+                }}
+              >
                 <div className={styles.infoName}>
                   {state.detailMovie.original_title ||
                     state.detailMovie.title ||
@@ -177,14 +165,10 @@ function WatchVideoMovie() {
                   <span>{state.detailMovie.overview}</span>
                 </div>
               </Grid>
+              <Grid item md={9.3}>
+                <Comments idCommentRoom={id_details} />
+              </Grid>
             </Grid>
-            {data && (
-              <Comments
-                currentUserId={currentUser.uid}
-                name={data.firstname + " " + data.lastname}
-                idCommentRoom={id_details}
-              />
-            )}
           </Box>
         </Container>
       )}

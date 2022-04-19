@@ -12,25 +12,25 @@ import clsx from "clsx";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getCurrentUser } from "../../../redux/typeSlice";
+import { getCurrentUser, getUserInfo } from "../../../redux/typeSlice";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase";
 
 function Myaccount() {
   const state = useSelector((state) => state.typeMovie);
-  const [data, setData] = React.useState([]);
   const navigate = useNavigate();
-
+  // console.log(state.userInfo);
   const dispatch = useDispatch();
   React.useEffect(() => {
     localStorage.setItem("user", JSON.stringify(state.currentUser));
+    localStorage.setItem("userInfo", JSON.stringify(state.userInfo));
   });
   React.useEffect(() => {
     if (state.currentUser) {
       const unsub = onSnapshot(
         doc(db, "users", state.currentUser.uid),
         (doc) => {
-          setData(doc.data());
+          dispatch(getUserInfo(doc.data()));
         }
       );
       return () => {
@@ -58,7 +58,7 @@ function Myaccount() {
   }, [state.currentUser]);
   return (
     <>
-      {state.currentUser ? (
+      {state.currentUser && state.userInfo ? (
         <div className={styles.myaccount}>
           <div className={clsx(styles.myaccountitem, styles.profile)}>
             <AccessTimeIcon sx={{ fontSize: "25px" }} />
@@ -70,18 +70,20 @@ function Myaccount() {
             </ul>
           </div>
           <div className={clsx(styles.myaccountitem, styles.profile)}>
-            <Avatar alt="Remy Sharp" src={data.img} />
+            <Avatar alt="Remy Sharp" src={state.userInfo.img} />
 
-            {/* {data.img ? (
-              <Avatar alt="Remy Sharp" src={data.img} />
+            {/* {state.userInfo.img ? (
+              <Avatar alt="Remy Sharp" src={state.userInfo.img} />
             ) : (
               <Avatar>{state.currentUser.email.charAt(0).toUpperCase()}</Avatar>
             )} */}
 
             <ul className={styles.usermenu}>
               <li className={clsx(styles.useritem, styles.useritemFirst)}>
-                <Avatar alt="Remy Sharp" src={data.img} />
-                <span>{data.firstname + " " + data.lastname}</span>
+                <Avatar alt="Remy Sharp" src={state.userInfo.img} />
+                <span>
+                  {state.userInfo.firstname + " " + state.userInfo.lastname}
+                </span>
               </li>
               <li className={styles.useritem}>
                 <MailOutlineIcon />
@@ -110,6 +112,7 @@ function Myaccount() {
                 className={styles.useritem}
                 onClick={() => {
                   dispatch(getCurrentUser(null));
+                  dispatch(getUserInfo(null));
                   navigate("/login");
                 }}
               >

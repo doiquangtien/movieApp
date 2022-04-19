@@ -16,19 +16,17 @@ import styles from "./watchVideoSeries.module.scss";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import Seasons from "./seasons/Seasons";
 import clsx from "clsx";
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import Comments from "../Comments/Comments";
 
 function WatchVideoMovie() {
   const { id_details, id_season, id_esp } = useParams();
   const state = useSelector((state) => state.infoMovie);
-  const { currentUser } = useSelector((state) => state.typeMovie);
   const dispatch = useDispatch();
   const [value, setValue] = useState("1");
   const [icon, setIcon] = useState(true);
   const [load, setLoad] = useState(false);
-  const [data, setData] = useState(null);
   const refScroll = useRef();
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -52,7 +50,6 @@ function WatchVideoMovie() {
     const createCommentRoom = async () => {
       const data = await fecthData();
       const newData = data.filter((item) => item === id_details);
-      console.log(newData);
       if (newData == false) {
         try {
           await setDoc(doc(db, "commentsRoom", id_details), {
@@ -65,26 +62,6 @@ function WatchVideoMovie() {
     };
     createCommentRoom();
   }, [id_details]);
-
-  useEffect(() => {
-    const fecthData = async () => {
-      try {
-        const docRef = doc(db, "users", currentUser.uid);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          // console.log("Document data:", docSnap.data().favorites);
-          setData(docSnap.data());
-        } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fecthData();
-  }, []);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -123,7 +100,7 @@ function WatchVideoMovie() {
                     src={`https://www.2embed.ru/embed/tmdb/tv?id=${id_details}&s=${id_season}&e=${id_esp}`}
                     width="100%"
                     height="100%"
-                    frameborder="0"
+                    frameBorder="0"
                     allowFullScreen
                   ></iframe>
                 </div>
@@ -367,7 +344,16 @@ function WatchVideoMovie() {
           </Box>
           <Box sx={{ flexGrow: 1, margin: "0 36px", color: "#fff" }}>
             <Grid container spacing={0}>
-              <Grid item xs={12} sm={12} md={9.3}>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={9.3}
+                sx={{
+                  color: "#fff",
+                  borderBottom: "1px solid rgba(204, 204, 204, 0.3)",
+                }}
+              >
                 <div className={styles.infoName}>
                   {state.detailMovie.original_title ||
                     state.detailMovie.title ||
@@ -397,13 +383,9 @@ function WatchVideoMovie() {
                 </div>
               </Grid>
             </Grid>
-            {data && (
-              <Comments
-                currentUserId={currentUser.uid}
-                name={data.firstname + " " + data.lastname}
-                idCommentRoom={id_details}
-              />
-            )}
+            <Grid item md={9.3}>
+              <Comments idCommentRoom={id_details} />
+            </Grid>
           </Box>
         </Container>
       )}

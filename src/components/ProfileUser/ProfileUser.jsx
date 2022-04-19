@@ -51,17 +51,6 @@ function ProfileUser() {
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           setProgress(progress);
           setPercent(false);
-          // console.log("Upload is " + progress + "% done");
-          // switch (snapshot.state) {
-          //   case "paused":
-          //     console.log("Upload is paused");
-          //     break;
-          //   case "running":
-          //     console.log("Upload is running");
-          //     break;
-          //   default:
-          //     break;
-          // }
         },
         (error) => {
           console.log(error);
@@ -84,7 +73,6 @@ function ProfileUser() {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          // console.log("Document data:", docSnap.data().favorites);
           setData(docSnap.data());
           setLoadingForm(true);
           setValueInput({
@@ -95,7 +83,6 @@ function ProfileUser() {
             img: docSnap.data().img,
           });
         } else {
-          // doc.data() will be undefined in this case
           console.log("No such document!");
         }
       } catch (err) {

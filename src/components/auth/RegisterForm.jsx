@@ -36,7 +36,7 @@ function RegisterForm(props) {
         phonenumber: "",
         user_id: user_id,
         country: "",
-        img: "",
+        img: "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg",
         history: [],
         favorites: [],
         timeStamp: serverTimestamp(),

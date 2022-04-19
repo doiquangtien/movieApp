@@ -10,11 +10,11 @@ export default configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         // Ignore these action types
-        ignoredActions: ["typeMovie/getCurrentUser"],
+        ignoredActions: ["typeMovie/getCurrentUser", "typeMovie/getUserInfo"],
         // Ignore these field paths in all actions
         ignoredActionPaths: ["meta.arg", "payload.timestamp"],
         // Ignore these paths in the state
-        ignoredPaths: ["typeMovie.currentUser"],
+        ignoredPaths: ["typeMovie.currentUser", "typeMovie.userInfo"],
       },
     }),
 });

@@ -15,24 +15,6 @@ function FavoritesBody() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // const fecthData = async () => {
-    //   try {
-    //     const docRef = doc(db, "users", state.currentUser.uid);
-    //     const docSnap = await getDoc(docRef);
-
-    //     if (docSnap.exists()) {
-    //       // console.log("Document data:", docSnap.data().favorites);
-    //       setData(docSnap.data().favorites);
-    //       setLoading(true);
-    //     } else {
-    //       // doc.data() will be undefined in this case
-    //       console.log("No such document!");
-    //     }
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-    // fecthData();
     const unsub = onSnapshot(doc(db, "users", state.currentUser.uid), (doc) => {
       setLoading(true);
       setData(doc.data().favorites);
