@@ -7,6 +7,7 @@ import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { format } from "timeago.js";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+
 function Comment({
   comment,
   replies,
@@ -19,7 +20,6 @@ function Comment({
   img,
 }) {
   const { currentUser } = useSelector((state) => state.typeMovie);
-
   const [moreComment, setMoreComment] = useState(false);
   const [likeAction, setLikeAction] = useState(false);
   const [dislikeAction, setDislikeAction] = useState(false);
@@ -34,13 +34,9 @@ function Comment({
     activeComment.type === "replying";
   const fiveMinutes = 300000;
   const timePassed = new Date() - new Date(comment.createdAt) > fiveMinutes;
-  // const canDelete =
-  //   currentUser.uid === comment.userId && replies.length === 0 && !timePassed;
-  // const canReply = Boolean(currentUser.uid);
-  // const canEdit = currentUser.uid === comment.userId && !timePassed;
   const replyId = parentId ? parentId : comment.id;
-  // const createdAt = new Date(comment.createdAt).toLocaleDateString();
   const revMyArr = [].concat(replies).reverse();
+
   return (
     <div key={comment.id} className="comment">
       <div className="comment-image-container">
@@ -64,22 +60,25 @@ function Comment({
           />
         )}
         <div className="comment-actions">
-          {likeAction ? (
-            <ThumbUpIcon
-              className="comment-icon-full"
-              onClick={() => {
-                setLikeAction(false);
-              }}
-            />
-          ) : (
-            <ThumbUpOutlinedIcon
-              onClick={() => {
-                setLikeAction(true);
-                setDislikeAction(false);
-              }}
-              className="comment-icon"
-            />
-          )}
+          <>
+            {likeAction ? (
+              <ThumbUpIcon
+                className="comment-icon-full"
+                onClick={() => {
+                  setLikeAction(false);
+                }}
+              />
+            ) : (
+              <ThumbUpOutlinedIcon
+                onClick={() => {
+                  setLikeAction(true);
+                  setDislikeAction(false);
+                }}
+                className="comment-icon"
+              />
+            )}
+          </>
+
           {dislikeAction ? (
             <ThumbDownAltIcon
               className="comment-icon-full"
@@ -101,9 +100,9 @@ function Comment({
               {currentUser.uid && (
                 <div
                   className="comment-action"
-                  onClick={() =>
-                    setActiveComment({ id: comment.id, type: "replying" })
-                  }
+                  onClick={() => {
+                    setActiveComment({ id: comment.id, type: "replying" });
+                  }}
                 >
                   REPLY
                 </div>
@@ -133,6 +132,7 @@ function Comment({
         </div>
         {isReplying && (
           <CommentForm
+            autoFocus={true}
             submitLabel="Reply"
             hasCancelButton
             handleSubmit={addComment}

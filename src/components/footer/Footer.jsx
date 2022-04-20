@@ -7,12 +7,22 @@ function Footer() {
   return (
     <>
       <div className={styles.footer}>
-        <div className={styles.coppyRight}>© 2022 Doi Quang Tien</div>
+        <div className={styles.coppyRight}>Copyright © 2022 Doi Quang Tien</div>
+        <div className={styles.contractMe}>
+          <span>Contact me:</span>
+          <a href="mailto:qangtien27999@gmail.com">qangtien27999@gmail.com</a>
+        </div>
 
         <div className={styles.aboutMe}>
-          <FacebookOutlinedIcon className={styles.iconfb} />
-          <GitHubIcon className={styles.icongh} />
-          <YouTubeIcon className={styles.iconyt} />
+          <a href="https://www.facebook.com/profile.php?id=100005295108910">
+            <FacebookOutlinedIcon className={styles.iconfb} />
+          </a>
+          <a href="https://github.com/doiquangtien">
+            <GitHubIcon className={styles.icongh} />
+          </a>
+          <a href="https://www.youtube.com">
+            <YouTubeIcon className={styles.iconyt} />
+          </a>
         </div>
       </div>
     </>

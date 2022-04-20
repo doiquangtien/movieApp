@@ -10,9 +10,9 @@ function CommentForm({
   handleCancel,
   initialText = "",
   replyId,
+  autoFocus = false,
 }) {
   const navigate = useNavigate();
-
   const { userInfo } = useSelector((state) => state.typeMovie);
   // const { currentUser } = useSelector((state) => state.typeMovie);
   const [text, setText] = useState(initialText);
@@ -34,6 +34,7 @@ function CommentForm({
       <form>
         {userInfo ? (
           <input
+            autoFocus={autoFocus}
             className="comment-form-textarea"
             value={text}
             placeholder="Write a comment..."

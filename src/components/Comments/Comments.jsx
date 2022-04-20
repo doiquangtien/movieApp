@@ -103,6 +103,7 @@ const Comments = ({ idCommentRoom }) => {
         <div className="comments-container">
           {rootComments.map((rootComment) => (
             <Comment
+              idCommentRoom={idCommentRoom}
               key={rootComment.id}
               comment={rootComment}
               replies={getReplies(rootComment.id)}
