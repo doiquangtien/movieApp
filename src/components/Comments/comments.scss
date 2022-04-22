@@ -115,7 +115,13 @@
 }
 
 .comment-actions {
+  .comment-number-like{
+    font-size: 12px;
+    margin-right: 10px;
+    // color: red;
+  }
   display: flex;
+  align-items: center;
   font-size: 12px;
   color: #AAAAAA;
   cursor: pointer;

@@ -374,6 +374,7 @@ function WatchVideoMovie() {
                   <span>{state.detailMovie.number_of_seasons} seasons</span>
                 </div>
                 <div className={styles.infoType}>
+                  Type :
                   <DetailGenre data={state.detailMovie.genres} />
                 </div>
 
@@ -383,7 +384,7 @@ function WatchVideoMovie() {
                 </div>
               </Grid>
             </Grid>
-            <Grid item md={9.3}>
+            <Grid item md={9.3} style={{ marginBottom: "30px" }}>
               <Comments idCommentRoom={id_details} />
             </Grid>
           </Box>

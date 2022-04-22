@@ -4,9 +4,11 @@ import ThumbDownAltOutlinedIcon from "@mui/icons-material/ThumbDownAltOutlined";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
+
 import { format } from "timeago.js";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Comment({
   comment,
@@ -18,11 +20,14 @@ function Comment({
   addComment,
   parentId = null,
   img,
+  handleLike,
+  handleUnlike,
 }) {
+  const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.typeMovie);
   const [moreComment, setMoreComment] = useState(false);
-  const [likeAction, setLikeAction] = useState(false);
   const [dislikeAction, setDislikeAction] = useState(false);
+  // const [like, setLike] = useState(comment.like);
 
   const isEditing =
     activeComment &&
@@ -36,7 +41,10 @@ function Comment({
   const timePassed = new Date() - new Date(comment.createdAt) > fiveMinutes;
   const replyId = parentId ? parentId : comment.id;
   const revMyArr = [].concat(replies).reverse();
-
+  const isLike =
+    currentUser && comment.like.filter((l) => l === currentUser.uid);
+  const unLike =
+    currentUser && comment.like.filter((l) => l !== currentUser.uid);
   return (
     <div key={comment.id} className="comment">
       <div className="comment-image-container">
@@ -60,24 +68,33 @@ function Comment({
           />
         )}
         <div className="comment-actions">
-          <>
-            {likeAction ? (
-              <ThumbUpIcon
-                className="comment-icon-full"
-                onClick={() => {
-                  setLikeAction(false);
-                }}
-              />
-            ) : (
-              <ThumbUpOutlinedIcon
-                onClick={() => {
-                  setLikeAction(true);
-                  setDislikeAction(false);
-                }}
-                className="comment-icon"
-              />
-            )}
-          </>
+          <div className="comment-number-like">{comment.like.length}</div>
+          {currentUser ? (
+            <>
+              {isLike.length > 0 ? (
+                <ThumbUpIcon
+                  className="comment-icon-full"
+                  onClick={() => {
+                    handleUnlike(comment.id, unLike);
+                  }}
+                />
+              ) : (
+                <ThumbUpOutlinedIcon
+                  onClick={() => {
+                    handleLike(comment.id, comment.like);
+                  }}
+                  className="comment-icon"
+                />
+              )}
+            </>
+          ) : (
+            <ThumbUpOutlinedIcon
+              onClick={() => {
+                navigate("/login");
+              }}
+              className="comment-icon"
+            />
+          )}
 
           {dislikeAction ? (
             <ThumbDownAltIcon
@@ -90,7 +107,6 @@ function Comment({
             <ThumbDownAltOutlinedIcon
               onClick={() => {
                 setDislikeAction(true);
-                setLikeAction(false);
               }}
               className="comment-icon"
             />
@@ -181,6 +197,8 @@ function Comment({
                     replies={[]}
                     name={reply.name}
                     img={reply.img}
+                    handleUnlike={handleUnlike}
+                    handleLike={handleLike}
                   />
                 ))}
               </>

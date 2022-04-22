@@ -157,6 +157,7 @@ function WatchVideoMovie() {
                   <span>{state.detailMovie.runtime} minutes</span>
                 </div>
                 <div className={styles.infoType}>
+                  Type :
                   <DetailGenre data={state.detailMovie.genres} />
                 </div>
 
@@ -165,7 +166,7 @@ function WatchVideoMovie() {
                   <span>{state.detailMovie.overview}</span>
                 </div>
               </Grid>
-              <Grid item md={9.3}>
+              <Grid item md={9.3} style={{ marginBottom: "30px" }}>
                 <Comments idCommentRoom={id_details} />
               </Grid>
             </Grid>

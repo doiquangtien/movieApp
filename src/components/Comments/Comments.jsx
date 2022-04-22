@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 const Comments = ({ idCommentRoom }) => {
   const { userInfo } = useSelector((state) => state.typeMovie);
   const { currentUser } = useSelector((state) => state.typeMovie);
+  const likeConst = "like";
 
   const [backendComments, setBackendComments] = useState(null);
 
@@ -20,6 +21,38 @@ const Comments = ({ idCommentRoom }) => {
       .filter((backendComment) => backendComment.parentId === commentId)
       .sort();
 
+  const handleLike = async (commentId, commentLike) => {
+    const updatedBackendComments = backendComments.comment.map(
+      (backendComment) => {
+        if (backendComment.id === commentId) {
+          return {
+            ...backendComment,
+            [likeConst]: [...commentLike, currentUser.uid],
+          };
+        }
+        return backendComment;
+      }
+    );
+    await updateDoc(doc(db, "commentsRoom", idCommentRoom), {
+      comment: updatedBackendComments,
+    });
+  };
+  const handleUnlike = async (commentId, commentUnLike) => {
+    const updatedBackendComments = backendComments.comment.map(
+      (backendComment) => {
+        if (backendComment.id === commentId) {
+          return {
+            ...backendComment,
+            [likeConst]: commentUnLike,
+          };
+        }
+        return backendComment;
+      }
+    );
+    await updateDoc(doc(db, "commentsRoom", idCommentRoom), {
+      comment: updatedBackendComments,
+    });
+  };
   const addComment = async (text, parentId) => {
     // console.log(name, currentUserId, text, parentId);
     const washingtonRef = doc(db, "commentsRoom", idCommentRoom);
@@ -29,6 +62,7 @@ const Comments = ({ idCommentRoom }) => {
         id: Math.random().toString(36).substr(2, 9),
         body: text,
         parentId: parentId || null,
+        like: [],
         userId: currentUser.uid,
         username: userInfo.firstname + " " + userInfo.lastname,
         createdAt: new Date().toISOString(),
@@ -49,6 +83,7 @@ const Comments = ({ idCommentRoom }) => {
         return backendComment;
       }
     );
+    console.log(updatedBackendComments);
     await updateDoc(doc(db, "commentsRoom", idCommentRoom), {
       comment: updatedBackendComments,
     });
@@ -103,6 +138,7 @@ const Comments = ({ idCommentRoom }) => {
         <div className="comments-container">
           {rootComments.map((rootComment) => (
             <Comment
+              backendComments={backendComments}
               idCommentRoom={idCommentRoom}
               key={rootComment.id}
               comment={rootComment}
@@ -114,6 +150,8 @@ const Comments = ({ idCommentRoom }) => {
               updateComment={updateComment}
               name={rootComment.name}
               img={rootComment.img}
+              handleLike={handleLike}
+              handleUnlike={handleUnlike}
             />
           ))}
         </div>
