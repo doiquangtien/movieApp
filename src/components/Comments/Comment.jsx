@@ -22,12 +22,12 @@ function Comment({
   img,
   handleLike,
   handleUnlike,
+  handleDislike,
+  handleUnDislike,
 }) {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.typeMovie);
   const [moreComment, setMoreComment] = useState(false);
-  const [dislikeAction, setDislikeAction] = useState(false);
-  // const [like, setLike] = useState(comment.like);
 
   const isEditing =
     activeComment &&
@@ -43,8 +43,12 @@ function Comment({
   const revMyArr = [].concat(replies).reverse();
   const isLike =
     currentUser && comment.like.filter((l) => l === currentUser.uid);
+  const isDislike =
+    currentUser && comment.dislike.filter((l) => l === currentUser.uid);
   const unLike =
     currentUser && comment.like.filter((l) => l !== currentUser.uid);
+  const unDislike =
+    currentUser && comment.dislike.filter((l) => l !== currentUser.uid);
   return (
     <div key={comment.id} className="comment">
       <div className="comment-image-container">
@@ -81,7 +85,7 @@ function Comment({
               ) : (
                 <ThumbUpOutlinedIcon
                   onClick={() => {
-                    handleLike(comment.id, comment.like);
+                    handleLike(comment.id, comment.like, unDislike);
                   }}
                   className="comment-icon"
                 />
@@ -95,22 +99,34 @@ function Comment({
               className="comment-icon"
             />
           )}
-
-          {dislikeAction ? (
-            <ThumbDownAltIcon
-              className="comment-icon-full"
-              onClick={() => {
-                setDislikeAction(false);
-              }}
-            />
+          <div className="comment-number-like">{comment.dislike.length}</div>
+          {currentUser ? (
+            <>
+              {isDislike.length > 0 ? (
+                <ThumbDownAltIcon
+                  className="comment-icon-full"
+                  onClick={() => {
+                    handleUnDislike(comment.id, unDislike);
+                  }}
+                />
+              ) : (
+                <ThumbDownAltOutlinedIcon
+                  onClick={() => {
+                    handleDislike(comment.id, comment.dislike, unLike);
+                  }}
+                  className="comment-icon"
+                />
+              )}
+            </>
           ) : (
             <ThumbDownAltOutlinedIcon
               onClick={() => {
-                setDislikeAction(true);
+                navigate("/login");
               }}
               className="comment-icon"
             />
           )}
+
           {currentUser && (
             <>
               {currentUser.uid && (
@@ -199,6 +215,8 @@ function Comment({
                     img={reply.img}
                     handleUnlike={handleUnlike}
                     handleLike={handleLike}
+                    handleDislike={handleDislike}
+                    handleUnDislike={handleUnDislike}
                   />
                 ))}
               </>

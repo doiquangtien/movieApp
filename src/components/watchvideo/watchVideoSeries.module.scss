@@ -182,74 +182,59 @@
 }
 
 /////////////////////////////////////////////////
-.infoName {
-    font-size: 28px;
+ .infoName{
+    font-size: 40px;
     font-weight: 700;
-    margin-top: 20px;
-}
-
-.infoTag {
-    display: flex;
-    align-items: center;
-    margin: 8px 0;
-
-    color: #fff span {
-        font-size: 16px;
-    }
-
-    .infoStar {
-        display: flex;
-        align-items: center;
+    margin-top: 20px ;
+    &:hover{
+        cursor: pointer;
         color: var(--second-color);
-
-        .start {
-            font-size: 16px;
-            margin-right: 2px;
-        }
     }
-
-    .brokenLine {
-        width: 2px;
-        height: 10px;
-        border: none;
-        background: rgba(0, 0, 0, 0.8);
-        color: rgb(230, 230, 230);
-        margin: 0px 8px;
-        display: inline-block;
+  }
+  .seasonEps{
+    margin-top: 20px ;
+      display: flex;
+      align-items: center;
+      .icon{
+          margin:0 20px;
+          color:#dc7a1e;
+      }
+      span{
+          font-size: 24px;
+      }
+  }
+    span{
+      font-size: 16px;  
     }
-}
-
-.infoType {
-    display: flex;
-    margin-bottom: 8px;
-    span {
-        margin-right: 5px;
+    .infoStar{
+      display: flex;
+    margin: 10px 0;
+      align-items: center;  
+      color: #dc7a1e;
+      .start{
         font-size: 16px;
-        padding: 1px 3px;
-        background-color: rgba(0, 0, 0, 0.5);
+        margin-right: 2px;
+      }
+      h3{
+      color: #dc7a1e;
+      }
     }
 
-}
-
-.region {
+  .infoType{
+    margin-top: 10px;
     display: flex;
-    align-items: center;
-    margin: 8px 0;
-    font-size: 16px;
-
-    .brokenLine {
-        width: 2px;
-        height: 10px;
-        border: none;
-        background: rgba(0, 0, 0, 0.8);
-        color: rgb(230, 230, 230);
-        margin: 0px 8px;
-        display: inline-block;
+    span{      
+      margin-right: 5px;
+      font-size: 16px;
+      padding: 1px 3px;
+      background-color: rgba(0, 0, 0, 0.5);
     }
-}
+    
+  }
 
 h3 {
     display: inline;
+    color: #959595;
     font-size: 16px;
     font-weight: 600;
     margin-right: 8px;
@@ -272,16 +257,47 @@ h3 {
 
 .desc {
     font-size: 16px;
-    margin-bottom: 20px;
+    margin: 10px 0 40px 0;
     line-height: 20px;
-    height: 60px;
-    overflow: hidden;
-    // display: block;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-}
-
+  }
+.castItemWatch{
+    display: flex;
+    margin-bottom: 60px;
+    .castItem{
+      width: 200px;
+      margin-right: 30px;
+       &:hover{
+        cursor: pointer;
+        transform: scale(1.01);
+        .castTitle{
+          .castName{
+          color: var(--second-color);
+        }
+        }
+      }
+      img{
+        width: 150px;
+        height: 150px;
+        border-radius: 12px;
+        background-position: center;
+        object-fit: cover;
+      }
+      .castTitle{
+        display: flex;
+      flex-direction: column;
+      .castName {
+             font-size: 14px;
+             color: #fff;
+         }
+         .castCharacter {
+             font-size: 13px;
+             color: #e7b524;
+         }
+      }
+    }  
+   
+  }
+ 
 .buttons {
     display: flex;
 

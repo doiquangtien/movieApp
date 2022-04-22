@@ -70,23 +70,25 @@ function Detailsub({ data, type }) {
       console.log(err);
     }
   };
+  console.log(data);
+
   const handleFavorites = async () => {
     const data = await fecthData();
     const ids = new Set(data.map((d) => d.id_fa));
     const newData = [...data, ...movieFa.filter((d) => !ids.has(d.id_fa))];
-    movieFa.filter((d) => {
-      if (!ids.has(d.id_fa)) {
-        setSeverity({
-          severity: "success",
-          message: "Add new favorite success !",
-        });
-      } else {
-        setSeverity({
-          severity: "warning",
-          message: "Movies already exist !",
-        });
-      }
-    });
+    const isSaveMovie = movieFa.filter((d) => !ids.has(d.id_fa));
+
+    if (isSaveMovie.length > 0) {
+      setSeverity({
+        severity: "success",
+        message: "Add new favorite success !",
+      });
+    } else {
+      setSeverity({
+        severity: "warning",
+        message: "Movies already exist !",
+      });
+    }
 
     setLoading(true);
 
@@ -123,8 +125,9 @@ function Detailsub({ data, type }) {
                 </div>
                 <div className={styles.infoTag}>
                   <div className={styles.infoStar}>
-                    <StarIcon className={styles.start} />
+                    <h3>IMDB:</h3>
                     <span>{data.vote_average}</span>
+                    <StarIcon className={styles.start} />
                   </div>
                   <div className={styles.brokenLine}></div>
                   <span>C16</span>
@@ -151,9 +154,9 @@ function Detailsub({ data, type }) {
                   )}
                 </div>
                 <div className={styles.infoType}>
+                  <h3>Genres:</h3>
                   <DetailGenre data={data.genres} />
                 </div>
-
                 <div className={styles.cast}>
                   <h3>Cast:</h3>
                   <DetaileCast data={data.credits.cast} />

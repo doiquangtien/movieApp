@@ -161,10 +161,14 @@ function Slideshow({ type, bannerInfo }) {
                     <span className="name">
                       {item.original_title || item.title || item.name}
                     </span>
-                    <span className="date">
-                      Release date : {item.release_date || item.first_air_date}
-                    </span>
-                    <span className="desc">{item.overview}</span>
+                    <div className="date">
+                      <h3>Release date:</h3>
+                      <span>{item.release_date || item.first_air_date}</span>
+                    </div>
+                    <div className="desc">
+                      <h3>Description:</h3>
+                      <span>{item.overview}</span>
+                    </div>
                     {item.media_type && (
                       <div className="buttons">
                         <button

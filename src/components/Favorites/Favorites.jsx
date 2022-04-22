@@ -22,7 +22,7 @@ function FavoritesBody() {
     return () => {
       unsub();
     };
-  }, []);
+  }, [state.currentUser.uid]);
 
   const handleDelete = async (id) => {
     const newData = data.filter((item) => item.id_fa !== id);

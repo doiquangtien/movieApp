@@ -14,7 +14,6 @@ function CommentForm({
 }) {
   const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.typeMovie);
-  // const { currentUser } = useSelector((state) => state.typeMovie);
   const [text, setText] = useState(initialText);
   const [focusInput, setFocusInput] = useState(false);
   const isTextareaDisabled = text.length === 0;

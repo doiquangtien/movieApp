@@ -35,7 +35,10 @@
                 margin-left: 20px;
                 overflow: hidden;
                     width: 100%;
-
+                &:hover{
+                    cursor: pointer;
+                    color: var(--second-color)
+                }
                 .menu-name{
                     font-size: 18px;
                     font-weight: 500;

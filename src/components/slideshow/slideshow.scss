@@ -39,31 +39,33 @@
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
+    
     }
      .info {
        width: 35%;
        position: absolute;
-       left: 80px;
-       bottom: 150px;
+       left: 100px;
+       bottom: 200px;
        color: white;
        display: flex;
        flex-direction: column;
        z-index: 10;
        cursor: pointer;
+      
        .name{
-        font-size: 30px;
-        font-weight: 600;
+        font-size: 40px;
+        font-weight: 700;
+        margin-bottom: 10px;
         &:hover{
           color:var(--second-color)
         }
        }
        .date {
          font-size: 16px;
-         margin: 10px 0px;
        }
        .desc {
         font-size: 16px;
-         margin: 10px 0px;
+         margin: 10px 0px 20px 0;
        }
 
        .buttons {

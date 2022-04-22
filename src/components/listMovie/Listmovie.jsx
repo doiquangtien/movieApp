@@ -59,7 +59,7 @@ function Listmovie() {
         console.log("getListMoviesByGenre error", err);
       }
     };
-    getListMoviesByGenre();
+    id && getListMoviesByGenre();
     return () => {
       abortController.abort();
     };
@@ -94,10 +94,8 @@ function Listmovie() {
   }
   const handleMore = async () => {
     const abortController = new AbortController();
-    setLoad(false);
     const data = await getAllMovies();
     setDataMovie([...dataMovie, ...data]);
-    setLoad(true);
     dispatch(getPage(page + 1));
     return () => {
       abortController.abort();
@@ -105,13 +103,11 @@ function Listmovie() {
   };
   const handleMoreGen = async () => {
     const abortController = new AbortController();
-    setLoad(false);
-
+    // setLoad(false);
     const data = await getListMoviesByGenre();
     setDataMovieGen([...dataMovieGen, ...data]);
     dispatch(getPage(page + 1));
-    setLoad(true);
-
+    // setLoad(true);
     return () => {
       abortController.abort();
     };

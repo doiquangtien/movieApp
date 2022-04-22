@@ -6,6 +6,7 @@ import { getDetailsById } from "../../redux/callApi";
 import { Box } from "@mui/system";
 import { getSeasons } from "../../redux/callApi";
 import Tab from "@mui/material/Tab";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Loading from "../loading/Loading";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
@@ -19,6 +20,7 @@ import clsx from "clsx";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import Comments from "../Comments/Comments";
+import img from "../../img/person.jpg";
 
 function WatchVideoMovie() {
   const { id_details, id_season, id_esp } = useParams();
@@ -37,20 +39,18 @@ function WatchVideoMovie() {
       try {
         const querySnapshot = await getDocs(collection(db, "commentsRoom"));
         querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
           list.push(doc.id);
         });
       } catch (err) {
         console.log(err);
       }
-      // console.log(list);
       return list;
     };
 
     const createCommentRoom = async () => {
       const data = await fecthData();
       const newData = data.filter((item) => item === id_details);
-      if (newData == false) {
+      if (newData.length === 0) {
         try {
           await setDoc(doc(db, "commentsRoom", id_details), {
             comment: [],
@@ -359,28 +359,53 @@ function WatchVideoMovie() {
                     state.detailMovie.title ||
                     state.detailMovie.name}
                 </div>
-                <div className={styles.infoTag}>
-                  <div className={styles.infoStar}>
-                    <StarIcon className={styles.start} />
-                    <span>{state.detailMovie.vote_average}</span>
-                  </div>
-                  <div className={styles.brokenLine}></div>
-                  <span>C16</span>
-                  <div className={styles.brokenLine}></div>
-                  <span>{state.detailMovie.last_air_date}</span>
-                  <div className={styles.brokenLine}></div>
-                  <span>{state.detailMovie.number_of_episodes} episodes</span>
-                  <div className={styles.brokenLine}></div>
-                  <span>{state.detailMovie.number_of_seasons} seasons</span>
-                </div>
-                <div className={styles.infoType}>
-                  Type :
-                  <DetailGenre data={state.detailMovie.genres} />
+                <div className={styles.seasonEps}>
+                  <span>Season {id_season}</span>
+                  <ArrowForwardIosIcon className={styles.icon} />
+                  <span>Episode {id_esp}</span>
                 </div>
 
+                <div className={styles.infoStar}>
+                  <h3>IMDB:</h3>
+                  <span>{state.detailMovie.vote_average}</span>
+                  <StarIcon className={styles.start} />
+                </div>
+                <div className={styles.release}>
+                  <h3>Release Date:</h3>
+                  <span>
+                    {state.detailMovie.release_date ||
+                      state.detailMovie.first_air_date}
+                  </span>
+                </div>
+                <div className={styles.infoType}>
+                  <h3>Genres:</h3>
+                  <DetailGenre data={state.detailMovie.genres} />
+                </div>
                 <div className={styles.desc}>
                   <h3>Description:</h3>
                   <span>{state.detailMovie.overview}</span>
+                </div>
+                <div className={styles.castItemWatch}>
+                  {state.detailMovie.credits.cast.slice(0, 5).map((item, i) => (
+                    <div key={i} className={styles.castItem}>
+                      {item.profile_path ? (
+                        <img
+                          src={`https://image.tmdb.org/t/p/original${item.profile_path}`}
+                          alt=""
+                        />
+                      ) : (
+                        <img src={img} alt="" />
+                      )}
+                      <div className={styles.castTitle}>
+                        <span className={styles.castName}>
+                          {item.name || item.original_name}
+                        </span>
+                        <span className={styles.castCharacter}>
+                          {item.character}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </Grid>
             </Grid>

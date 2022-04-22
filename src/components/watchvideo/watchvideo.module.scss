@@ -68,38 +68,35 @@ background: #555;
 
 /////////////////////////////////////////////////
   .infoName{
-    font-size: 28px;
+    font-size: 40px;
     font-weight: 700;
     margin-top: 20px ;
+      &:hover{
+        cursor: pointer;
+        color: var(--second-color);
+    }
   }
-  .infoTag{
-    display: flex;
-    margin: 20px 0;
-    align-items: center;
-    color: #fff
+
     span{
       font-size: 16px;  
     }
     .infoStar{
       display: flex;
-      align-items: center;
-      color: var(--second-color);
+    margin: 10px 0;
+      align-items: center;  
+      color: #dc7a1e;
       .start{
         font-size: 16px;
         margin-right: 2px;
       }
+      h3{
+      color: #dc7a1e;
+      }
     }
-    .brokenLine{
-      width: 2px;
-      height: 10px;
-      border: none;
-      background: rgba(0, 0, 0, 0.8);
-      color: rgb(230, 230, 230);
-      margin: 0px 8px;
-      display: inline-block;
-    }
-  }
+    .duration{
+    margin: 10px 0;
 
+    }
   .infoType{
     display: flex;
     span{
@@ -110,21 +107,10 @@ background: #555;
     }
    
   }
-  .region{
-    display: flex;
-    align-items: center;
-    margin: 8px 0;
+   .desc {
     font-size: 16px;
-  
-    .brokenLine{
-      width: 2px;
-      height: 10px;
-      border: none;
-      background: rgba(0, 0, 0, 0.8);
-      color: rgb(230, 230, 230);
-      margin: 0px 8px;
-      display: inline-block;
-    }
+    margin: 10px 0 40px 0;
+    line-height: 20px;
   }
   h3{
     display: inline;
@@ -132,30 +118,44 @@ background: #555;
     font-weight: 600;
     margin-right: 8px;
   }
-  .cast{
-    margin: 8px 0;
+  .castItemWatch{
     display: flex;
-    flex-wrap: wrap;
-    span{
-      margin-right: 8px;
-      &:hover{
+    margin-bottom: 60px;
+    .castItem{
+      width: 200px;
+      margin-right: 30px;
+       &:hover{
         cursor: pointer;
-        color: var(--second-color);
+        transform: scale(1.01);
+        .castTitle{
+          .castName{
+          color: var(--second-color);
+        }
+        }
       }
-    }
+      img{
+        width: 150px;
+        height: 150px;
+        border-radius: 12px;
+        background-position: center;
+        object-fit: cover;
+      }
+      .castTitle{
+        display: flex;
+      flex-direction: column;
+      .castName {
+             font-size: 14px;
+             color: #fff;
+         }
+         .castCharacter {
+             font-size: 13px;
+             color: #e7b524;
+         }
+      }
+    }  
+   
   }
-  .desc {
-    font-size: 16px;
-    margin: 20px 0;
-
-    line-height: 20px;
-              height: 60px;
-              overflow: hidden;
-              // display: block;
-              display: -webkit-box;
-              -webkit-box-orient: vertical;
-              -webkit-line-clamp: 3;
-  }
+ 
   .buttons {
     display: flex;
 

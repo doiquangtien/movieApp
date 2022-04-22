@@ -10,6 +10,7 @@ const Comments = ({ idCommentRoom }) => {
   const { userInfo } = useSelector((state) => state.typeMovie);
   const { currentUser } = useSelector((state) => state.typeMovie);
   const likeConst = "like";
+  const dislikeConst = "dislike";
 
   const [backendComments, setBackendComments] = useState(null);
 
@@ -21,13 +22,14 @@ const Comments = ({ idCommentRoom }) => {
       .filter((backendComment) => backendComment.parentId === commentId)
       .sort();
 
-  const handleLike = async (commentId, commentLike) => {
+  const handleLike = async (commentId, commentLike, commentUndisLike) => {
     const updatedBackendComments = backendComments.comment.map(
       (backendComment) => {
         if (backendComment.id === commentId) {
           return {
             ...backendComment,
             [likeConst]: [...commentLike, currentUser.uid],
+            [dislikeConst]: commentUndisLike,
           };
         }
         return backendComment;
@@ -53,6 +55,40 @@ const Comments = ({ idCommentRoom }) => {
       comment: updatedBackendComments,
     });
   };
+
+  const handleDislike = async (commentId, commentDislike, commentUnLike) => {
+    const updatedBackendComments = backendComments.comment.map(
+      (backendComment) => {
+        if (backendComment.id === commentId) {
+          return {
+            ...backendComment,
+            [likeConst]: commentUnLike,
+            [dislikeConst]: [...commentDislike, currentUser.uid],
+          };
+        }
+        return backendComment;
+      }
+    );
+    await updateDoc(doc(db, "commentsRoom", idCommentRoom), {
+      comment: updatedBackendComments,
+    });
+  };
+  const handleUnDislike = async (commentId, commentUndisLike) => {
+    const updatedBackendComments = backendComments.comment.map(
+      (backendComment) => {
+        if (backendComment.id === commentId) {
+          return {
+            ...backendComment,
+            [dislikeConst]: commentUndisLike,
+          };
+        }
+        return backendComment;
+      }
+    );
+    await updateDoc(doc(db, "commentsRoom", idCommentRoom), {
+      comment: updatedBackendComments,
+    });
+  };
   const addComment = async (text, parentId) => {
     // console.log(name, currentUserId, text, parentId);
     const washingtonRef = doc(db, "commentsRoom", idCommentRoom);
@@ -63,6 +99,7 @@ const Comments = ({ idCommentRoom }) => {
         body: text,
         parentId: parentId || null,
         like: [],
+        dislike: [],
         userId: currentUser.uid,
         username: userInfo.firstname + " " + userInfo.lastname,
         createdAt: new Date().toISOString(),
@@ -83,7 +120,6 @@ const Comments = ({ idCommentRoom }) => {
         return backendComment;
       }
     );
-    console.log(updatedBackendComments);
     await updateDoc(doc(db, "commentsRoom", idCommentRoom), {
       comment: updatedBackendComments,
     });
@@ -115,7 +151,7 @@ const Comments = ({ idCommentRoom }) => {
     return () => {
       unsub();
     };
-  }, []);
+  }, [idCommentRoom]);
 
   return (
     <div className="comments">
@@ -152,6 +188,8 @@ const Comments = ({ idCommentRoom }) => {
               img={rootComment.img}
               handleLike={handleLike}
               handleUnlike={handleUnlike}
+              handleDislike={handleDislike}
+              handleUnDislike={handleUnDislike}
             />
           ))}
         </div>

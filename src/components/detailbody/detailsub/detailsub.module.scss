@@ -50,9 +50,9 @@
         color: #fff;
        
         .infoName{
-          font-size: 28px;
+          font-size: 40px;
           font-weight: 700;
-          margin-top: 20px ;
+          margin: 20px 0 ;
            &:hover {
              color: var(--second-color);
              cursor: pointer;
@@ -69,10 +69,13 @@
           .infoStar{
             display: flex;
             align-items: center;
-            color: var(--second-color);
+           color: #dc7a1e;
             .start{
               font-size: 16px;
               margin-right: 2px;
+            }
+            h3{
+              color: #dc7a1e;
             }
           }
           .brokenLine{
@@ -121,6 +124,7 @@
           font-size: 16px;
           font-weight: 600;
           margin-right: 8px;
+
         }
         .cast{
           margin: 8px 0;

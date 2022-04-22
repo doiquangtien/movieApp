@@ -13,8 +13,13 @@ import { useSelector } from "react-redux";
 import ModalLoading from "../ModalLoading/ModalLoading";
 import Loading from "../loading/Loading";
 import CircularStatic from "./Progress";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getCurrentUser, getUserInfo } from "../../redux/typeSlice";
 
 function ProfileUser() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [file, setFile] = useState("");
   const [data, setData] = useState([]);
   const state = useSelector((state) => state.typeMovie);
@@ -90,7 +95,7 @@ function ProfileUser() {
       }
     };
     fecthData();
-  }, []);
+  }, [state.currentUser.uid]);
   const handleInput = (e) => {
     const value = e.target.value;
     setValueInput({
@@ -133,15 +138,27 @@ function ProfileUser() {
                     {valueInput.firstname + " " + valueInput.lastname}
                   </div>
                 </div>
-                <div className="menu-type hover">
+                <div className="menu-type">
                   <AccessTimeIcon className="menu-icon" />
                   <div className="menu-name">History</div>
                 </div>
-                <div className="menu-type hover">
+                <div
+                  className="menu-type"
+                  onClick={() => {
+                    navigate("/profile");
+                  }}
+                >
                   <PersonOutlineIcon className="menu-icon" />
                   <div className="menu-name">My Account</div>
                 </div>
-                <div className="menu-type hover">
+                <div
+                  className="menu-type"
+                  onClick={() => {
+                    dispatch(getCurrentUser(null));
+                    dispatch(getUserInfo(null));
+                    navigate("/login");
+                  }}
+                >
                   <LogoutIcon className="menu-icon" />
                   <div className="menu-name">Logout</div>
                 </div>

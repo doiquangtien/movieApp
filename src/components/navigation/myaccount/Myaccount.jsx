@@ -37,25 +37,7 @@ function Myaccount() {
         unsub();
       };
     }
-
-    // const fecthData = async () => {
-    //   try {
-    //     const docRef = doc(db, "users", state.currentUser.uid);
-    //     const docSnap = await getDoc(docRef);
-
-    //     if (docSnap.exists()) {
-    //       // console.log("Document data:", docSnap.data().favorites);
-    //       setData(docSnap.data());
-    //     } else {
-    //       // doc.data() will be undefined in this case
-    //       console.log("No such document!");
-    //     }
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-    // fecthData();
-  }, [state.currentUser]);
+  }, [state.currentUser, dispatch]);
   return (
     <>
       {state.currentUser && state.userInfo ? (
@@ -71,13 +53,6 @@ function Myaccount() {
           </div>
           <div className={clsx(styles.myaccountitem, styles.profile)}>
             <Avatar alt="Remy Sharp" src={state.userInfo.img} />
-
-            {/* {state.userInfo.img ? (
-              <Avatar alt="Remy Sharp" src={state.userInfo.img} />
-            ) : (
-              <Avatar>{state.currentUser.email.charAt(0).toUpperCase()}</Avatar>
-            )} */}
-
             <ul className={styles.usermenu}>
               <li className={clsx(styles.useritem, styles.useritemFirst)}>
                 <Avatar alt="Remy Sharp" src={state.userInfo.img} />
